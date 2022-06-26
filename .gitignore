@@ -1,4 +1,4 @@
 node_modules
 .vscode
-docs/.docusaurus
+.docusaurus
 package-lock.json
