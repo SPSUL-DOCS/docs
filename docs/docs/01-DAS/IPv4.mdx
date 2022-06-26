@@ -1,0 +1,31 @@
+---
+sidebar_position: 4
+title:  IPv4
+---
+
+# IPv4
+* Skládá se z: 
+    1. Adresa sítě
+    2. Adresa hosta
+* tyto dvě adresy se oddělují pomocí **prefixu**
+
+```js
+192.168.0.1 /24
+```
+
+## Prefix
+Určuje kde se odděluje adresa sítě a hosta
+Číslo za lomítkem určuje kolik bitů v adrese je adresa sítě
+
+```
+Adresa 192.168.0.1 v binární soustavě s prefixem /24
+> 11000000.10101000.00000000|.00000001
+
+
+Adresa 192.168.0.1 v binární soustavě s prefixem /28
+> 11000000.10101000.00000000.0000|0001
+```
+
+před `|` je adresa sítě, za `|` adresa hosta 
+
+

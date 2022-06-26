@@ -1,0 +1,4 @@
+node_modules
+.vscode
+docs/.docusaurus
+package-lock.json

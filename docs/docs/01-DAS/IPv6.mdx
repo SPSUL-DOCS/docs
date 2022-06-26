@@ -1,0 +1,44 @@
+---
+sidebar_position: 5
+title: IPv6
+---
+
+## Zápis
+### Parametry
+* má 128 bitů
+* 16 soustava (hexadecimální)
+* 4 bity = 1 hexacedimální číslo => celkem 32 číslic (znaků)
+* Skládá se z 8 hextetů (oddělených dvojtečkou) (hextet má 16 bitů)
+*ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff*
+
+### Jak zapisujeme IPv6 adresu?
+Nuly z leva můžeme vynechat
+```
+01ab => 1ab
+00ab => ab
+```
+:::warning Pozor!
+Pokud je hodnota 0000, musí zůstat ta jedna 0
+:::
+
+Dvojitá dvojtečka ::
+* Značí samé 0 mezi nimi
+```
+Ab:0000:0000:cd => ab::cd
+```
+
+:::warning Pozor! 
+Dá se použít pouze jednou! Pokud se v adrese vyskytuje více nulových 
+řetězců, můžeme takto nahradit pouze jeden… jinak by nebylo možné říct, 
+kolik bitů (a jaké) vlastně nahrazujeme
+:::
+
+## Global Unicast Address = GUA
+* Routovatelná zvenčí
+* Skládá se ze 3 částí
+
+|  | Global Routing Prefix (48 bitů) | Subnet ID (16 bitů) | Interface ID (64 bitů) |
+| :- | :-: | :-: | :-: |
+| Část IPv6 | **2001:db8:acad**:0:0:0:0 | 2001:db8:acad:**0**::0 | 2001:db8:acad:0:**0:0:0:0** |
+| Počet Hextetu | 3 | 1 | 4 |
+| Uplatnění | Adresa sítě | ID Subnetu | Určování hosta |

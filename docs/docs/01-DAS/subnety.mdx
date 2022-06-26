@@ -1,0 +1,50 @@
+---
+sidebar_position: 6
+title: Subnety
+---
+
+# Subnety
+
+Subnety sítě se tvoří tak, že rozdělíme velkou síť na více malých 
+
+# Počítání IPv4 pro menší subnety 
+1. Zjistit "prefix" každý subnet pomocí vzorečku
+
+```
+(2^x) - 2 >= počet hostů
+32 - x = prefix
+```
+*2 na x bez dvou musí bejt větší než počet hostů, které chceme pro náš subnet.*
+
+
+2. Začít největší sítí
+    * dostane adresu té velké sítě
+    * určit broadcast (za prefixem změnit vše na 1)
+    * určit masku (prefix třeba 24 -> 24 jedniček a 8 nul -> z binární do desítkové soustavy)
+    :::info příklad
+        11111111.11111111.11111111|.00000000
+                                  ↑
+                                prefix
+    :::
+    * určit rozsah (vše mezi adresou sítě a adresou broadcastu)
+    :::info příklad
+    > - Adresa sítě: 192.168.0.0
+    > - Broadcast: 192.168.0.255
+    > - **Rozsah: 192.168.0.1 - 192.168.0.254**
+    :::
+3. pokračovat druhou největší sítí
+    *    má hned následující volnou adresu (v tomhle případě je broadcast C podsítě 192.168.1.255, takže adresa A podsítě bude 192.168.2.0)
+    * spočítat ostatní
+4. opakovat tolikrát, kolik je podsítí
+
+|| Podsíť A | Podsíť B |
+| :-: | :-: | :-: |
+|Počet bitů subnetu|25|26|
+|Maska Binárně|11111111.11111111.11111111.10000000|11111111.11111111.11111111.11000000|
+|Maska Desítkově|255.255.255.128|255.255.255.192|
+|Počet Subnetů|2|8|
+|Počet Hostů|126|62|
+|IP adresa subnetu|192.168.10.0|192.168.10.128|
+|První IP adresa hosta|192.168.10.1|192.168.10.129|
+|Poslední IP adresa hosta|192.168.10.126|192.169.10.190|
+

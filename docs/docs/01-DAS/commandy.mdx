@@ -1,0 +1,160 @@
+---
+sidebar_position: 2
+title: ⌨️ Commandy
+description: Příkazy používané v CISCO CLI 
+---
+
+# Commandy
+
+## Základy
+* Commandy jdou napsat zkráceně například místo `enable` stačí napsat `en`
+
+## Nápověda
+* Nápověda se zobrazí pomocí `?`
+
+### Zobrazí se všechny možné příkazy
+```js
+Router(config)# ?
+Configure commands:
+  aaa                Authentication, Authorization and Accounting.
+  access-list        Add an access list entry
+  banner             Define a login banner
+  bba-group          Configure BBA Group
+  boot               Modify system boot parameters
+--more--
+```
+
+### Zobrazí vám jak může příkaz pokračovat
+```js
+Router(config)# int ?
+  Dialer            Dialer interface
+  Dot11Radio        Dot11 interface
+  Ethernet          IEEE 802.3
+  FastEthernet      FastEthernet IEEE 802.3
+  GigabitEthernet   GigabitEthernet IEEE 802.3z
+  Loopback          Loopback interface
+  Port-channel      Ethernet Channel of interfaces
+  Serial            Serial
+  Tunnel            Tunnel interface
+  Virtual-Template  Virtual Template interface
+  Vlan              Catalyst Vlans
+  range             interface range command 
+```
+
+### Zobrazí zbytek příkazu
+```js
+Router(config)# int?
+interface
+```
+- nabídne příkazy začínající na int 
+
+:::tip
+* pro zobrazení další strany `space`, pro zobrazení dalšího řádku `enter`
+* Průběh každého příkazu lze ukončit zkratkou `ctrl`+`shift`+`6`
+* Pro doplnění příkazu slouží `tab`
+:::
+
+### Privilegovaný režim
+Do privilegovaného režimu se dostaneš pomocí `enable`
+
+```js
+Router>
+Router> enable
+Router#
+```
+
+### Konfigurace (Config)
+
+## Globální konfigurace 
+```js
+Router# configure terminal
+Router(config)#
+```
+
+:::tip Stačí napsat `conf` a dvakrat enter
+:::
+
+## Konfigurace portů 
+### Na routeru
+Port na routeru např. *GigabitEthernet0/0/1* se nastavují pomocí
+```js
+Router(config)#int GigabitEthernet0/0/1
+Router(config-if)# 
+```
+
+:::tip Celý název lze zkrátit **`g0/0/0`**
+```js
+Router(config)#int g0/0/0
+Router(config-if)# 
+```
+:::
+
+Více portů naráz jde nastavit pomocí rozsahu
+```js
+Router(config)#int range g0/0/0 - g0/0/1
+Router(config-if-range)#
+```
+
+:::tip jde zkrátit na poslední číslo druhého portu
+```js
+Router(config)#int range g0/0/0 - 1
+Router(config-if-range)#
+```
+:::
+
+
+### Na switchi (virtualní porty)
+```js
+Router(config)#int range vty 0 16
+```
+
+## Hostname
+Pojďme přejmenovat router na R1
+```js
+Router(config)#hostname R1
+R1(config)#
+```
+
+## Banner
+Zpráva která se objeví při otevření konzole
+```js
+R1(config)#banner motd "vase zpráva"
+```
+
+## Zákaz DNS lookup
+Při zadání špatnýho příkazu ho nebude hledat další příkaz (nemusíš mačkat `ctrl`+`shift`+`6`)
+```js
+R1(config)#no ip domain lookup
+```
+
+## Hesla
+
+### Šifrování hesel
+```js
+R1(config)#service password-encryption
+```
+
+### Nastavení minimální délky hesla
+Nastaví délku minimální délku hesla na 5 znaků
+```js
+R1(config)#security passwords min-length
+```
+
+### Nastavení hesla pro privilegovaný režim
+Nastaví heslo pro privilegovaný režim
+
+```js
+R1(config)#enable `password/secret` "vaše heslo"
+```
+
+`password` nastaví nešifrované heslo (je uloženo v plain textu na disku)
+`secret` nastaví šifrované heslo
+
+:::warning Nastavení hesla pomocí `secret` má přednost před `password`
+```js
+R1(config)#enable secret tvojemama
+R1(config)#enable password mojemama
+```
+
+Heslo je `tvojemama`
+:::
