@@ -108,6 +108,11 @@ const config = {
             label: 'Matematika',
           },
           {
+            to: 'docs/dejepis',
+            position: 'left',
+            label: 'Dejepis',
+          },
+          {
             href: 'https://github.com/LosBagros/docs',
             position: 'right',
             className: 'header-github-link',
