@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[978],{7641:e=>{e.exports=JSON.parse('{"title":"Webov\xe9 aplikace","slug":"/category/wea","permalink":"/docs/category/wea","navigation":{"previous":{"title":"Z\xe1kladn\xed deska","permalink":"/docs/TVY/Zakladni_deska"},"next":{"title":"HTML & CSS","permalink":"/docs/WEA/HTML & CSS"}}}')}}]);

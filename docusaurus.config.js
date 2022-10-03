@@ -103,14 +103,14 @@ const config = {
             label: 'Webové aplikace',
           },
           {
-            to: 'docs/category/matematika',
+            to: 'docs/category/databaze',
             position: 'left',
-            label: 'Matematika',
+            label: 'Databáze',
           },
           {
-            to: 'docs/dejepis',
+            href: 'https://docs.bagros.eu/dejepis.pdf',
             position: 'left',
-            label: 'Dejepis',
+            label: 'Dějepis',
           },
           {
             href: 'https://github.com/LosBagros/docs',

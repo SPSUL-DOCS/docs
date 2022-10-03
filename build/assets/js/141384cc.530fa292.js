@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[718],{8621:e=>{e.exports=JSON.parse('{"title":"Datov\xe9 s\xedt\u011b","slug":"/category/das","permalink":"/docs/category/das","navigation":{"previous":{"title":"\ud83d\ude80 \xdavod","permalink":"/docs/Intro"},"next":{"title":"\u27a1\ufe0f \xdavod do datovek","permalink":"/docs/DAS/uvod_do_datovek"}}}')}}]);

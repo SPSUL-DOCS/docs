@@ -5,6 +5,8 @@ title: Síťové modely
 
 # Síťové modely
 
+PDU = "Protocol data unit", jednotka, v každé vrtsvě jiná, zvětšuje se od spoda nahoru
+
 <table align="center">
     <tr>
         <th>
@@ -13,30 +15,67 @@ title: Síťové modely
         <th>
             ISO/OSI
         </th>
+        <th>
+           PDU
+        </th>
+        <th>
+           Popis
+        </th>
     </tr>
   <tr>
     <td rowspan="3">Aplikační vrstva</td>
     <td>Aplikační vrstva</td>
+    <td rowspan="3">Zpráva</td>
+    <td>Vizuální aplikace(prohlížeč)</td>  
   </tr>
   <tr>
     <td>Prezenční vrstva</td>
+    <td>Slouží k šifrování dat, komprimace</td>
   </tr>
   <tr>
     <td>Relační vrstva</td>
+    <td>Řídí komunikaci mezi hosty</td>
   </tr>
   <tr>
     <td>Transportní vrstva</td>
     <td>Transportní vrstva</td>
+    <td>TCP segment nebo UDP datagram</td>
+    <td>Zařizuje porty, Zabezpečení</td> {/* popis */}
   </tr>
   <tr>
     <td>Síťová vrstva</td>
     <td>Síťová vrstva</td>
+    <td>Paket</td>
+    <td>IP Adresy = spojení a směrování, vzdálená síť, Packet</td>
   </tr>
   <tr>
     <td rowspan="2">Vrstva síťového rozhraní</td>
     <td>Linková vrstva</td>
+    <td>Rámec</td>
   </tr>
   <tr>
     <td>Fyzická vrstva</td>
+    <td>Kabely</td>
+    <td>Fyzický paket = bity</td>
   </tr>
 </table>
+
+## Transportní vrstva
+
+Dělíme na `TCP` A `UDP`, spolehlivost 
+
+### TCP
+* Zasílá segment s kontrolou 
+* Kvůli kontrole je `pomalejší`
+* Kontrola: 
+1. Host 1 - Zeptá se jestli tam je Host 2 (synchronizace)
+2. Host 2 - Odpovídá, že tam je (accept), a zašle ještě jednu otazku jestli tam je (synchronizace)
+3. Host 1 - Odpovádá, že tam je (accept), a pošle segment
+(opakuje se to dokola)
+
+
+### UDP 
+* Zasílá `datagram` bez kontroly
+* je to rychlejší ale může vzniknout ke ztrátám (dobré u videohovorů)
+
+## Síťová vrstva
