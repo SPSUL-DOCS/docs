@@ -74,7 +74,7 @@ Router(config)#
 :::tip Stačí napsat `conf` a dvakrat enter
 :::
 
-## Konfigurace portů 
+## Konfigurace portů
 ### Na routeru
 Port na routeru např. *GigabitEthernet0/0/1* se nastavují pomocí
 ```
@@ -103,10 +103,33 @@ Router(config-if-range)#
 :::
 
 
-### Na switchi (virtualní porty)
+### Virtuální porty (připojení vzdáleně)
+- Každý aktivní prvek sítě má svoje virtuální porty, na které se dá připojit vzdáleně
+- Používá se při připojování pomocí ssh, telnet => nastavení se projeví při připojení pomocí ssh, telnet
 ```
-Router(config)#int range vty 0 16
+Router(config)#line vty 0 15
 ```
+
+## Nastavení IP adresy na Switch
+
+### IPv4
+```
+Switch(config)#int vlan 1
+Switch(config-if)#ip address <ip adresa> <Maska>
+```
+
+### IPv6
+
+```
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+Switch#copy running startup
+Switch#reload
+Switch(config)#int vlan 1
+Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
+Switch(config-if)#ipv6 add fe80::1 link-local
+```
+
+
 
 ## Hostname
 Pojďme přejmenovat router na R1
@@ -161,14 +184,15 @@ Heslo je `tvojemama`
 :::
 
 ## Routing
-Když máme více sítí a chceme aby router mohl posílat data do té druhé
+Když máme více sítí a chceme aby router mohl posílat data z první sítě do té druhé sítě
 ```
-Router(config)#ip route <adresa sítě> <maska> <ip adresa portu>
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <interface_to_exit>
 ```
-
+### interface to exit:
+<img src="/img/dasimg/interface_exit_port.png" alt="Logo"/>
 
 ## Vzdálené připojení (SSH, Telnet)
-# SSH 
+# Jak nastavit SSH 
 6 kroků:
 1. hostname
 ```
@@ -179,7 +203,7 @@ R1(config)#
 ```
 R1(config)#ip domain-name <example.com> 
 ```
-3. crypto key generate
+3. crypto key generate 
 :::warning
 Klíč se generuje pomocí `domény` a `hostname`, tyto dvě věci musejí bejt před generováním
 :::
@@ -190,12 +214,18 @@ Choose the size of the key modulus in the range of 360 to 2048 for your
   General Purpose Keys. Choosing a key modulus greater than 512 may take
   a few minutes.
 
-How many bits in the modulus [512]: <kliknem enter>
+How many bits in the modulus [512]: 2048
 ```
 4. username
 ```
+R1(config)#username <mylogin> secret <password>
 ```
 5. login local
 ```
+R1(config)#line vty 0 15
+R1(config-line)#login local 
 ```
-6. transport input ssh
+6. transport output ssh
+```
+R1(config-line)#transport output ssh 
+```
