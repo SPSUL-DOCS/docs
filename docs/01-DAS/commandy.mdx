@@ -286,3 +286,14 @@ S1(config-if)#switchport access vlan <vlanID>
 S1(config)#int f0/1
 S1(config-if)#switchport mode trunk
 ``` 
+
+## L3 switch
+* Zapnutí IP routingu
+```
+L3Switch(config)#ip routing
+```
+
+* Vypne funkce switche na portu (tento port se bude chovat jako u routeru)
+```
+L3Switch(config-if)#no switchport
+```
