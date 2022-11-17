@@ -2,3 +2,4 @@ node_modules
 .vscode
 .docusaurus
 package-lock.json
+build
