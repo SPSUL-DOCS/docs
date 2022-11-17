@@ -113,7 +113,7 @@ const config = {
             label: 'Dějepis',
           },
           {
-            href: 'https://github.com/LosBagros/docs',
+            href: 'https://github.com/LosBagros/docs/tree/dev',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
