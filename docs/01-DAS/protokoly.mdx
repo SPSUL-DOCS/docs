@@ -4,23 +4,45 @@ title: Protokoly
 
 # Protokoly
 
+# Protokoly 2 vrstvy (switche)
+## Spanning tree protocol
+Když máme v síti více switchů propojených dohromady, může vzniknout smyčka ()<br/>
+
+**Bridge PDU** => datová jednotka, která je **jediná** povolena při pritokolu Spanning tree
+- BID (Bridge ID) obsahuje 3 udaje
+1. Priority = 32768 (čim menší, tím větší priorita)
+2. Extended-System-ID = VLAN ID
+3. MAC = mac SW
+
+Postup nastavení Spanning   protokolu
+1. ROOT BRIDGE = nastaví hlavní switch (jdou k němu všechna data)
+2. ROOT PORTY = nastaví porty od ostatních switchu, které vedou k **ROOT BRIDGE SWITCHI**
+FastEthernet = 19
+GigabitEthernet = 4
+
+3. Designated = porty protilehlé k **ROOT PORTŮM**
+4. Alternate "Blocked" = 
+
+Co se děje
+1. Zapojení kabelu => oranžové světílko
+2. Port = Blocked = Alternate - Poslouchá BPDU
+3. Listnening - poslouchá + posilá BPDU = FD
+
+
+
+
 ## DHPC
 Rozdává IP adresy hostům
 DHCPv6 => rozdává IPv6
 
-
 ## DNS
 : Překládá domény na IP adresy 
 
-
 ## HTTP
-
-
 
 ## SSH
 
 ## Telnet
-
 
 ## Emailové protokoly
 IMAP = Funguje na serveru

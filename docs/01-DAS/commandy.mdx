@@ -297,3 +297,21 @@ L3Switch(config)#ip routing
 ```
 L3Switch(config-if)#no switchport
 ```
+
+### Spanning tree protocol
+* Informace o spanning tree
+```
+SW#show spanning tree
+```
+
+* Nastavení priority u routeru 
+```
+SW(config)#spanning-tree vlan <vlanID> prio <0-61440> 
+```
+nejmenší číslo = největší priorita
+
+* Nastavení port-fast 
+vypne spanning tree protocol na daném portu
+```
+SW(config-if)#spanning-tree portfast 
+```
