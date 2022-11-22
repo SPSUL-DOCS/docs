@@ -1,6 +1,6 @@
 ---
 sidebar_position: 6
-title: Subnety
+title: "Subnety a VLANY"
 ---
 
 # Subnety
@@ -48,3 +48,36 @@ Subnety sítě se tvoří tak, že rozdělíme velkou síť na více malých
 |První IP adresa hosta|192.168.10.1|192.168.10.129|
 |Poslední IP adresa hosta|192.168.10.126|192.169.10.190|
 
+# Vlan
+
+## Druhy Vlan
+
+1. **Defaultní** = obvykle VLAN 1 - základní VLAN, do které automaticky (defaultně) patří všechny
+switchporty (porty na SW :D )
+
+2. **Datová** = označována také jako uživatelská… - to jsou ty speciální VLAN, které nám logicky
+rozdělují například různá oddělení firmy - VLAN, do kterých patří uživatelé na základě nějaké
+logiky…
+
+3. **Nativní** = speciální VLAN, kterou se označí rámce, které nepatří do žádné VLAN (rámce totiž
+MUSÍ patřit do nějaké VLAN, aby mohly projít dál… proto pokud nikam nepatří, označí se
+nativní VLAN, aby mohli projít - například skrz Trunk) - v základu nastavená na Default VLAN,
+tedy VLAN 1 - dá se přenastavit
+
+4. **Management** = speciální VLAN určená pro správce sítě, pomocí které přistupuje k síťovým
+prvkům kvůli managementu (Telnet, SSH)
+
+5. **Voice** = speciální VLAN, která slouží k obsluhování IP telefonů (VoIP) - musí splňovat kritéria
+pro kvalitní přenos hovorů (musí mít například přednost v rámci QoS, zpoždění méně než 150
+ms, atd…)
+
+## Druhy portů na switchi při používání VLAN
+
+1. Trunk
+> tunel pro všechny vlany <br/>
+
+2. Access
+> port, který propustí jenom jednu vlan <br/>
+> používá se když chceme počítač, nebo switch přiřadit jenom jedné vlaně
+
+[Nastavení portů switche](./commandy#switch)
