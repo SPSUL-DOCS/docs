@@ -1,8 +1,34 @@
 ---
-Title: "klíčová slovíčka"
+title: "klíčová slovíčka"
+toc_max_heading_level: 2
 ---
+### Enum
+* hodnoty si určíme, vytvoření vlastního datového typu
+
+```cs
+Operator znamenko;
+
+enum Operator {
+    scitani,
+    odcitani,
+    nasobeni,
+    deleni
+} 
+```
+:::tip datový typ Operator, má 4 možné hodnoty
+    scitani,
+    odcitani,
+    nasobeni,
+    deleni
+:::
 
 Override = přepisuje původní metodu
 
 # Modifikátory přístupu
 
+|Modifikator|Přístup|
+|:---------:|:-----|
+|**Private**|Vidí jenom daná třída|
+|**Public**|Vidí všechny třídy v jednom projektu|
+|**Internal**||
+|**Protected**|Vidí pouze ta třída, která dedí z třídy původní|

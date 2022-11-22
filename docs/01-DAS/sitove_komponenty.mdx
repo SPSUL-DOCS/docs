@@ -1,26 +1,42 @@
 ---
 sidebar_position: 2
-title: Síťové komponenty a služby
+title: Síťové komponenty a pojmy
+toc_max_heading_level: 2
 ---
-<!-- 
-# Síťové komponenty
+# 
+# Logické
 
-## Role hosta
+## Host
+- jakékoliv zařízení v síti, které má IP adresu… 
+- PC, Server, Router, Switch…
+- Hosty dělíme na **koncová** zařízení a **zprostředkující** zařízení…
 
-Všechny počítače, které jsou připojeny k síti a přímo se účastní síťové komunikace, jsou klasifikovány jako **hostitelé**.
+### Koncové 
+- je zdrojem nebo cílem nějaké zprávy… 
+- příklad: PC komunikující se Serverem… oba jsou koncová zařízení
 
-Hostitelé mohou být koncové zařízení. Některým hostitelům se také říká klienti. Termín hostitelé označuje konkrétně zařízení v síti, kterým je pro účely přidělena IP adresa. Ip adresa identifikuje hostitele a síť, ke které je hostitel připojen.
+### Zprostředkující 
+- “vytváří cestu”, starají se o doručení zpráv, propojují koncová zařízení…
+- router, switch, hub…
+Zprostředkující tedy tvoří tu strukturu mezi tím PC a Serverem
 
-zkontrolovat učitelem
+- Dohromady tvoří Klient-server architekturu
 
-## Klient-server architektura 
+# Způsob komunikace
 
-Klient-server je síťová architektura, která odděluje klienta a server, kteří spolu komunikují přes počítačovou síť => server a klient jsou rozdeleni => možnosti serveru lze používat na více počítačích
- 
-# Síťové služby
+### Klient-server
+- Server poskytuje uživatelovi službu
 
-## Peer-to-peer (rovný s rovným)
+### Peer-to-peer
+- Službu si poskytují hosti
+> - Torrenty => Host 1 odesílá soubory, Host 2 stahuje soubory
 
-Uživatel sdílí jako **server** a zároveň přímá data jako **host**
-- příklad **torrenty** = uživatel stáhne soubor a zasílá části dalším uživatelům
--->
+# Fyzické  
+## Prvky v síti
+- Prvky v síti se dělí na 
+### Aktivní 
+- prvek, který s datovým signálem vykonává určitou aktivní činnost.
+- router, switch, počítač 
+### Pasivní 
+- prvek, který s datovým signálem nijak nepracuje.
+- kabel, zasuvka, rozdvojka
