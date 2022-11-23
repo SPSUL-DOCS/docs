@@ -1,9 +1,13 @@
 ---
 title: "Datové typy"
-id: "dt"
 ---
+<!--
+    Tky dodělat - 23.11.2022
+-->
 
-# Celočíselné datové typy
+
+# Datové typy
+## Celočíselné datové typy
 
 |Datový typ|Rozsah (unsigned)|
 |:--------:|:---------------:|
@@ -14,5 +18,9 @@ id: "dt"
 |Bigint|$-2^{63}$ až $2^{63} - 1$|
 
 ## Speciální číselné datové typy
-**BIT** -> $0$ nebo $1$ 
-**DECIMAL**
+**BIT** -> $0$ nebo $1$ <br/>
+**DECIMAL** -> Zapisujeme jako proměnnou, s určeným počtem číslic a desetinných míst
+
+```sql
+decimal(<počet desetinných míst> ,<počet čísel>)
+```
