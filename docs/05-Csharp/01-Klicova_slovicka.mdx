@@ -2,10 +2,11 @@
 title: "klíčová slovíčka"
 toc_max_heading_level: 2
 ---
+
 ### Enum
 * hodnoty si určíme, vytvoření vlastního datového typu
 
-```cs
+```csharp
 Operator znamenko;
 
 enum Operator {
@@ -15,6 +16,7 @@ enum Operator {
     deleni
 } 
 ```
+
 :::tip datový typ Operator, má 4 možné hodnoty
     scitani,
     odcitani,
@@ -22,13 +24,52 @@ enum Operator {
     deleni
 :::
 
-Override = přepisuje původní metodu
-
-# Modifikátory přístupu
+## Modifikátory přístupu
 
 |Modifikator|Přístup|
 |:---------:|:-----|
 |**Private**|Vidí jenom daná třída|
 |**Public**|Vidí všechny třídy v jednom projektu|
-|**Internal**||
+|**Internal**|<!-- Musim se zeptat učitele -->|
 |**Protected**|Vidí pouze ta třída, která dedí z třídy původní|
+
+<!--## Nejakej nadpis domyslet-->
+<!--
+    Tadytohle vubec nevim jestli je dobře
+-->
+
+### Virtual
+* Má vlastní tělo, jde přepsat v jiné **třídě**
+```csharp
+class Trida1 {
+    protected virtual Metoda {
+        // tělo metody
+    }
+}
+```
+
+```csharp
+class Trida2 : Trida1 {
+    override Metoda {
+        // přepsaná metoda
+    }
+}
+```
+
+### Abstract
+* Nemá tělo, tudíž je povinnost jej **přepsat**
+```csharp
+class Trida1 {
+    protected abstact Metoda;
+}
+```
+```csharp
+class Trida2 : Trida1 {
+    override Metoda {
+        // Přepsaná metoda
+    }
+}
+```
+
+### Override
+* Přepisuje metody
