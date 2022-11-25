@@ -4,3 +4,25 @@ title: Metody
 <!--
     tohle dodělat - 23.11.2022
 -->
+
+## Converzní funkce
+## CONVERT
+
+```sql
+SELECT CONVERT(<co chceme převest>, <datovýtyp>)
+```
+
+:::tip Příklad
+```sql
+SELECT CONVERT('123.4567', FLOAT);
+```
+:::
+
+## CONVERT s USING
+
+```sql
+SELECT CONVERT('Příliš žluťoučký kůň úpěl ďábelské ódy' USING latin2) AS "Text";
+```
+Output:
+|Text|
+|Příliš žluťoučký kůň úpěl ďábelské ódy
