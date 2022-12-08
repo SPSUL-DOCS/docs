@@ -26,3 +26,38 @@ SELECT CONVERT('Příliš žluťoučký kůň úpěl ďábelské ódy' USING lat
 Output:
 |Text|
 |Příliš žluťoučký kůň úpěl ďábelské ódy
+
+## DATE_FORMAT  
+* Mění formát pri používání selectu  
+```sql
+DATE_FORMAT(<sloupec>, "%d.%m.%Y %H:%m:%s")
+```
+
+:::tip Příklad
+```sql
+SELECT DATE_FORMAT(datum, "%d.%m.%Y %H:%m:%s") AS "Datum" FROM tabulka;
+```
+<table>
+    <tr>
+        <th>Datum</th>
+    </tr>
+    <tr>
+        <td>01.01.2021 00:00:00</td>
+    </tr>   
+</table>
+:::
+{/* 
+## INNER JOIN 
+* K tabulce se připojuje jiná tabulka
+* Výsledek obsahuje pouze záznamy, které jsou v obou tabulkách
+
+```sql
+INNER JOIN <tabulka> 
+```
+
+:::tip Příklad
+```sql
+SELECT * FROM tabulka1 INNER JOIN tabulka2 ON tabulka1.id = tabulka2.id;
+```
+:::
+ */}
