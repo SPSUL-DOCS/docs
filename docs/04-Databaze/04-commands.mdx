@@ -3,9 +3,55 @@ title: "Příkazy"
 ---
 * Všechny příkazy jsou `case non-sensitive`, všichni to ale píšou velkýma :\)
 
-# SELECT
-* používá se na zvolení tabulky
+## CREATE
+* Používá se při tvoření databází a tabulek
+### databáze
+```sql
+CREATE DATABESE <nazev>;
+-- přáklad
+CREATE DATABASE lidi;
+```
 
+### tabulka
+```sql
+CREATE TABLE <nazev> (
+    -- jednotlivé sloupce
+    <nazev sloupce> <datový typ>(<velikost>) <IO>,
+
+    -- příklad
+    ID int PRIMARY KEY,
+    Name varchar(255) NOT NULL,
+
+    -- definice PRIMARY KEY
+    PRIMARY KEY (<ID>) 
+);
+``` 
+
+## USE
+* Označí databázi, kterou chceme používat
+```sql
+USE <nazev databáze>;
+```
+
+## DROP
+* smaže databázi nebo tabulku
+```sql
+DROP DATABESE || TABLE <nazev>;
+```
+
+## SHOW
+* Zobrazení všech databází
+```sql
+SHOW DATABESES;
+```
+
+* Zobrazení tabulek
+```sql
+SHOW TABLES;
+```
+ 
+## SELECT
+* používá se na zvolení tabulky
 ```sql
 SELECT <sloupec> FROM <tabulka>;
 ```
@@ -15,7 +61,14 @@ SELECT <sloupec> FROM <tabulka>;
 SELECT * FROM <tabulka>;
 ```
 
-
-
-
+## AS A FROM
+**AS** - Nahrazuje
+**FROM** - Vybírá tabulku
+```sql
+-- t = tabulka
+FROM tabulka as t;
+```
+:::warning POZOR!
+Píše se nakonec
+:::
 

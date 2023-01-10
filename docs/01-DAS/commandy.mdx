@@ -2,6 +2,7 @@
 sidebar_position: 2
 title: ⌨️ Commandy
 description: Příkazy používané v CISCO CLI 
+toc_max_heading_level: 2
 ---
 
 # Commandy
@@ -314,4 +315,15 @@ nejmenší číslo = největší priorita
 vypne spanning tree protocol na daném portu
 ```
 SW(config-if)#spanning-tree portfast 
+```
+
+### EtherChannel
+* Nastavení etherchannelu
+```
+SW(config)#interface range <range portu - f0/1-2>
+SW(config-if-range)#channel-group <id etherchannelu> mode <active/>
+```
+* Zobrazení etherchannelu
+```
+SW#show etherchannel summary
 ```
