@@ -327,3 +327,33 @@ SW(config-if-range)#channel-group <id etherchannelu> mode <active/>
 ```
 SW#show etherchannel summary
 ```
+
+## DHCP
+
+### DHCPv4
+
+DHCP pro IPv4 adresy
+
+```
+R1(config)#ip dhcp pool <nazev>
+```
+
+```
+R1(dhcp-config)#network <adresa sítě> <maska>
+```
+
+```
+R1(dhcp-config)#default-router <adresa routeru>
+```
+
+:::tip Možnost vyloučit IP adresy
+
+```text title="Vyloučení ip adresy"
+R1(dhcp-config)#ip dhcp exclude-address <adresa>
+```
+
+```text title="Vyloučení rozsahu ip adres"
+R1(dhcp-config)#ip dhcp exclude-address <počáteční adresa> <konečná adresa>
+```
+:::
+
