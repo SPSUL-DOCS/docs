@@ -1,43 +1,8 @@
 ---
-title: Metody
-description: "Metody v MariaDB"
+title: "Join"
+description: "Připojování ostatních tabulek do jedne tabulky"
 ---
-# Converzní funkce
-Slouží k převádění datových typů
 
-## CONVERT
-```sql
-SELECT CONVERT(<co chceme převest>, <datovýtyp>)
-```
-
-:::tip Příklad
-```sql
-SELECT CONVERT('123.4567', FLOAT);
-```
-:::
-
-
-## DATE_FORMAT  
-* Mění formát pri používání selectu
-```sql
-DATE_FORMAT(<sloupec>, "%d.%m.%Y %H:%m:%s")
-```
-
-:::tip Příklad
-```sql
-SELECT DATE_FORMAT(datum, "%d.%m.%Y %H:%m:%s") AS "Datum" FROM tabulka;
-```
-<table>
-    <tr>
-        <th>Datum</th>
-    </tr>
-    <tr>
-        <td>01.01.2021 00:00:00</td>
-    </tr>   
-</table>
-:::
-
-# Vestavěné funkce 
 ## JOIN
 - Spojuje tabulky
 Existují 4 typy joinů

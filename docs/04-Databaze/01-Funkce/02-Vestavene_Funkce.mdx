@@ -1,0 +1,101 @@
+---
+title: "Vestavěné funkce"
+---
+
+## REPEAT
+- Opakuje **n**krát
+
+```sql
+REPEAT (<hodnota>, <kolikrát>)
+```
+
+:::tip Příklad
+```sql
+SELECT REPEAT("a", 4) AS "repeat";
+```
+<table>
+    <tr>
+        <th>repeat</th>
+    </tr>
+    <tr>
+        <td>aaaa</td>
+    </tr>
+</table>  
+:::
+
+## REVERSE
+- Obrátí řetězec
+
+```sql
+REVERSE(<řetězec>)
+```
+
+:::tip Příklad
+```sql
+SELECT REVERSE("johA") AS "reverse";
+```
+<table>
+    <tr>
+        <th>reverse</th>
+    </tr>
+    <tr>
+        <td>Ahoj</td>
+    </tr>
+</table>  
+:::
+
+## CONCAT
+- Sloučí řetězce
+
+```sql
+CONCAT(<řetězec1>, <řetězec2>, ...)
+```
+
+:::tip Příklad
+```sql
+SELECT CONCAT("Ahoj", "jak", "se", "mas") AS "concat";
+```
+<table>
+    <tr>
+        <th>concat</th>
+    </tr>
+    <tr>
+        <td>Ahojjaksemas</td>
+    </tr>
+</table>  
+:::
+
+# Funkce pro datumy
+:::warning Jestli hledáš DATE_FORMAT
+DATE_FORMAT předělává datum do jiného formátu -> v kategorii [KOnverzní Funkce](Funkce/Conversni_Funkce#date_format)
+:::
+## DATEDIFF 
+- Vypočítá rozdíl mezi dvěma daty
+- Vrací **počet dní**
+
+```sql
+DATEDIFF(<datum1>, <datum2>)
+```
+
+:::tip Priklad
+```sql
+SELECT DATEDIFF("2020-01-01", "202-01-03") AS "datediff";
+```
+<table>
+    <tr>
+        <th>datediff</th>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+</table>
+
+## NOW 
+- vrací aktuální datum a čas
+
+```sql
+NOW()
+```
+
+
+

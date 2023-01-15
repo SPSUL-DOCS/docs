@@ -1,0 +1,58 @@
+---
+title: "Konverzní funkce"
+description: "CONVERT, DATE_FORMAT"
+---
+
+## UPPER
+- Všechno velkýma písmenama
+```sql
+SELECT UPPER(<sloupec>) FROM <tabulka>;
+```
+:::tip Příklad
+```sql
+SELECT UPPER("ahoj jak se mas") as "Velká písmena";
+```
+
+<table>
+    <tr>
+        <th>Velká písmena</th>
+    </tr>
+    <tr>
+        <td>AHOJ JAK SE MAS</td>
+    </tr>
+</table>
+:::
+
+
+## CONVERT
+```sql
+SELECT CONVERT(<co chceme převest>, <datovýtyp>)
+```
+
+:::tip Příklad
+```sql
+SELECT CONVERT('123.4567', FLOAT);
+```
+:::
+
+## DATE_FORMAT  
+- Mění jak se zobrazuje datum
+```sql
+DATE_FORMAT(<sloupec>, "%d.%m.%Y %H:%m:%s")
+```
+
+
+
+:::tip Příklad
+```sql
+SELECT DATE_FORMAT(datum, "%d.%m.%Y %H:%m:%s") AS "Datum" FROM tabulka;
+```
+<table>
+    <tr>
+        <th>Datum</th>
+    </tr>
+    <tr>
+        <td>01.01.2021 00:00:00</td>
+    </tr>   
+</table>
+:::
