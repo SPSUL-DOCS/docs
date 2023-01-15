@@ -21,7 +21,7 @@ Pokud vám něco chybí, nebo se vám něco nelíbí, neváhejte a vytvořte pul
  - [ ] Přidat linky na užitečný věci (např. w3schools, sandboxy, tutorialy)
  - [ ] Udělat lab
 
-## [Contributors ✨] (https://github.com/SPSUL-DOCS/docs/graphs/contributors)
+## [Contributors ✨](https://github.com/SPSUL-DOCS/docs/graphs/contributors)
 
 Děkujeme všem lidem, kteří přispěli do tohoto projektu.
 
@@ -37,7 +37,7 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <sub><b>Bagros</b></sub>
         </a>
         <br />
-        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=losbagros" title="COMMITS">COMMITS</a>
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=losbagros" title="COMMITS">🗎</a>
     </td>
         <td align="center">
         <a href="https://github.com/jakubgrezl">
@@ -46,7 +46,7 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <sub><b>Jakub Grezl</b></sub>
         </a>
         <br />
-        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jakubgrezl" title="COMMITS">COMMITS</a>
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jakubgrezl" title="COMMITS">🗎</a>
     </td>
     <td align="center">
         <a href="https://github.com/janxyxy">
@@ -55,7 +55,7 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <sub><b>Janxyxy</b></sub>
         </a>
         <br />
-        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=janxyxy" title="COMMITS">COMMITS</a>
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=janxyxy" title="COMMITS">🗎</a>
     </td>
   </tr>
 </table>
