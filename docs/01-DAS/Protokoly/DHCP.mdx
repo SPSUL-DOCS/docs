@@ -1,0 +1,43 @@
+---
+title: "DHCP"
+description: "Slouží k rozdělování IP adress v síti, Relay Agent"
+source: "Jiří Mít"
+---
+# DHCP
+* Slouží k rozdělování adres v síti, nemusíme je nastavovat manuálně
+
+# Nastavení DHCP serveru na Routeru
+1. Vyloučit adresy, které nechceme aby poskytoval (adresy routerů, serverů, switchů…)
+```
+R(config)#ip dhcp excluded-address <první ip> <poslední ip>
+```
+2.	Pojmenovat DHCP
+```
+R(config)#ip dhcp pool <jméno>
+```
+3.	Nastavit informace o DHCPs
+    * Síť, které přiřazuje rozsah
+   ```
+ 	Router(dhcp-config)#network <ip sítě> <maska>
+   ```
+    * Defaultní bránu
+   ```
+ 	Router(dhcp-config)#default-router <ip brány>
+   ```
+    * DNS server
+ 	```
+   Router(dhcp-config)#dns-server <ip serveru>
+   ```
+    * Doménové jméno
+ 	```
+   Router(dhcp-config)#domain-name <doména>
+   ```
+
+# Relay agent
+* Když máme dvě sítě, a chceme aby DHCP server na jednom routreru fungoval pro obě sítě
+
+1. Nastavit DHCP server na jednom routeru 
+2. Nastavit relay agent na druhém routeru
+```
+R(config)#ip helper-address <ip adresa routeru 1>
+```
