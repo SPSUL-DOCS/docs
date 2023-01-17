@@ -1,41 +1,66 @@
-# Website
+# SPSUL DOCS
+Shrnutí materiálů pro obor IT - SPSUL Stříbrníky
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+## Pomožte nám s dokumentací
 
-### Installation
+Pokud vám něco chybí, nebo se vám něco nelíbí, neváhejte a vytvořte pull request.
 
-```
-$ yarn
-```
+### Jak přidat materiál
 
-### Local Development
+1. Vytvořte si fork tohoto repozitáře
+2. Naklonujte si váš forknutý repozitář `git clone https://github.com/<username>/docs.git`
+3. Přidejte materiál do složky `docs`
+4. Pomocí `git add.` přidejte změny
+5. Pomocí `git commit -m "Přidán materiál 🔥🔥🔥"` commitněte změny
+6. Pomocí `git push` nahrajte změny na GitHub
+7. Vytvořte pull request
 
-```
-$ yarn start
-```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## TODO:
+ - [ ] Přidat search engine - [Algolia](https://www.algolia.com/) nebo [Meilisearch](https://www.meilisearch.com/)
+ - [ ] Přidat linky na užitečný věci (např. w3schools, sandboxy, tutorialy)
+ - [ ] Udělat lab
 
-### Build
+## [Contributors ✨](https://github.com/SPSUL-DOCS/docs/graphs/contributors)
 
-```
-$ yarn build
-```
+Děkujeme všem lidem, kteří přispěli do tohoto projektu.
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+      <td align="center">
+        <a href="https://github.com/losbagros">
+            <img src="https://avatars.githubusercontent.com/u/45005533?v=4" width="100px;" alt=""/>
+            <br />
+            <sub><b>Bagros</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=losbagros" title="COMMITS">🗎</a>
+    </td>
+        <td align="center">
+        <a href="https://github.com/jakubgrezl">
+            <img src="https://avatars.githubusercontent.com/u/105577864?v=4" width="100px;" alt=""/>
+            <br />
+            <sub><b>Jakub Grezl</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jakubgrezl" title="COMMITS">🗎</a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/janxyxy">
+            <img src="https://avatars.githubusercontent.com/u/115793323?v=4" width="100px;" alt=""/>
+            <br />
+            <sub><b>Janxyxy</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=janxyxy" title="COMMITS">🗎</a>
+    </td>
+  </tr>
+</table>
 
-### Deployment
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
 
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+<!-- ALL-CONTRIBUTORS-LIST:END -->
