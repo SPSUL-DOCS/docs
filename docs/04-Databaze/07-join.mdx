@@ -7,71 +7,71 @@ description: "Používáme, když chceme propojit tabulky"
 - Spojuje tabulky
 
 **Existují 4 typy joinů:**
-> ### INNER JOIN
-> - Spojí jednotlivé řádky pospolu pomocí nějaké stejné hodnoty v obouch tabulkách
-> ```sql
-> INNER JOIN <tabulka> WHERE (<podmínka>)
-> ```
-> 
-> jako **podmínku** používáme hodnotu, která se nachází v obou tabulkách (ID)
-> 
-> 
-> :::tip Příklad spojování tabulek
-> Máme dvě tabulky, tabulku **zakaznika** a tabulku **objednavek**
-> 
-> #### Tabulka zakaznika
-> <table>
->     <tr>
->         <th>ID_zakaznika</th>
->         <th>Jmeno_Zakaznika</th>
->     </tr>
->     <tr>
->         <td>01</td>
->         <td>Jarda</td>
->     </tr>   
-> </table>
-> 
-> #### Tabulka objednavky
-> <table>
->     <tr>
->         <th>ID_objednavky</th>
->         <th>ID_zakaznika</th>
->         <th>Nazev_Objednavky</th>
->     </tr>
->     <tr>
->         <td>2202</td>
->         <td>01</td>
->         <td>Rybnik</td>
->     </tr>   
-> </table>
-> 
-> Objednávka `Rybnik` má svého jednoho zákazníka `Jarda`
-> 
-> Propojit tabůlky můžeme pomocí ID objednávky (v obouch tabulkách je přítomno toto ID)
-> 
-> ```sql
-> SELECT * FROM zakaznici INNER JOIN objednavky ON ID_zakaznika;
-> ```
-> 
-> Tabůlky se nám poté spojí do jedné, tak aby každý **zákazník** měl svojí **objednávku**: 
-> <table>
->     <tr>
->         <th>ID_zakaznika</th>
->         <th>Jmeno_Zakaznika</th>
->         <th>ID_objednavky</th>
->         <th>ID_zakaznika</th>
->         <th>Nazev_Objednavky</th>
->     </tr>
->     <tr>
->         <td>01</td>
->         <td>Jarda</td>
->         <td>2202</td>
->         <td>01</td>
->         <td>Rybnik</td>
->     </tr>   
-> </table>
-> :::
-> 
-> ### INNER LEFT / RIGHT JOIN
-> INNER JOIN nám vrátí řádek, pokud obě strany tabulky mají nějakou hodnotu 
-> - *Pro každého zákazníka jedna objednávka*
+ ### INNER JOIN
+ - Spojí jednotlivé řádky pospolu pomocí nějaké stejné hodnoty v obouch tabulkách
+ ```sql
+ INNER JOIN <tabulka> WHERE (<podmínka>)
+ ```
+ 
+ jako **podmínku** používáme hodnotu, která se nachází v obou tabulkách (ID)
+ 
+ 
+ :::tip Příklad spojování tabulek
+ Máme dvě tabulky, tabulku **zakaznika** a tabulku **objednavek**
+ 
+ #### Tabulka zakaznika
+ <table>
+     <tr>
+         <th>ID_zakaznika</th>
+         <th>Jmeno_Zakaznika</th>
+     </tr>
+     <tr>
+         <td>01</td>
+         <td>Jarda</td>
+     </tr>   
+ </table>
+ 
+ #### Tabulka objednavky
+ <table>
+    <tr>
+        <th>ID_objednavky</th>
+        <th>ID_zakaznika</th>
+        <th>Nazev_Objednavky</th>
+    </tr>
+    <tr>
+        <td>2202</td>
+        <td>01</td>
+        <td>Rybnik</td>
+    </tr>   
+</table>
+
+Objednávka `Rybnik` má svého jednoho zákazníka `Jarda`
+
+Propojit tabůlky můžeme pomocí ID objednávky (v obouch tabulkách je přítomno toto ID)
+
+```sql
+SELECT * FROM zakaznici INNER JOIN objednavky ON ID_zakaznika;
+```
+
+Tabůlky se nám poté spojí do jedné, tak aby každý **zákazník** měl svojí **objednávku**: 
+<table>
+    <tr>
+        <th>ID_zakaznika</th>
+        <th>Jmeno_Zakaznika</th>
+        <th>ID_objednavky</th>
+        <th>ID_zakaznika</th>
+        <th>Nazev_Objednavky</th>
+    </tr>
+    <tr>
+        <td>01</td>
+        <td>Jarda</td>
+        <td>2202</td>
+        <td>01</td>
+        <td>Rybnik</td>
+    </tr>   
+</table>
+:::
+
+### INNER LEFT / RIGHT JOIN
+INNER JOIN nám vrátí řádek, pokud obě strany tabulky mají nějakou hodnotu 
+- *Pro každého zákazníka jedna objednávka
