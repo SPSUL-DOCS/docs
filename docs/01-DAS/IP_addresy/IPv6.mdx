@@ -16,20 +16,15 @@ Router(config-if)#ipv6 add <link-local> link-local
 Router(config)#ipv6 unicast-routing
 ```
 
-:::warning Unicast-routing
+:::info Unicast-routing
 * Zapíná routovací funkce na routeru pro IPv6
 * Rozdává ipv6 adresy na počítače (funguje jako DHCP)
 :::
 
-:::warning Jak Funguje Link-Local?
+:::info Link-Local
 * Funguje jako **mac adresa**, v lokální síti.
 * Počítače ji mají automaticky.
-* Na routeru se většinou nastavuje fe80::1/64
-:::
-
-:::tip Příklad
-ip_adresa: 2001:db8:acad::1/64
-link-local: fe80::1/64
+* Na routeru se většinou nastavuje fe80::1
 :::
 
 :::warning Switch
@@ -37,12 +32,14 @@ při nastavování na switch, musíme zapnout dual-stack (aby mohl switch nastav
 ```
 Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
 Switch#copy running startup
-Switch#reload
-Switch(config)#int vlan 1
-Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
-Switch(config-if)#ipv6 add fe80::1 link-local
 ```
 :::
+
+:::tip Příklady adres
+* **ip_adresa:** 2001:db8:acad::1/64
+* **link-local**: fe80::1
+:::
+
 
 ### Jak zapisujeme IPv6 adresu?
 Nuly z leva můžeme vynechat
