@@ -2,14 +2,47 @@
 sidebar_position: 5
 title: IPv6
 ---
-
-## Zápis
 ### Parametry
 * má 128 bitů
 * 16 soustava (hexadecimální)
 * 4 bity = 1 hexacedimální číslo => celkem 32 číslic (znaků)
 * Skládá se z 8 hextetů (oddělených dvojtečkou) (hextet má 16 bitů)
 *ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff*
+
+## Nastavovnání IPv6 
+```
+Router(config-if)#ipv6 add <ip_adresa>/<prefix>
+Router(config-if)#ipv6 add <link-local> link-local
+Router(config)#ipv6 unicast-routing
+```
+
+:::warning Unicast-routing
+* Zapíná routovací funkce na routeru pro IPv6
+* Rozdává ipv6 adresy na počítače (funguje jako DHCP)
+:::
+
+:::warning Jak Funguje Link-Local?
+* Funguje jako **mac adresa**, v lokální síti.
+* Počítače ji mají automaticky.
+* Na routeru se většinou nastavuje fe80::1/64
+:::
+
+:::tip Příklad
+ip_adresa: 2001:db8:acad::1/64
+link-local: fe80::1/64
+:::
+
+:::warning Switch
+při nastavování na switch, musíme zapnout dual-stack (aby mohl switch nastavit IPv6 na Vlany)
+```
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+Switch#copy running startup
+Switch#reload
+Switch(config)#int vlan 1
+Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
+Switch(config-if)#ipv6 add fe80::1 link-local
+```
+:::
 
 ### Jak zapisujeme IPv6 adresu?
 Nuly z leva můžeme vynechat
