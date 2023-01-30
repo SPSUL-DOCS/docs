@@ -111,9 +111,12 @@ Router(config-if-range)#
 Router(config)#line vty 0 15
 ```
 ## Nastavení IP adresy na Router
-
 ### IPv4
 ```
+Router(config)#ip default-gateway <default gateway>
+Router(config)#int GigabitEthernet0/0/0
+Router(config-if)#ip address <ip adresa kterou chceme pro nastavit> <maska sítě>
+Router(config-if)#no sh
 ```
 
 ### IPv6
@@ -122,7 +125,6 @@ Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
 Switch(config-if)#ipv6 add fe80::1 link-local
 ```
 ## Nastavení IP adresy na Switch
-
 ### IPv4
 ```
 Switch(config)#ip default-gateway <default gateway>
@@ -132,7 +134,6 @@ Switch(config-if)#no sh
 ```
 
 ### IPv6
-
 ```
 Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
 Switch#copy running startup
@@ -141,6 +142,7 @@ Switch(config)#int vlan 1
 Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
 Switch(config-if)#ipv6 add fe80::1 link-local
 ```
+
 
 
 
