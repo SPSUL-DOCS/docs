@@ -1,45 +1,44 @@
 ---
 sidebar_position: 2
-title: Síťové komponenty a pojmy
+title: "Prvky v síti"
+description: "Prvky v síti, jejich funkce a způsob komunikace."
 toc_max_heading_level: 2
 ---
-<!--
-    Tohle dodělat - 23.11.2022
--->
+# Prvky v siti
+* Prvky, které najdeme v síti, dělíme na Logické (jejich logické zastoupení) a Fyzické (jejich fyzické zastoupení).
 
-# 
-# Logické
+## Logické
+* Co prvky logicky dělají
 
-## Host
+### Host
 - jakékoliv zařízení v síti, které má IP adresu… 
 - PC, Server, Router, Switch…
 - Hosty dělíme na **koncová** zařízení a **zprostředkující** zařízení…
 
-### Koncové 
+#### Koncové 
 - je zdrojem nebo cílem nějaké zprávy… 
 - příklad: PC komunikující se Serverem… oba jsou koncová zařízení
 
-### Zprostředkující 
+#### Zprostředkující 
 - “vytváří cestu”, starají se o doručení zpráv, propojují koncová zařízení…
 - router, switch, hub…
-Zprostředkující tedy tvoří tu strukturu mezi tím PC a Serverem
+- Zprostředkující tedy tvoří tu strukturu mezi tím PC a Serverem
 
-- Dohromady tvoří Klient-server architekturu
+> Dohromady tvoří **Klient-server** architekturu
 
-# Způsob komunikace
-### Klient-server
-- Server poskytuje uživatelovi službu
-
-### Peer-to-peer
-- Službu si poskytují hosti
-> - Torrenty => Host 1 odesílá soubory, Host 2 stahuje soubory
-
-# Fyzické  
-## Prvky v síti
-- Prvky v síti se dělí na 
+## Fyzické  
 ### Aktivní 
 - prvek, který s datovým signálem vykonává určitou aktivní činnost.
 - router, switch, počítač 
 ### Pasivní 
 - prvek, který s datovým signálem nijak nepracuje.
 - kabel, zasuvka, rozdvojka
+
+## Způsob komunikace
+
+### Klient-server
+- Server poskytuje uživatelovi službu
+
+### Peer-to-peer
+- Službu si poskytují hosti
+- Torrenty => Host 1 odesílá soubory, Host 2 stahuje soubory

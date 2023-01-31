@@ -12,3 +12,22 @@ Pokud máme topologii v podobném zapojení
 ![STP](./img/spanning-tree.png)
 
 Pokud nechceme aby se pakety "zacyklily" a kroužily po switchích, tak je potřeba STP protokol.
+
+## Nastavování STP protokolu
+```cisco title="Zobrazení informací o STP protokolu"
+SW#show spanning tree
+``` 
+
+```cisco title="Nastavení priority u routeru"
+SW(config)#spanning-tre evlan <vlanID> prio <0-61440> 
+```
+> nejmenší číslo = největší priorita
+
+:::tip K čemu slouží priorita?
+Slouží k nastavení root switche, switche který rozhodne kudy paket bude směrován.
+:::
+
+```cisco title="portfast" 
+SW(config-if)#spanning-tree portfast 
+```
+> vypne spanning tree protocol na daném portu
