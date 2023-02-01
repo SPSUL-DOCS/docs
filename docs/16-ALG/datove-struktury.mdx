@@ -1,0 +1,139 @@
+---
+title: "Datové struktury"
+description: "Datové struktury"
+toc_max_heading_level: 2
+---
+# Datové struktury
+
+## Pole (Array)
+- Nejjednodušší datová struktura 
+- Statické (pevná velikost)
+- Prvky uloženy v paměti hned za sebou
+
+#### Plusy a mínusy pole
+\+ Jednoduché na vytvoření <br/>
+\+ Jednoduché na použití <br/>
+\- Složité vyhledávání<br/>
+\- Složité třídění <br/>
+\- Dlouhé vyhledávání <br/>
+\- Obtížné odstranění prvku
+
+## List
+- Dynamické (může měnit velikost)
+- Vlastnosti podobné jako v pole
+- Výhodu oproti poli je snazší práce s daty
+
+## Množina
+- Všechny prvky jsou unikátní (vyskytují se pouze jednou)
+
+#### Plusy množiny
+\+ Rychlá kontrola, jestli obsahuje prvek <br/>
+\+ Bez duplicitních hodnot
+
+
+## Fronta a Zásobník 
+- anglicky: buffer, queue
+
+### Fronta
+- LIFO (Last In, First Out) => jako by se zařadil do **fronty** 
+
+:::note Příklad
+```
+->|3|5|4|2|->
+```
+:::
+
+#### Přidání / získání prvku do / z Fronty
+```c title="Přidání prvku do fronty"
+// volá funkci
+Fronta.add(x)
+
+// funkce: 
+pole[pocet] = x;
+pocet++;
+```
+
+```c title="Získání prvku z fronty"
+// volá funkci:
+Fronta.get()
+
+// funkce:
+pocet--;
+return pole[pocet];
+```
+
+
+### Zásobník 
+- FIFO (Last In, First Out) => jako by se zařadil na **vrchol**
+
+:::note Příklad
+prvek **2** by se po přidání **první** odebral
+```agl title="Přidání prvků"
+->|2|4|5|3|
+```
+```agl title="Odebrání prvků"
+<-|2|4|5|3|
+```
+:::
+
+#### Přidání / získání prvku do / z Zásobníku
+```c title="Získání prvku z fronty"
+// volá funkci 
+Zasobnik.get();
+
+// funkce:
+pom = pole[0];
+for (int i = 1; i < pocet - 1; i++)
+{
+    pole[i] = pole[i + 1];
+}
+pocet--;
+return pom;
+```
+
+#### Plusy a mínusy fronty a zásobníku
+\+ rychlé přidání, odebrání a zobrazení prvků <br/>
+\- nemožnost ukládat doprostřed
+
+## Spojový seznam (link-list)
+Dělí se na tři: 
+- **jednosměrný** => Každý prvek nese informaci o tom, kde je následující prvek
+- **obousměrný** => každý prvek informaci o tom, kde je předchozí
+- **kruhový** => je jednosměrný kde poslední prvek odkazuje na první 
+
+![ukázka na obrázku](./img-datovestruktury/spojový_seznam.png)
+
+- Prvky oproti poli jsou v paměti rozmístěni různě
+
+#### Plusy a mínusy spojového seznamu
+\+ Přidání / odebrání prvků, pouze o změně referencí / pointrů (šipek). <br/>
+\- Složitý a zdlouhavý výpis.
+
+# Binární stromy
+Stromové struktury, které mají kořen a u každého uzlu mají **dva potomky** => dva -> binární 
+
+## Halda (Heap)
+![heap](./img-datovestruktury/heap.webp)
+- Nejvyšší prvek je vždy nejmenší / největší
+- Každý prvek má nižší/vyšší nebo stejnou hodnotu jako jeho rodič
+- Kořen/vrchol obsahuje vždy max/min 
+- Je to vyvážený binární strom – je téměř celý naplněný
+
+### ABC Pravidlo
+```
+A > B, C
+--------
+A < B, C 
+```
+
+![abcrule](./img-datovestruktury/ABCrule.webp)
+
+
+#### Plusy a mínusy haldy
+\+ Velmi rychlé hledání minima a maxima <br/>
+\+ Rychlé přídavní prvků <br/>
+\+ Rychlé odebírání maxima / minima <br/>
+\- Pomalé vyhledávání <br/>
+\- Komplikované odstranění prvku 
+
+
