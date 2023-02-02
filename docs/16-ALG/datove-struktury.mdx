@@ -35,7 +35,7 @@ toc_max_heading_level: 2
 - anglicky: buffer, queue
 
 ### Fronta
-- LIFO (Last In, First Out) => jako by se zařadil do **fronty** 
+- **FIFO** (Last In, First Out) => jako by se zařadil do **fronty** 
 
 :::note Příklad
 ```
@@ -64,7 +64,7 @@ return pole[pocet];
 
 
 ### Zásobník 
-- FIFO (First In, First Out) => jako by se zařadil na **vrchol**
+- **LIFO** (First In, First Out) => jako by se zařadil na **vrchol**
 
 :::note Příklad
 prvek **2** by se po přidání **první** odebral
@@ -97,9 +97,9 @@ return pom;
 
 ## Spojový seznam (link-list)
 Dělí se na tři: 
-- **jednosměrný** => Každý prvek nese informaci o tom, kde je následující prvek
-- **obousměrný** => každý prvek informaci o tom, kde je předchozí
-- **kruhový** => je jednosměrný kde poslední prvek odkazuje na první 
+- **jednosměrný** => Každý prvek nese informaci o tom, kde je následující prvek.
+- **obousměrný** => každý prvek informaci o tom, kde je předchozí a další prvek.
+- **kruhový** => je jednosměrný kde poslední prvek odkazuje na první.
 
 ![ukázka na obrázku](./img-datovestruktury/spojový_seznam.png)
 
@@ -128,7 +128,6 @@ A < B, C
 
 ![abcrule](./img-datovestruktury/ABCrule.webp)
 
-
 #### Plusy a mínusy haldy
 \+ Velmi rychlé hledání minima a maxima <br/>
 \+ Rychlé přídavní prvků <br/>
@@ -136,4 +135,44 @@ A < B, C
 \- Pomalé vyhledávání <br/>
 \- Komplikované odstranění prvku 
 
+:::warning Nevyrovaný seznam 
+- obsahuje velké množství jednopotomkových uzlů (nepočítá se poslední/dolní patro)
+- extrém (obr.2) = **spojový seznam**
 
+![nevyrovnany seznam](./img-datovestruktury/nevyrovnany_seznam.webp)
+::: 
+## Vyvážený vyhledávací binární strom (BST = Binary Search Tree)
+- vyjma posledního patra neobsahuje jednopotomkové uzly
+- oproti haldě je přesně dané, kde který prvek leží
+- vpravo je vždy větší prvek a vlevo menší než hodnota uzlu
+
+**Proces vyhledávání** <br/>
+> např.: 7 <br/>
+> 5 ≠ 7, ale 7 > 5 → vpravo <br/>
+> 8 ≠ 7, ale 7 < 8 → vlevo <br/>
+> 6 ≠ 7, ale 7 > 6 → vpravo <br/>
+> 7 = 7 → našli jsme!
+
+
+Strom má 11 prvků, nalezli jsme ve 4 krocích!
+
+#### Plusy a mínusy vyváženého 
+\+ umožňuje prvky rychle vyhledávat a optimalizuje jejich vkládání a mazání <br/>
+\- složitější manipulace s prvky
+
+## Samovyvažovací stromy
+- před vytvořením stromu je nejlepší zamíchat prvky => vyvážený strom
+- během „života může strom degradovat na nevyvážený až spojový seznam
+- řešením jsou Samovyvažovací stromu = mají metody na kontrolu a následné napravení
+
+## B-Stromy 
+- v uzlu může být více prvků
+- vytvořeny pro efektivní využití na pevných discích, kdy lze v jednom kroku pracovat s více prvky najednou
+- prakticky využívány v databázových systémech
+- časové složitosti vycházejí stejně jako binární stromy
+
+![b-strom](./img-datovestruktury/b-strom.webp)
+
+:::warning Pozor!
+B-Strom není Binární strom!
+:::
