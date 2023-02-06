@@ -6,32 +6,27 @@ source: "Jiří Mít"
 # DHCP
 * Slouží k rozdělování adres v síti, nemusíme je nastavovat manuálně
 
-# Nastavení DHCP serveru na Routeru
-1. Vyloučit adresy, které nechceme aby poskytoval (adresy routerů, serverů, switchů…)
-```
+## Nastavení DHCP serveru na Routeru 
+```cisco title="1. Vyloučit adresy, které nechceme aby poskytoval (adresy routerů, serverů, switchů…)"
 R(config)#ip dhcp excluded-address <první ip> <poslední ip>
 ```
-2.	Pojmenovat DHCP
-```
+```cisco title="2. Pojmenovat DHCP"
 R(config)#ip dhcp pool <jméno>
 ```
-3.	Nastavit informace o DHCP
-    * Síť, které přiřazuje rozsah
-   ```
- 	Router(dhcp-config)#network <ip sítě> <maska>
-   ```
-    * Defaultní bránu
-   ```
- 	Router(dhcp-config)#default-router <ip brány>
-   ```
-    * DNS server
- 	```
-   Router(dhcp-config)#dns-server <ip serveru>
-   ```
-    * Doménové jméno
- 	```
-   Router(dhcp-config)#domain-name <doména>
-   ```
+### 3. Nastavit informace o DHCP
+```cisco title="Síť, které přiřazuje rozsah"
+Router(dhcp-config)#network <ip sítě> <maska>
+```
+```cisco title="Defaultní bránu"
+Router(dhcp-config)#default-router <ip brány>
+```
+```cisco title="DNS server"
+Router(dhcp-config)#dns-server <ip serveru>
+```
+```cisco title="Doménové jméno"
+Router(dhcp-config)#domain-name <doména>
+```
+   
 
 # Relay agent
 * Když máme dvě sítě, a chceme aby DHCP server na jednom routreru fungoval pro obě sítě
@@ -41,3 +36,12 @@ R(config)#ip dhcp pool <jméno>
 ```
 R(config)#ip helper-address <ip adresa routeru 1>
 ```
+
+# DHCPv6
+## Stateless
+### SLACC
+* Zapíná se pomocí [unicast-routing](../ip_adresy/IPv6#nastavovnání-ipv6)
+* Adresy jsou přiřazovány automaticky
+
+### SLACC + DHCPv6
+* Funguje metoda EUI-64 -> vyrobí IPv6 pomocí MAC-adresy
