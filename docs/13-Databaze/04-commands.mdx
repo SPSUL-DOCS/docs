@@ -61,7 +61,24 @@ SELECT <sloupec> FROM <tabulka>;
 SELECT * FROM <tabulka>;
 ```
 
-## AS A FROM
+## SUBQUERY (poddotaz)
+* Select v selectu
+```sql title="V části WHERE"
+SELECT * FROM <tabulka> WHERE ><= (SELECT <sloupec> FROM <tabulka>);
+```
+```sql title="V části SELECT"
+SELECT * - (SELECT * FROM <tabulka>) FROM <tabulka>;
+```
+:::tip Příklad
+```sql 
+SELECT cena - (SELECT AVG(cena) FROM Stromky) FROM Stromky;
+
+-- Vrací všechny ceny, které jsou větší než průměrná cena
+SELECT * FROM Stromky WHERE cena > (SELECT AVG(cena) FROM Stromky);
+```
+:::
+
+## *AS* A *FROM*
 **AS** - Nahrazuje
 **FROM** - Vybírá tabulku
 ```sql
