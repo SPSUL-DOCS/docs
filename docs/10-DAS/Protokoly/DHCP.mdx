@@ -37,11 +37,17 @@ Router(dhcp-config)#domain-name <doména>
 R(config)#ip helper-address <ip adresa routeru 1>
 ```
 
+
 # DHCPv6
+## Statefull
+* Adresu pro koncové zařízení generuje DHCP server
+* RA zpráva => řekne koncovému zařízení, aby kontaktoval DHCPv6 
+
 ## Stateless
+* Adresu si generuje koncové zařízení sámo
 ### SLACC
 * Zapíná se pomocí [unicast-routing](../ip_adresy/IPv6#nastavovnání-ipv6)
-* Adresy jsou přiřazovány automaticky
+* Funguje metoda EUI-64 -> vyrobí IPv6 pomocí MAC-adresy
 
 ### SLACC + DHCPv6
-* Funguje metoda EUI-64 -> vyrobí IPv6 pomocí MAC-adresy
+* RA zpráva => předá zbylé informace (DNS)

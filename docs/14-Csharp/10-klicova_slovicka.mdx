@@ -1,5 +1,6 @@
 ---
-title: "Klíčová slovíčka"
+title: "Klíčová slovíčka a modifikatory přístupu"
+description: "Klíčová slovíčka a modifikatory přístupu"
 toc_max_heading_level: 2
 ---
 
@@ -30,13 +31,9 @@ enum Operator {
 |:---------:|:-----|
 |**Private**|Vidí jenom daná třída|
 |**Public**|Vidí všechny třídy v jednom projektu|
+|**Final**|Nelze od ní dědit|
 |**Internal**|<!-- Musim se zeptat učitele -->|
 |**Protected**|Vidí pouze ta třída, která dedí z třídy původní|
-
-<!--## Nejakej nadpis domyslet-->
-<!--
-    Tadytohle vubec nevim jestli je dobře
--->
 
 ### Virtual
 * Má vlastní tělo, jde přepsat v jiné **třídě**
@@ -72,4 +69,21 @@ class Trida2 : Trida1 {
 ```
 
 ### Override
-* Přepisuje metody
+* Přepisuje virtuální a abstraktní metody/třídy
+```csharp
+class Trida1 {
+    protected virtual Metoda {
+        // tělo metody
+    }
+}
+```
+tip::: Pokud chceme, aby se při přepisování virtuálí metody volala i původní metoda, použijeme klíčové slovo **base**
+```csharp
+class Trida2 : Trida1 {
+    override Metoda {
+        base.Metoda();
+        // Přepsaná metoda
+    }
+}
+```
+:::
