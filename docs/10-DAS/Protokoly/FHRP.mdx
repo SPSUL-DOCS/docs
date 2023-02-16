@@ -1,0 +1,30 @@
+---
+title: "FHRP"
+description: "First Hop Redundancy Protocols - Spolehlivost defaultní brány"
+source: "Jíří Mít"
+---
+
+# FHRP
+- Umožňuje zapojit do sítě "náhradní router"
+- Více routerů se stane jedním virtuálním routerem s vlastní IP adresou a MAC adresou
+
+Existuje v různých verzích:
+1. HSRP -> Hot Standby Router Protocol (Cisco protokol)
+2. GLBP -> Gateway Load Balancing Protocol (Cisco protokol)
+3. IRDP -> ICMP Router Discovery Protocol (Zastaralé, nepoužívá se)
+
+## HSRP
+- Routery v síti mají dva stavy: 
+    >* Active - aktivní router
+    >* Standby - náhradní router, připraven "jít do boje v případě potřeby" :D
+- Tyto dva stavy se automaticky přepínají
+- Lze nastavit **prioritu** -> router s nejvyšší prioritou je aktivní
+```yml title="Nastavení priority u routeru"
+Router()#standby priority <0-255>   
+```
+:::warning Pozor
+Změna aktivního routeru neproběhne hned, síť se musí "aktualizovat"
+:::
+
+## GLBP
+
