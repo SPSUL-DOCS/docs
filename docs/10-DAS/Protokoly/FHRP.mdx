@@ -14,9 +14,7 @@ Existuje v různých verzích:
 >* IRDP -> ICMP Router Discovery Protocol (Zastaralé, nepoužívá se)
 
 ## HSRP
-- Jak funguje: 
-    >* Aktivní router vysílá pravidelně Hello zprávy, záložní poslouchá
-    >* Pokud aktivní router přestane posílat hello zprávy, záložní router se stane aktivní>*
+- Jak funguje: Aktivní router vysílá pravidelně Hello zprávy, záložní router poslouchá. Pokud aktivní router přestane posílat hello zprávy, záložní router se stane aktivním
 - Routery v síti mají dva stavy: 
     >* Active - aktivní router
     >* Standby - náhradní router, připraven "jít do boje v případě potřeby" :D
@@ -25,11 +23,18 @@ Existuje v různých verzích:
 ```yml title="Nastavení priority u routeru"
 Router()#standby priority <0-255>
 ```
-:::warning Pozor
-Změna aktivního routeru neproběhne hned, síť se musí "aktualizovat"
-:::
+- **HSRP Preemption** = pokud je nastavený na routeru, router se stane aktivním, i když v síti je jiný aktivní router
 
-- **HSRP Preemption** = dokáže nastavit, aby když má větší prioritu, přebrat aktivní funkci od jiného routeru
+:::tip Příklad HSRP Preemption
+Router A = Priorita 150, Preemption zapnuto
+Router B = Priorita 150, Preemption vypnuto
+
+A -> Přestane fungovat
+B -> Automaticky se stane aktivním
+
+A -> Začne fungovat, díky preeptionu se stane aktivním
+= Kdyby bylo A s preemption vypnutý, B by zůstal aktivní => A by se neucházel o aktivní funkci, záložní
+:::
 
 ```yml title="HSRP Preemption"
 Router()#standby HSRP preempt
