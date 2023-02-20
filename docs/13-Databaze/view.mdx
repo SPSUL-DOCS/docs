@@ -5,4 +5,21 @@ description: "Lepší select"
 
 # Views
 = virtuální tabulka, která je vytvořená pod dostazem `SELECT`
- 
+- fyzicky neexituje (nezabírá paměť)
+- INSERT / UPDATE / DELETE => nefunguje ve view
+
+## Vytvoření 
+
+```sql title="Vytvoření"
+CREATE VIEW <nazev> AS SELECT ... FROM ...;
+```
+
+```sql title="Upravení"
+ALTER VIEW <nazev> AS SELECT ... FROM ...;
+```
+- Pokud neexistuje, vyhodí error, můžeme přidat `CREATE OR REPLACE VIEW <nazev> AS SELECT;`
+
+
+```sql title="Smazaní"
+DROP VIEW [IF EXISTS] <nazev>;
+```
