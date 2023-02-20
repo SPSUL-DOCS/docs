@@ -89,3 +89,8 @@ FROM tabulka as t;
 Píše se nakonec
 :::
 
+## INSERT 
+- Vkládá do tabulky hodnoty 
+```sql title="vkládání do selectu"
+SELECT p.nazev, p.plat FROM pozice AS p INSERT INTO wpozice VALUES(<t>);
+```

@@ -11,15 +11,15 @@ description: "Lepší select"
 ## Vytvoření 
 
 ```sql title="Vytvoření"
-CREATE VIEW <nazev> AS SELECT ... FROM ...;
+CREATE VIEW <nazev> AS <zbytek selectu>;
 ```
 
 ```sql title="Upravení"
-ALTER VIEW <nazev> AS SELECT ... FROM ...;
+ALTER VIEW <nazev> AS <zbytek selectu>;
 ```
 - Pokud neexistuje, vyhodí error, můžeme přidat `CREATE OR REPLACE VIEW <nazev> AS SELECT;`
 
 
 ```sql title="Smazaní"
 DROP VIEW [IF EXISTS] <nazev>;
-```
+```x
