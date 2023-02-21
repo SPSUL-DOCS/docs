@@ -19,7 +19,7 @@ Existuje v různých verzích:
     >* Active - aktivní router
     >* Standby - náhradní router, připraven "jít do boje v případě potřeby" :D
 - Tyto dva stavy se automaticky přepínají
-- Lze nastavit **prioritu** -> router s nejvyšší prioritou je aktivní
+- Lze nastavit **prioritu** -> router s nejvyšší prioritou je aktivní, **bez priority** se nastaví jako aktivní router, který má větší numericky ip adresu `10.2 > 10.1`
 ```yml title="Nastavení priority u routeru"
 Router()#standby priority <0-255>
 ```
