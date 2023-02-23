@@ -51,7 +51,7 @@ Router(dhcp-config)#domain-name <doména>
 1. Nastavit DHCP server na jednom routeru 
 2. Nastavit relay agent na druhém routeru
 ```yml
-R(config)#ip helper-address <ip adresa routeru 1>
+R(config-if)#ip helper-address <ip adresa DHCP serveru / routeru>
 ```
 
 :::warning Pozor
