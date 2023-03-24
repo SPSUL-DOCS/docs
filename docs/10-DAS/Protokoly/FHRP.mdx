@@ -21,7 +21,7 @@ Existuje v různých verzích:
 - Tyto dva stavy se automaticky přepínají
 - Lze nastavit **prioritu** -> router s nejvyšší prioritou je aktivní, **bez priority** se nastaví jako aktivní router, který má větší numericky ip adresu `10.2 > 10.1`
 ```yml title="Nastavení priority u routeru"
-Router()#standby priority <0-255>
+Router(config-if)#standby priority <0-255>
 ```
 - **HSRP Preemption** = pokud je nastavený na routeru, router se stane aktivním, i když v síti je jiný aktivní router
 
@@ -38,7 +38,7 @@ A -> Začne fungovat, díky preeptionu se stane aktivním
 :::
 
 ```yml title="HSRP Preemption"
-Router()#standby HSRP preempt
+Router(config-if)#standby preempt
 ```
 
 ### Stavy
