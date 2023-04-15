@@ -10,7 +10,7 @@ const katex = require('rehype-katex');
 const config = {
   title: 'SPSUL DOCS',
   tagline: 'Na webu se ještě pracuje 🛠️',
-  url: 'https://docs.bagros.eu',
+  url: 'https://docs.spsul.cz',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -18,15 +18,15 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'bagros', // Usually your GitHub org/user name.
+  organizationName: 'SPSUL-DOCS', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'cs',
+    locales: ['cs'],
   },
 
   presets: [
@@ -46,6 +46,11 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        gtag: {
+          trackingID: 'G-LQLQ2FXZ9X',
+          anonymizeIP: true,
+        },
+
       }),
     ],
   ],
@@ -106,6 +111,26 @@ const config = {
             to: 'docs/category/databaze',
             position: 'left',
             label: 'Databáze',
+          },
+          {
+            to: 'docs/category/csharp',
+            position: 'left',
+            label: 'C#',
+          },
+          {
+            to: 'docs/category/zpv',
+            position: 'left',
+            label: 'Základy přírodních věd',
+          },
+          {
+            to: 'docs/category/alg',
+            position: 'left',
+            label: 'Algoritmizace',
+          },
+          {
+            to: 'docs/category/cj',
+            position: 'left',
+            label: 'Čeština',
           },
           {
             href: 'https://docs.bagros.eu/dejepis.pdf',
