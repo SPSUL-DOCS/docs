@@ -29,8 +29,22 @@ function HomepageHeader() {
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <Layout
-      >
+    <Layout>
+      <Head>
+        <meta name="title" content="🚀 SPSUL DOCS"/>
+        <meta name="description" content="Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://docs.spsul.cz/"/>
+        <meta property="og:title" content="🚀 SPSUL DOCS"/>
+        <meta property="og:description" content="Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem"/>
+        <meta property="og:image" content="https://docs.spsul.cz/img/spsul.webp"/>
+
+        <meta property="twitter:card" content="summary_large_image"/>
+        <meta property="twitter:url" content="https://docs.spsul.cz/"/>
+        <meta property="twitter:title" content="🚀 SPSUL DOCS"/>
+        <meta property="twitter:description" content="Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem"/>
+        <meta property="twitter:image" content="https://docs.spsul.cz/img/spsul.webp"/>
+      </Head>
       <HomepageHeader />
       <main>
        
