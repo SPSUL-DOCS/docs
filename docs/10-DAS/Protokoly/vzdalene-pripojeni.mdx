@@ -1,0 +1,35 @@
+---
+title: "Vzdálené připojení"
+---
+
+# TELNET
+- nešifrované
+- nastavuje se jako virtualní terminál (vty)
+```
+Router(config)# line vty 0 15
+```
+
+# SSH
+- Šifrované vzdálené připojení
+
+## Postup
+1. Hostname
+2. Nastavíme doménu pro SSH
+```
+Router(config)# ip domain-name <jakákoliv-doména>
+```
+3. Vytvoříme hashovací klíč
+```
+Router(config)# crypto key generate rsa (1024)
+```
+4. Vytvoříme SSH uživatele
+```
+Router(config)# username <jmeno> password <heslo>
+```
+
+5. Přepneme z Telnetu na SSH
+```
+line vty 0 15
+login local
+transport input SSH
+```

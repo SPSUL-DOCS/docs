@@ -75,6 +75,7 @@ Router(config)#
 :::tip Stačí napsat `conf` a dvakrat enter
 :::
 
+
 ## Konfigurace portů
 ### Na routeru
 Port na routeru např. *GigabitEthernet0/0/0* se nastavují pomocí
@@ -103,13 +104,19 @@ Router(config-if-range)#
 ```
 :::
 
-
 ### Virtuální porty (připojení vzdáleně)
-- Každý aktivní prvek sítě má svoje virtuální porty, na které se dá připojit vzdáleně
-- Používá se při připojování pomocí ssh, telnet => nastavení se projeví při připojení pomocí ssh, telnet
+- Každý aktivní prvek sítě má svoje virtuální porty, na které se dá připojit vzdáleně (telnet, SSH)
 ```
 Router(config)#line vty 0 15
 ```
+
+### Konsolový port
+- Port sedí vzádu na routeru a označuje se Console
+- Configuruje se pomocí příkazu
+```
+Router(config)#line console 0
+```
+
 ## Nastavení IP adresy na Router
 ### IPv4
 ```
@@ -142,9 +149,6 @@ Switch(config)#int vlan 1
 Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
 Switch(config-if)#ipv6 add fe80::1 link-local
 ```
-
-
-
 
 ## Hostname
 Pojďme přejmenovat router na R1
