@@ -20,8 +20,10 @@ Router(config)# ip domain-name <jakákoliv-doména>
 ```
 3. Vytvoříme hashovací klíč
 ```
-Router(config)# crypto key generate rsa (1024)
+Router(config)# crypto key generate rsa
 ```
+*nejlepší použít 1024 bitů*
+
 4. Vytvoříme SSH uživatele
 ```
 Router(config)# username <jmeno> password <heslo>

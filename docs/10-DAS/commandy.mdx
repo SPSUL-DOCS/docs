@@ -221,44 +221,8 @@ Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <int
 :::warning Router 1 je ten, kde nastavujeme ip route
 :::
 
-## Vzdálené připojení (SSH, Telnet)
-# Jak nastavit SSH 
-6 kroků:
-1. hostname
-```
-Router(config)#hostname R1
-R1(config)#
-```
-2. domain name
-```
-R1(config)#ip domain-name <example.com> 
-```
-3. crypto key generate 
-:::warning
-Klíč se generuje pomocí `domény` a `hostname`, tyto dvě věci musejí bejt před generováním
-:::
-```
-R1(config)#crypto key generate rsa 
-The name for the keys will be: R1.lol.cz
-Choose the size of the key modulus in the range of 360 to 2048 for your
-  General Purpose Keys. Choosing a key modulus greater than 512 may take
-  a few minutes.
-
-How many bits in the modulus [512]: 2048
-```
-4. username
-```
-R1(config)#username <mylogin> secret <password>
-```
-5. login local
-```
-R1(config)#line vty 0 15
-R1(config-line)#login local 
-```
-6. transport output ssh
-```
-R1(config-line)#transport output ssh 
-```
+## Vzdálené připojení 
+- přesunuto do souboru vzdálené připojení
 
 # VLAN
 ## Nastavení routeru
