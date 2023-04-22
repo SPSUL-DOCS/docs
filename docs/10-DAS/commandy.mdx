@@ -222,7 +222,29 @@ Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <int
 :::
 
 ## Vzdálené připojení 
-- přesunuto do souboru vzdálené připojení
+### SSH
+1. Hostname
+2. Nastavíme doménu pro SSH
+```
+Router(config)# ip domain-name <jakákoliv-doména>
+```
+3. Vytvoříme hashovací klíč
+```
+Router(config)# crypto key generate rsa
+```
+*nejlepší použít 1024 bitů*
+
+4. Vytvoříme SSH uživatele
+```
+Router(config)# username <jmeno> password <heslo>
+```
+
+5. Přepneme z Telnetu na SSH
+```
+Router(config)# line vty 0 15
+Router(config)# login local
+Router(config)# transport input SSH
+```
 
 # VLAN
 ## Nastavení routeru
