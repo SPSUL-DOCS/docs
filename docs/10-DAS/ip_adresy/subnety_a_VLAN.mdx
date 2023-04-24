@@ -49,6 +49,31 @@ Subnety sítě se tvoří tak, že rozdělíme velkou síť na více malých
 |Poslední IP adresa hosta|192.168.10.126|192.169.10.190|
 
 # Vlan
+## Druhy VLAN podle fyzického zařízení
+1. Router-on-a-stick -> Vlana je rozdělená pomocí routeru v síti, rozdělí se port na subporty a každý subport bude mít jinou vlanu
+- Tato metoda vyžaduje Router a Obyčejný Switch
+
+```c title="Nastavíme vlanu na Routeru"
+Router(conf)# interface f0/1.10 //vytvoříme subport
+Router(conf-if)# encapsulation dot1Q 10 //encapsulace + vlana
+Router(conf-if)# ip address <ip_adresa> <maska> // nastavení ip adresy
+```
+
+```c title="Nastavíme vlanu na Switchi"
+Switch(config)# interface <port který směřuje k routeru>
+Switch(config-if)# switchport mode trunk //přepneme port do trunku, aby k routeru mohly všechny vlany
+Switch(config-if)# switchport mode access <vlana> // nastavíme na různé porty vlany, které chceme na PC mít
+```
+
+:::warning Pozor
+- Všechny switche dané sítě **musí** znát všechny vlany 
+- Switchům, kterým jsme nenastavili access port, musíme vložit VLANU do databáze (access port by to udělal za nás) 
+```c
+Switch(config)# vlan <vlana>
+```
+:::
+
+2. L3 Switch VLAN -> SVI (Switch Virtual Interface) - VLAN je rozdělená pomocí switchu, switch bude mít vlastní IP adresu a bude fungovat jako router
 
 ## Druhy Vlan
 
