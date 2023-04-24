@@ -74,6 +74,21 @@ Switch(config)# vlan <vlana>
 :::
 
 2. L3 Switch VLAN -> SVI (Switch Virtual Interface) - VLAN je rozdělená pomocí switchu, switch bude mít vlastní IP adresu a bude fungovat jako router
+```c title="Nastavíme router port na L3 Switchi"
+Switch(config)# interface <port který vede do jiné sítě>
+Switch(config-if)# no switchport // nastaví port, aby se choval jak u routeru
+Switch(config-if)# ip address <ip_adresa> <maska> // nastavíme ip adresu, jako u routeru, ven ze sítě
+Switch# ip routing // zapne routovací funkce
+```
+
+```c title="Nastavíme vlanu na Switchi"
+Switch(config)# interface vlan 10
+Switch(config-if)# ip address <ip_adresa> <maska> // nastavíme ip adresu vlany
+Switch(config-if)# no shutdown // zapneme vlany
+
+// access a trunk se nastavuje stejne jako u basic switche
+```
+
 
 ## Druhy Vlan
 
@@ -100,7 +115,6 @@ ms, atd…)
 
 1. Trunk
 > tunel pro všechny vlany <br/>
-
 2. Access
 > port, který propustí jenom jednu vlan <br/>
 > používá se když chceme počítač, nebo switch přiřadit jenom jedné vlaně
