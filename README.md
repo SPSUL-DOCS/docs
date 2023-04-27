@@ -37,7 +37,7 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <sub><b>Bagros</b></sub>
         </a>
         <br />
-        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=losbagros" title="COMMITS">🗎</a>
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=losbagros" title="COMMITS">Commits - 🗎</a>
     </td>
         <td align="center">
         <a href="https://github.com/jakubgrezl">
@@ -46,7 +46,7 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <sub><b>Jakub Grezl</b></sub>
         </a>
         <br />
-        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jakubgrezl" title="COMMITS">🗎</a>
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jakubgrezl" title="COMMITS">Commits - 🗎</a>
     </td>
     <td align="center">
         <a href="https://github.com/janxyxy">
@@ -55,7 +55,16 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <sub><b>Janxyxy</b></sub>
         </a>
         <br />
-        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=janxyxy" title="COMMITS">🗎</a>
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=janxyxy" title="COMMITS">Commits - 🗎</a>
+    </td>
+        <td align="center">
+        <a href="https://github.com/jankubatt">
+            <img src="https://avatars.githubusercontent.com/u/43667814?v=4" width="100px;" alt=""/>
+            <br />
+            <sub><b>Jan Kubat</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jankubatt" title="COMMITS">Commits - 🗎</a>
     </td>
   </tr>
 </table>
