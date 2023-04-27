@@ -140,6 +140,11 @@ const config = {
             label: 'Čeština',
           },
           {
+            to: 'docs/category/maturita',
+            position: 'left',
+            label: 'Maturita',
+          },
+          {
             href: 'https://docs.bagros.eu/dejepis.pdf',
             position: 'left',
             label: 'Dějepis',
