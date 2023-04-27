@@ -325,29 +325,27 @@ SW#show etherchannel summary
 
 ## DHCP
 
-### DHCPv4
+### Nastavení DHCP serveru na Routeru 
+```cisco title="1. Vyloučit adresy, které nechceme aby poskytoval (adresy routerů, serverů, switchů…)"
+R(config)#ip dhcp excluded-address <první ip> <poslední ip>
+```
+```cisco title="2. Pojmenovat DHCP"
+R(config)#ip dhcp pool <jméno>
+```
+#### 3. Nastavit informace o DHCP
+```cisco title="Síť, které přiřazuje rozsah"
+Router(dhcp-config)#network <ip sítě> <maska>
+```
+```cisco title="Defaultní bránu"
+Router(dhcp-config)#default-router <ip brány>
+```
+```cisco title="DNS server"
+Router(dhcp-config)#dns-server <ip serveru>
+```
+```cisco title="Doménové jméno"
+Router(dhcp-config)#domain-name <doména>
+```
 
-DHCP pro IPv4 adresy
-
+```cisco title="Relay agent"
+R(config-if)#ip helper-address <ip adresa DHCP serveru / routeru>
 ```
-R1(config)#ip dhcp pool <nazev>
-```
-
-```
-R1(dhcp-config)#network <adresa sítě> <maska>
-```
-
-```
-R1(dhcp-config)#default-router <adresa routeru>
-```
-
-:::tip Možnost vyloučit IP adresy
-
-```text title="Vyloučení ip adresy"
-R1(dhcp-config)#ip dhcp exclude-address <adresa>
-```
-
-```text title="Vyloučení rozsahu ip adres"
-R1(dhcp-config)#ip dhcp exclude-address <počáteční adresa> <konečná adresa>
-```
-:::
