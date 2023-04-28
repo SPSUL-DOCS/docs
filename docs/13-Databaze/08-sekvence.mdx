@@ -1,0 +1,23 @@
+---
+title: "Sekvence"
+description: "Custom index"
+---
+
+# Sekvence
+1. 
+
+```sql title="Vytvoření sekvence"
+CREATE SEQUENCE id
+    START WITH 100 
+    INCREMENT BY 1
+    MINVALUE = 100
+    MAXVALUE = 1000;
+
+```
+
+2. 
+
+```sql title="Vkládáme v insertu"
+INSERT INTO table (id, name) VALUES (NEXT VALUE FOR id, 'name');
+```
+
