@@ -323,6 +323,13 @@ SW(config-if-range)#channel-group <id etherchannelu> mode <active/>
 SW#show etherchannel summary
 ```
 
+:::warning Dynamický trunk a EtherChannel
+Může se stát, že L3 switch se nedohodne s druhým switchem na trunk modu (L3 switch má automatický trunk/access)
+```c title="Force trunk"
+Switch(config-if)#switchport trunk encapsulation dot1q
+```
+
+
 ## DHCP
 
 ### Nastavení DHCP serveru na Routeru 
