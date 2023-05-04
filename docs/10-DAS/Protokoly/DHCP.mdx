@@ -51,8 +51,11 @@ Router(dhcp-config)#domain-name <doména>
 1. Nastavit DHCP server na jednom routeru 
 2. Nastavit relay agent na druhém routeru
 ```yml
+R(config)# int <port dovnitř lokální sítě, ten kde chceme aby fungovalo dhcp>
 R(config-if)#ip helper-address <ip adresa DHCP serveru / routeru>
 ```
+
+nastavuje se port
 
 :::warning Pozor
 Relay agent jde nastavit i pro **DHCPv4** i **DHCPv6**, bohužel nefunguje tato funkce na **packet traceru**
