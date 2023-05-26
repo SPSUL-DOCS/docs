@@ -21,6 +21,11 @@ Pokud vám něco chybí, nebo se vám něco nelíbí, neváhejte a vytvořte pul
  - [ ] Přidat linky na užitečný věci (např. w3schools, sandboxy, tutorialy)
  - [ ] Udělat lab
 
+## License
+Docusaurus je licencován licencí [MIT](./LICENSE).
+
+Dokumentace (`.md` soubory v adresáři `/docs`) jsou licencovány [GPLv3](./LICENSE-docs).
+
 ## [Contributors ✨](https://github.com/SPSUL-DOCS/docs/graphs/contributors)
 
 Děkujeme všem lidem, kteří přispěli do tohoto projektu.
