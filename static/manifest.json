@@ -1,0 +1,33 @@
+{
+    "short_name": "SPSUL DOCS",
+    "name": "SPSUL DOCS",
+    "description": "Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem, Resslova 5",
+    "icons": [
+      {
+        "src": "/static/img/page.webp",
+        "type": "image/webp",
+        "sizes": "512x512"
+      },
+      {
+        "src": "/static/img/favicon.ico",
+        "sizes": "48x48 72x72 96x96 128x128 256x256",
+        "type": "image/x-icon"
+      }
+  
+    ],
+    "id": "/?source=pwa",
+    "start_url": "/?source=pwa",
+    "background_color": "#181a1b",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#de4019",
+    "shortcuts": [
+      {
+        "name": "Commandy CISCO CLI",
+        "short_name": "DAS",
+        "description": "Co je to síť?",
+        "url": "docs/DAS/commandy?source=pwa",
+        "icons": [{ "src": "/images/today.png", "sizes": "192x192" }]
+      }
+    ]
+}
