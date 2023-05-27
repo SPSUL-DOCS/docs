@@ -3,22 +3,16 @@
     "name": "SPSUL DOCS",
     "description": "Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem, Resslova 5",
     "icons": [
-      {
-        "src": "/img/page.webp",
-        "type": "image/webp",
-        "sizes": "512x512"
-      },
-      {
-        "src": "/img/favicon.ico",
-        "sizes": "48x48 72x72 96x96 128x128 256x256",
-        "type": "image/x-icon"
-      },
         {
             "src": "/img/icon.png",
             "type": "image/png",
             "sizes": "512x512"
+        },
+        {
+            "src": "/img/favicon.ico",
+            "sizes": "48x48 72x72 96x96 128x128 256x256",
+            "type": "image/x-icon"
         }
-  
     ],
     "id": "/?source=pwa",
     "start_url": "/?source=pwa",
