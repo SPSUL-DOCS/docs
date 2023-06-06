@@ -49,7 +49,13 @@ Subnety sítě se tvoří tak, že rozdělíme velkou síť na více malých
 |Poslední IP adresa hosta|192.168.10.126|192.169.10.190|
 
 # Vlan
-## Druhy VLAN podle fyzického zařízení
+- Vlany pracují na druhé vrstvě ISO/OSI modelu.
+
+:::tip InterVLAN
+vlany v LAN
+:::
+## Druhy VLAN podle fyzického zařízení / InterVLAN řešení
+
 1. Router-on-a-stick -> Vlana je rozdělená pomocí routeru v síti, rozdělí se port na subporty a každý subport bude mít jinou vlanu
 - Tato metoda vyžaduje Router a Obyčejný Switch
 
@@ -88,7 +94,9 @@ Switch(config-if)# no shutdown // zapneme vlany
 
 // access a trunk se nastavuje stejne jako u basic switche
 ```
+3. Legacy vlan routing
 
+Nejvíc naprd způsob, musíme mít pro každou vlanu samostatný kabel -> víc routerů
 
 ## Druhy Vlan
 
