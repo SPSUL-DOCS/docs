@@ -40,8 +40,9 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/SPSUL-DOCS/docs/edit/master/',
+          editUrl:'https://github.com/SPSUL-DOCS/docs/edit/master/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -134,22 +135,22 @@ const config = {
           {
             to: 'docs/category/das',
             position: 'left',
-            label: 'Datové sítě',
+            label: 'DAS',
           },
           {
             to: 'docs/category/tvy',
             position: 'left',
-            label: 'Technicke vybavení',
+            label: 'TVY',
           },
           {
             to: 'docs/category/wea',
             position: 'left',
-            label: 'Webové aplikace',
+            label: 'WEA',
           },
           {
             to: 'docs/category/databaze',
             position: 'left',
-            label: 'Databáze',
+            label: 'DAT',
           },
           {
             to: 'docs/category/csharp',
@@ -159,17 +160,17 @@ const config = {
           {
             to: 'docs/category/zpv',
             position: 'left',
-            label: 'Základy přírodních věd',
+            label: 'ZPV',
           },
           {
             to: 'docs/category/alg',
             position: 'left',
-            label: 'Algoritmizace',
+            label: 'ALG',
           },
           {
             to: 'docs/category/cj',
             position: 'left',
-            label: 'Čeština',
+            label: 'ČJL',
           },
           {
             to: 'docs/category/maturita',
@@ -179,7 +180,7 @@ const config = {
           {
             href: 'https://docs.bagros.eu/dejepis.pdf',
             position: 'left',
-            label: 'Dějepis',
+            label: 'DEJ',
           },
           {
             href: 'https://github.com/SPSUL-DOCS/docs',
