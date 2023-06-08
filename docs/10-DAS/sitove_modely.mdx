@@ -10,6 +10,9 @@ PDU = "Protocol data unit", jednotka, v každé vrtsvě jiná, zvětšuje se od 
 <table align="center">
     <tr>
         <th>
+            Vrstva
+        </th>
+        <th>
             TCP/IP
         </th>
         <th>
@@ -21,42 +24,62 @@ PDU = "Protocol data unit", jednotka, v každé vrtsvě jiná, zvětšuje se od 
         <th>
            Popis
         </th>
+        <th>
+           Zařízení, které pracují ve vrstvě
+        </th>
     </tr>
   <tr>
+    <td>7</td>
     <td rowspan="3">Aplikační vrstva</td>
     <td>Aplikační vrstva</td>
-    <td rowspan="3">Zpráva</td>
+    <td rowspan="3">Zpráva (Data)</td>
     <td>Vizuální aplikace(prohlížeč)</td>  
+    <td>PC</td>  
   </tr>
   <tr>
+    <td>6</td>
     <td>Prezenční vrstva</td>
     <td>Slouží k šifrování dat, komprimace</td>
+    <td>~~~</td>  
+
   </tr>
   <tr>
+    <td>5</td>
     <td>Relační vrstva</td>
     <td>Řídí komunikaci mezi hosty</td>
+    <td>~~~</td>  
   </tr>
   <tr>
+    <td>4</td>
     <td>Transportní vrstva</td>
     <td>Transportní vrstva</td>
     <td>TCP segment nebo UDP datagram</td>
-    <td>Zařizuje porty, Zabezpečení</td> {/* popis */}
+    <td>Nastavuje nejlepší kvalitu spojení</td> {/* popis */}
+    <td>~~~</td>  
+
   </tr>
   <tr>
+    <td>3</td>
     <td>Síťová vrstva</td>
     <td>Síťová vrstva</td>
     <td>Paket</td>
     <td>IP Adresy = spojení a směrování, vzdálená síť, Packet</td>
+    <td>Routovací zařízení: Router, L3 Switch</td>
   </tr>
   <tr>
+    <td>2</td>
     <td rowspan="2">Vrstva síťového rozhraní</td>
     <td>Linková vrstva</td>
     <td>Rámec</td>
+    <td>Vytváří základní rámec s fyzickou adresou (slouží pro přenos dat v interní síti)</td>
+    <td>Switch</td>
   </tr>
   <tr>
+    <td>1</td>
     <td>Fyzická vrstva</td>
     <td>Bity</td>
     <td>Fyzický paket = bity</td>
+    <td>Kabely</td>
   </tr>
 </table>
 
