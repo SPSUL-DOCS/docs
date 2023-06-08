@@ -92,6 +92,7 @@ const config = {
         ],
       },
     ],
+    '@docusaurus/theme-live-codeblock',
   ],
 
   stylesheets: [
