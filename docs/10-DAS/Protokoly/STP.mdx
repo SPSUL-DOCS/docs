@@ -13,6 +13,14 @@ Pokud máme topologii v podobném zapojení
 
 Pokud nechceme aby se pakety "zacyklily" a kroužily po switchích, tak je potřeba STP protokol.
 
+### Root bridge
+**Root bridge** je switch, který se nastaví v síťi, kde pracuje STP protokol, podle priority.
+
+### Druhy (režimy) portů v stp
+1. Root
+1. Designeted
+1. Blocked
+
 ## Nastavování STP protokolu
 ```cisco title="Zobrazení informací o STP protokolu"
 SW#show spanning tree
