@@ -6,13 +6,25 @@ autor: "Beneš"
 
 # OOP
 
+## Tabulka s vysvětlením názvosloví
+|Název|Definice|
+|:-:|:-:|
+|Třída|Definice objektu|
+|Objekt|Jedno vytvoření třídy|
+|Metoda|Funkce, která je ve třídě|
+|Atribut|Proměnná, která je ve třídě|
+|Vlastnost|Atribut s getter a setter metodou|
+|Konstruktor|Metoda, která se volá při vytvoření objektu|
+|Deklarace|Vytvoření proměnné k datovému typu|
+|Inicializace|Přiřazení hodnoty k atributu v konstruktoru|
+|Instance|Objekt|
+
 ## Názvosloví OOP
 Je dobré vedět, o čem mluvíte
 
-
 ### Třída a objekt
 
-Třída je definice objektu ("blueprint" pro to, jak bude objekt vypadat)
+**Třída** je definice objektu ("blueprint" pro to, jak bude objekt vypadat)
 
 Třída může obsahovat metody, atributy a konstruktor
 ```cs 
@@ -28,32 +40,72 @@ class Trida {
 
 Objekt je vytvoření třídy
 ```cs 
+Trida t = new Trida(); // vytvoření objektu
+```
+
+### Konstruktor 
+Slouží pro přidání hodnot do atribut hned při vytvoření objektu
+
+```cs
 class Trida {
-    int a; // atribut
-    public Trida() { // konstruktor
+
+    int x1;
+    int x2;
+
+    public Trida(int x1, int x2) { // konstruktor
+        this.x1 = x1;
+        this.x2 = x2;
     }
+}
+
+Trida t = new Trida(69, 88); // vytvoření objektu
+```
+
+### Atribut a Vlastnost, getter a setter (GET, SET)
+GET a SET jsou metody, které se používají pro přístup k atributu, volají se tudíž pokud chceme přiřadit do proměnné hodnotu nebo získat hodnotu z proměnné
+
+```cs GET a SET v akci
+class Trida {
+    int _a; // atribut, většinou se používá podržítko pro rozlišení atributu a vlastnosti
     
-    public void Method() { // metoda
+    int A {
+        get { // getter
+            return _a;
+        }
+        set { // setter
+            _a = value;
+        }
     }
 }
 ```
 
-|Název|Definice|
-|:-:|:-:|
-|Třída|Definice objektu|
-|Objekt|Jedna instance třídy|
-|Metoda|Funkce třídy|
-|Atribut|Proměnná třídy|
-|Konstruktor|Metoda, která se volá při vytvoření objektu|
-|Deklarace|Správný zápis|
-|Inicializace|Přiřazení hodnoty k atributu|
-|Instance|Vytvoření objektu pomocí třídy|
+:::tip toto můžeme použít když chceme třeba omezit přístup pro zápis nebo čtení
+```cs 
+public int A {
+    public get { // getter
+        return _a;
+    }
+       
+    private set { // setter
+        _a = value; // hodnota se nastaví pouze pokud ji nastavujeme ve třídě
+    }
+    }
+```
+:::
 
-:::tip Příklad
-```c
-public 
-}
-
-Class c = new Class(); // instance třídy
+:::tip nebo když chceme omezit hodnotu
+```cs 
+int A {
+    get { // getter
+        return _a;
+    }
+       
+    set { // setter
+        if (value > 100)
+            _a = value;
+        else 
+            _a = 100;
+    }
+    }
 ```
 :::
