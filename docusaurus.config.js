@@ -179,7 +179,7 @@ const config = {
             label: 'Maturita',
           },
           {
-            href: 'https://docs.bagros.eu/dejepis.pdf',
+            href: 'https://docs.spsul.cz/dejepis.pdf',
             position: 'left',
             label: 'DEJ',
           },
