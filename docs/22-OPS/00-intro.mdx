@@ -1,0 +1,58 @@
+---
+title: "Úvod do OS"
+date: 6.9.2023
+---
+
+# Úvod do OS
+## Rutina
+- funkčně vymezená část kódu
+- nejčastěji ve formě podprogramu
+- opakující se činnost
+
+OS tvoří vlastní podmnožinu softwaru
+
+Na OS můžeme pohlížet z různých pohledů 
+
+## Funkční pohled
+- OS je softwarový správce prostředků
+- Prostředky lze rozdělit do 2 skupin:
+1.  Hardwarové nebo Fyzické prostředky
+    - **Centrální prostředky**: CPU, RAM
+    - **Vnější paměti**: HDD, DVD, SSD, ..
+    - **IO (Input/Output)**: Monitor, klávesnice, ..
+2.  Softwarové nebo Logické prostředky:
+    - Jsou vytvářeny rutinami OS za využití jiných prostředků, jak Fyzických, tak Logických
+    - **Centrální prostředky**: Proces, Paměťový region
+    - **Nízkoúrovňové logické prostředky**: Logický disk, logický terminál
+    - **Dílčí prostředky**: Soubor, GUI
+    - **Virtuální prostředky**: Virtuální paměťový nebo síťový disk, Virtuální tiskárna
+    - **Synchronizační a Komunikační prostředky**:  Semafor, Mutex | Roura
+    - **Bezpečnostní prostředky**: Šifry, Účty, Kanály
+    - **Síťové prostředky**: TCP-IP Socket, HTTP server/klient
+    - **Programy**: VLC¨
+
+:::warning Pozor
+Ačkoli se to může stat, **motorka** není softwarový prostředek
+:::
+
+### Proces
+- Je instancí (Kučera: “ííí”) programu
+- Vykonání od okamžiku provedení 1. instrukce programu po provedení instrukce poslední označujeme termínem proces
+- Poznámka o procesu:
+    - Každá rutina může být vykonávaná pouze v rámci procesu
+    - V každém okamžiku musí existovat v systému alespoň jeden proces
+    - OS není vykonáván jako jediný proces, ale jeho jednotlivé rutiny jsou sdíleny všemi procesy v systému
+    - Procesy vznikají, jako reakce na požadavek jiného procesu, vyjímka Boot. proces
+- Bootovací proces (Linux: Shell proces)
+
+### Paměťový region
+- je to souvisle adresovatelná oblast paměti, která je přidělena procesu
+
+## Systémový pohled
+- OS je tvořen množinou rutin, které je možno na základě vzájemného volání organizovat do několikavrstev
+- Nejnižší vrstva rutin přistupuje přímo k Hardwaru
+- Jádro (eng. Kernel), tam patří ty rutiny, které bezprostředně přistupují k Hardwaru PC, respektivezajištující virtualizaci
+
+### Systémové procesy
+- zvláštní procesy, rutiny jádra zajištují správnou funkčnost těchto procesů
+- Linux je balíčkový OS
