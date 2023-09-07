@@ -28,3 +28,10 @@ Adresa 192.168.0.1 v binární soustavě s prefixem /28
 
 před `|` je adresa sítě, za `|` adresa hosta 
 
+## Nastavení IPv4 adresy na switch 
+
+```bash 
+Switch(config)# int vlan 1
+Switch(config-if)# ip address <ip-adresa> <maska>
+```
+

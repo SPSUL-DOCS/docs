@@ -289,11 +289,16 @@ S1(config-if)#switchport mode trunk
 L3Switch(config)#ip routing
 ```
 
+:::warning VLAN a Iprouting
+Při routování mezi VLANama na L3 switchi potřebujem také ip routing
+:::
+
+
 * Vypne funkce switche na portu (tento port se bude chovat jako u routeru)
 ```
 L3Switch(config-if)#no switchport
 ```
-
+y
 ### Spanning tree protocol
 * Informace o spanning tree
 ```
