@@ -42,17 +42,35 @@ Ačkoli se to může stat, **motorka** není softwarový prostředek
     - Každá rutina může být vykonávaná pouze v rámci procesu
     - V každém okamžiku musí existovat v systému alespoň jeden proces
     - OS není vykonáván jako jediný proces, ale jeho jednotlivé rutiny jsou sdíleny všemi procesy v systému
-    - Procesy vznikají, jako reakce na požadavek jiného procesu, vyjímka Boot. proces
+    - Procesy vznikají, jako reakce na požadavek jiného procesu, vyjímka Boot. proces (rodičovského)
 - Bootovací proces (Linux: Shell proces)
 
 ### Paměťový region
 - je to souvisle adresovatelná oblast paměti, která je přidělena procesu
 
+### OS systém jako správce
+- Hlavní účel správy, spočívá ve vytváření přesně definovaného a bezpečného prostředí pro procesy: vytvoreni tzv. virtuálního PC
+- Rutiny OS vytvářejí pro programy jednotné rozhraní, který má charaktér virtuáního PC
+- **Nezávislost jednotlivých procesů** -> pro každý proces, běžící v rámci OS, musí rutiny OS, vytvářet ulizy, že je jedinným procesem, který kdy běžel, běží a bude běžet v rámci dané instance OS. (instance OS vzniká bootováním systému a zaniká vypnutím)
+
+:::tip Jednoduše
+každý program si musí myslet že může všechno
+:::
+
 ## Systémový pohled
-- OS je tvořen množinou rutin, které je možno na základě vzájemného volání organizovat do několikavrstev
+- OS je tvořen množinou rutin, které je možno na základě vzájemného volání, organizovat do několikavrstev
 - Nejnižší vrstva rutin přistupuje přímo k Hardwaru
-- Jádro (eng. Kernel), tam patří ty rutiny, které bezprostředně přistupují k Hardwaru PC, respektivezajištující virtualizaci
+- Dále rutiny přímo volající rutiny nižší vrstvy
+- Každá vrstva nabízí vyšším vrstvám přesně definované rozhraní (virtuální PC)
+
+#### Jádro OS 
+- v linuxu: Kernel 
+- tam patří ty rutiny, které bezprostředně přistupují k Hardwaru PC, respektivě zajištující virtualizaci
+- dále rutiny zajišťující logické prostředky a vrstvy nabízející rozhraní 
 
 ### Systémové procesy
-- zvláštní procesy, rutiny jádra zajištují správnou funkčnost těchto procesů
+- Zvláštní procesy
+- Závislé na jádru, chyba jádra -> pád OS
+- První proces, který v systému vznikne se jmenuje **Shell**
 - Linux je balíčkový OS
+
