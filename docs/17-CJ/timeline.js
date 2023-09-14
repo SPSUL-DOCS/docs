@@ -45,8 +45,8 @@ export default function Timeline() {
           <p style={{ color: "black" }}>{element.popis}</p>
           <p style={{ color: "gray" }}>
             autoři:{" "}
-            {element.autori.map((autor) => (
-              <span>{autor}, </span>
+            {element.autori.map((autor, index) => (
+                <span>{autor}{index !== element.autori.length - 1 ? ', ' : ''}</span>              
             ))}
           </p>
         </VerticalTimelineElement>
