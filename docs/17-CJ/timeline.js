@@ -4,8 +4,10 @@ import {
 } from "react-vertical-timeline-component";
 import React from "react";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-
+import '@site/src/css/timeline.css';
+ 
 export default function Timeline() {
+ 
   const timelineElements = [
     {
       title: "Romantismus",
@@ -37,13 +39,14 @@ export default function Timeline() {
           iconStyle={{ background: "rgb(206, 66, 19)", color: "#fff" }}
           icon={<AutoStoriesIcon />}
           iconOnClick={() => handleClick(element.url)}
+          iconClassName="iconHover"
         >
           <h1 style={{ color: "rgb(206, 66, 19)" }}>{element.title}</h1>
           <p style={{ color: "black" }}>{element.popis}</p>
           <p style={{ color: "gray" }}>
             autoři:{" "}
-            {element.autori.map((autor) => (
-              <span>{autor}, </span>
+            {element.autori.map((autor, index) => (
+                <span>{autor}{index !== element.autori.length - 1 ? ', ' : ''}</span>              
             ))}
           </p>
         </VerticalTimelineElement>
