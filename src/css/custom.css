@@ -29,6 +29,10 @@ h1 {
   text-align: center;
 }
 
+img {
+  align-self: center;
+}
+
 .katex-display, .katex, .katex-display>.katex {
   text-align: initial;
 }
