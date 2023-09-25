@@ -21,6 +21,10 @@ h1 {
   text-align: center;
 }
 
+h5 {
+  font-size: larger;
+}
+
 .red {
   color: red;
 }
