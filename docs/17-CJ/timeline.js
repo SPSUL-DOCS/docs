@@ -9,11 +9,11 @@ import "@site/src/css/timeline.css";
 export default function Timeline() {
   const timelineElements = [
     {
-      title: "Klasicismus",
+      title: "Realismus",
       date: "2020-01-01",
       popis: "Lorem ipsum",
       autori: ["karel", "vojta"],
-      url: "klacisismus",
+      url: "realismus",
     },
     {
       title: "Romantismus",
@@ -23,12 +23,12 @@ export default function Timeline() {
       url: "romantismus",
     },
     {
-      title: "Realismus",
+      title: "Klasicismus",
       date: "2020-01-01",
       popis: "Lorem ipsum",
       autori: ["karel", "vojta"],
-      url: "realismus",
-    },
+      url: "klacisismus",
+    }
   ];
 
   const handleClick = (url) => {
