@@ -63,10 +63,14 @@ date: 19.9.2023
 - Hlavní nevýhodou je malá pružnost systému alokace → Statické bloky se používají pro správu paměti jádra, kde lze požadavky jednotlivých rutin odhadnout
 
 ### C) Dynamické bloky
+
+![Dynamické bloky](./imgs/dynamickebloky.png)
+
 - aplikační paměť lze rozdělit i na bloky, jejichž velikost se přispůsobuje požadavkům procesů
 - v počátečním stavu (před alokací 1. regionu) tvoří aplikační adresový prostor jediný volný blok
 
 ---
+
 **Strategie alokace**
 
 #### First-Fit
@@ -75,14 +79,15 @@ date: 19.9.2023
 
 #### Best-Fit
 - Volí nejmenší blok z přípustných (pomalé a vede k fragmentaci)
----
 - Při uvolňování se musí provádět tzv. **scelování nových bloků**
 - Základní informace o bloku umisťujeme bezprostředně před něj → tvoří tzv. **hlavičku bloků**
-- ochrana paměti je obdobná blokům statickým (bázový a limitní registr)
+- Ochrana paměti je obdobná blokům statickým (bázový a limitní registr)
 - Hlavním problémem je fragmentace OP to jest ke vzniku mnoha malých nesouvislých bloků volné paměti
 - Důsledkem je situace, kdy je sice relativně velké množství volné paměti, ale nikoliv souvislé bloky rozumné velikosti
 - Fragmentace vede k degradaci celého systému (Procesy stále čekají na pamět a nové nelze spouštět)
 - Problém s fragmentací lze odstranit tzv. Setřásáním bloků = přesunem bloků vedoucím k uvolnění paměti
+
+---
 
 ## Netriviální
 
