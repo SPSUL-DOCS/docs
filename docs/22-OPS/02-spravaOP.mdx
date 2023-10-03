@@ -91,20 +91,16 @@ date: 19.9.2023
 
 ## Netriviální
 
-### A) monolitická aplikační paměť
+### Virtualizace paměti
 - Metody správy OP u triviálních metod nebyly příliš optimální
 - řešením na vyšší úrovni je úplná virtualizace paměti
 - Vzniká souvislý adresový prostor, který nemusí být reprezentován fyzicky souvislým blokem OP
-- Velikost tohoto tzv. virtuálního lépe logického adresového prostoru (LAP) není omezena velikostí skutečné OP, ale pouze velikostí adresy (u 32-bit adres ${2^{32}}$ = cca 4GB | u 64-bit adres ${2^{64}}$ = 16 EB)
-
-**tento LAP Lze rozdělit do 2 zákl. částí**
-
-1. část
-    - tvořena adresami, které nebyly použity (nebylo z nich čteno nebo do nich zapisováno)
+- Velikost tohoto tzv. virtuálního lépe logického adresového prostoru (LAP) není omezena velikostí skutečné OP, ale pouze velikostí adresy (u 32-bit adres $$ {2ˇ32} $$ = cca 4GB | u 64-bit adres 2ˇ64 = 16 EB)
+- tento LAP Lze rozdělit do 2 zákl. částí:
+1. část tvořena adresami, které nebyly použity (nebylo z nich čteno nebo do nich zapisováno)
     - tato část nemusí mít a většinou ani nemá žádnou fyzickou reprezentaci (data z této části nejsou nikde uložena)
     - tato část tvoří v mnoha případech větší část LAP
-2. část
-    - obsahuje adresy, na nichž jsou uložena skutečná data a musí mít i skutečnou fyzickou reprezentaci
+2. část obsahuje adresy, na nichž jsou uložena skutečná data a musí mít i skutečnou fyzickou reprezentaci
     - tuto část lze rozdělit na několik podčástí, podle místa uložení dat
     - data jsou ukládána buď v operační (primární) paměti - OP nebo na vnějších (sekundárních) paměťových zařízeních - HDD
     - důvodem jsou charakteristiky obou paměťových technologií
@@ -115,3 +111,5 @@ date: 19.9.2023
     - Díky charekteru logické paměti se nevýhody minimalizují či eliminují
     - Při použití strategie dynamických bloků pro logickou paměť může sice stále docházet k fragmentaci logické paměti, která se však při vhodně zvolené metodě virtualizace (stránkvání) neprojevuje na fyzické paměti
     - Fragmentace LAP je sice nepříjemná, avšak méně nebezpečná (rozsah log. prostoru řádově vetší a navíc je užíván jen jedním procesem)
+
+# Stránkování
