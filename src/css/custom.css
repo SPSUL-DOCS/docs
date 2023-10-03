@@ -17,6 +17,10 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
+ul ol {
+  list-style-type: decimal;
+}
+
 h1 {
   text-align: center;
 }

@@ -4,33 +4,31 @@ date: 19.9.2023
 ---
 
 # Správa operační paměti
-- **Musí plnit 5 věcí**: alokace, uvolňování, ochrana, přidělování, uvolňování
 - OP je paměť přímo přístupná procesoru
 - Uchovává kód programů, procesů, mezivýsledky jejich činností, stav ostatních prostředků
 - Souvisle adresovatelná paměť rozdělená do buněk
 - OP souvislý prostor paměťových buněk o velikosti 1Byte, jež jsou lineárně adresovány
-- Pokud je tento adresový prostor přímo reprezentován fyzickou pamětí( RAM ), označujeme jej jako Fyzický adresový prostor( FAP )
+- Pokud je tento adresový prostor přímo reprezentován fyzickou pamětí **RAM**, označujeme jej jako Fyzický adresový prostor **FAP**
 - Velikost prostoru je daná
 
-**Správa FAP musí plnit následující funkce**
-
-- Přidělování paměťových regionů na požádání procesů
-- Uvolňování paměťových regionů na žádosti procesů( Vždy musí skončit úspěchem )
-- Udržování informací o obsazení adresového prostoru
-- Zabezpečení ochrany paměti, brání procesům přistupovat k paměti mimo regiony, které vlastní
-- Podporovat střídavý běh více procesů
+##### Správa FAP musí plnit následující funkce
+- **Přidělování** paměťových regionů na požádání procesů
+- **Uvolňování** paměťových regionů na žádosti procesů (vždy musí skončit úspěchem)
+- **Udržování** informací o obsazení adresového prostoru
+- **Zabezpečení** ochrany paměti, brání procesům přistupovat k paměti mimo regiony, které vlastní
+- **Podporovat střídavý běh** více procesů
 
 # Metody správy FAP
 
 ## Triviální
 
-### A) monolitická aplikační paměť
+### Monolitická aplikační paměť
 - Nejjednodušší správa OP
-- Rozděluje adresový prostor na 2 bloky= souvislá oblast adresového prostoru určená počáteční adresou - Bází a Velikostí
-- První blokpřidělen rutinám jádra (Kernel Memory-KM)
-- Druhý blokpřidělován na požádání procesům ( Application memory-AM)
-- Paměť jádra je sdílena všemi procesy, protože rutiny Jádra, jsou užívány všemi procesy.
-- Paměť aplikační je soukromá a přístup by k ní měl mít pouze proces vlastník
+- Rozděluje adresový prostor na 2 bloky = souvislá oblast adresového prostoru určená počáteční adresou, bází a velikostí
+    1. **První blok** → přidělen rutinám jádra (Kernel Memory - KM)
+        - Paměť jádra je sdílena všemi procesy, protože rutiny Jádra, jsou užívány všemi procesy.
+    1. **Druhý blok** → přidělován na požádání procesům (Application memory - AM)
+        - Paměť aplikační je soukromá a přístup by k ní měl mít pouze proces vlastník
 
 **Algoritmus přidělení regionu**
 - Pokud je AM volná, je přidělena procesu celá bez ohledu na jím požadovanou velikost
@@ -42,40 +40,45 @@ date: 19.9.2023
 **Bázový registr**
 - Uložena adresa toho prostoru
 - Jeho obsah je automaticky přičítán k adrese použité ve strojovém kódu a teprve tento součet je užit k fyzické adresaci paměťového místa
-- Ochrana paměti se omezuje pouze na ochranu paměti jádra( protože v paměti nejsou žádné další regiony)
+- Ochrana paměti se omezuje pouze na ochranu paměti jádra (protože v paměti nejsou žádné další regiony)
 - Nejjednodušší metodou je použití bázového registru, který fyzicky znemožňuje použití fyzických adres nižších než je báze
 - V režimů jádra obsahuje bázový register nulovou adresu a proces tak může přistupovat k celému adresovému prostroru
 - Příklad OS: CPM (některé rysy v MSDOS)
 
-### B) Statické bloky
+### Statické bloky
 - Pro informovanost u statických bloků se používá pole
 - Komplikuje se i ochrana paměti, protože použití bázového registru chrání bloky jen na nižších adresách
-- Pro ochranu bloků na vyšších adresách používáme takzvaný. **limitní registr** (obsahuje velikost aktuálního regionu)
+- Pro ochranu bloků na vyšších adresách používáme takzvaný **limitní registr** (obsahuje velikost aktuálního regionu)
 - Hodnota lokální adresy je ještě před přičtením bázového registru porovnána s hodnotou limitního, pokud je větší je vyvolána výjimka
 - Největší změnou je alokace více bloků jedním procesem
-- Adresový prostor procesu je rozdělen na 3 hlavní regiony
-- **Kódový region [ CR ]** = obsahuje strojové kódy (kódy programů) - není do něj zapisováno
-- **Datový region [ DR ]** = obsahuje statická data programů - vyžaduje zápis a čtení
-- **Zásobníkový region [ SR ]** = obsahuje lokální proměnné a návratové adresy funkcí organizované jako zásobník
-- **LIFO** = last in first out
+- Adresový prostor procesu je rozdělen na tři hlavní regiony
+    1. **Kódový region [ CR ]** = obsahuje strojové kódy (kódy programů), není do něj zapisováno
+    2. **Datový region [ DR ]** = obsahuje statická data programů, vyžaduje zápis a čtení
+    3. **Zásobníkový region [ SR ]** = obsahuje lokální proměnné a návratové adresy, funkcí organizované jako zásobník (**LIFO** = last in first out)
 - Strategie statických bloků umožňuje souběžnou existenci více procesů i bez odkládání na disk
-- Počet souběžně existujících procesů je však omezen počtem (paměťových ) bloků
-- Hlavní nevýhodou je malá pružnost systému alokace → Statické bloky se používají pro správu paměti jádra, kde lze požadavky jednotlivých rutin odhadnout
+- Počet souběžně existujících procesů je však omezen počtem (paměťových) bloků
+- Hlavní nevýhodou je malá pružnost systému alokace → statické bloky se používají pro správu paměti jádra, kde lze požadavky jednotlivých rutin odhadnout
 
-### C) Dynamické bloky
+### Dynamické bloky
+
+<div class="center">
 
 ![Dynamické bloky](./imgs/dynamickebloky.png)
+
+*červená označuje nevyužitou paměť, tzv. fragmentaci*
+
+</div>
 
 - aplikační paměť lze rozdělit i na bloky, jejichž velikost se přispůsobuje požadavkům procesů
 - v počátečním stavu (před alokací 1. regionu) tvoří aplikační adresový prostor jediný volný blok
 
 ---
 
-**Strategie alokace**
+### Strategie alokace
 
 #### First-Fit
-- při alokaci vyhledá 1. přípustný blok
-- pokud je jeho velikost rovna požadavků je blok přidělen celý, v ostatních případech je rozdělen na 2 bloky, 1. požadované velikosti je přidělen procesu, 2. zůstává volný
+- při alokaci vyhledá první přípustný blok
+- pokud je jeho velikost rovna požadavků je blok přidělen celý, v ostatních případech je rozdělen na dva bloky, první požadované velikosti je přidělen procesu, druhý zůstává volný
 
 #### Best-Fit
 - Volí nejmenší blok z přípustných (pomalé a vede k fragmentaci)
@@ -128,4 +131,4 @@ date: 19.9.2023
 - Mezi jednotlivými fyzickými a logickými stránkami existuje zobrazení, které však nemůže být úplné ( Množiny na množinu )
 - Protože velikost LAP je výrazně větší než velikost FAP
 - Proto vždy existují logické stránky, které nemajií přiřazený rámec tzv. Neplatné stránky Kuči říká: “Pamatovat”
-- Mohou však existovat i rámce ( v FAP ), na nichž není mapována žádná logická stránka tzv. Volné rámce( Tvoří nevyužitou fyzickou paměť ) Kuči říká: “Pamatovat”
+- Mohou však existovat i rámce ( v FAP ), na nichž není mapována žádná logická stránka tzv. Volné rámce (Tvoří nevyužitou fyzickou paměť) Kuči říká: “Pamatovat”
