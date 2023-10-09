@@ -1,0 +1,78 @@
+---
+title: "Routování mezi sítěmi"
+description: "Efficiently route network traffic with Cisco technology."
+---
+
+# Routování mezi sítěmi
+- Funguje ve 3. vrstvě modelu ISO/OSI
+- Využívá se k přenosu dat mezi sítěmi
+- Dělí se podle nastavení a náročnosti na routování
+    - Statické => nastavíme staticky cestu do jiné sítě
+    - Dynamické => cesta se nastaví automaticky
+
+## Statické routování
+- Nastavíme staticky cestu do jiné sítě
+- Nízká náročnost na HW
+
+```yml title="Nastavení statického routování"
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <interface_to_exit>
+```
+
+---
+
+**interface to exit**
+<img src="/img/dasimg/interface_exit_port.png" alt="Logo"/>
+
+:::warning Router 1 je ten, kde nastavujeme ip route
+:::
+
+---
+
+:::tip Defaultní cesta 
+Můžeme nastavit defaultní cestu pro routování, pokud router neví, kam poslat paket tak se pošle na defaultní cestu
+
+```yml title="Nastavení defaultní cesty"
+Router(config)#ip route 0.0.0.0 0.0.0.0 <interface_to_exit>
+```
+:::
+
+:::tip Náhradní cesta
+Pokud máme více cest do stejné sítě, tak můžeme nastavit náhradní cestu, která se použije, pokud hlavní cesta nebude dostupná
+
+```yml title="Nastavení náhradní cesty"
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <interface_to_exit> <priorita>
+```
+
+*priorita slouží k určení, která cesta se použije dříve, čím menší číslo, tím dříve se použije, pokud nízká priorita selže, tak se použije cesta s vyšší prioritou*
+:::
+
+## Dynamické routování
+- Náročnější na HW
+
+### Autonomní systém
+- označuje oblast sítě, která je spravována jedním subjektem (jeden dům s více routery)
+
+### Vnitřní a vnější routování
+- **Interior** => protokoly: RID, IGRP, EIGRP, OSPF
+    - Distance vector => "hloupé routování", každý router si přeposílá svojí routovací tabulku (spolíhají na pravdivost všech)
+    - Link-state => posílají si pouze tabulku s nejkratší cestou (sousedů), každý router si vytváří svoji tabulku pomocí informací od ostatních routerů
+- **Exterior** => routování zařizuje poskytovatel internetu (ISP)
+
+### OSPF *Open Shortest Path First*
+
+*Nastavení OSPF*
+
+```yml title="Výběr skupiny v OSPF protokolu"
+Router(config)# router ospf <group-id> 
+```
+
+```yml title="Nastavení sítě v OSPF protokolu"
+Router(config-router)# network <ip-adresa> <wildcard-mask> area <area-id>
+```
+
+- **wildcard mask** => inverzní maska (bity jsou obráceně) *255.255.255.0 => 0.0.0.255* 
+- **area-id** => oblast routování (pokud chceme aby skupina routerů routovala mezi sebou, tak musíme dát stejné číslo)
+
+:::warning area-id
+Pokud ti nebude fungovat ospf, pravděpodobně je to protože máš area-id různé od nuly, jestli máš jenom jednu skupinu routerů, tak nastav area-id na 0
+:::
