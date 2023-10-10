@@ -93,7 +93,6 @@ date: 19.9.2023
 ---
 
 ## Netriviální
-
 ### Virtualizace paměti
 - Metody správy OP u triviálních metod nebyly příliš optimální
 - řešením na vyšší úrovni je úplná virtualizace paměti
@@ -122,13 +121,46 @@ date: 19.9.2023
 - Je prováděno procesorem
 - MMU ( Management memory unit )
 - Mechanismus stránkování má 2 základní části:
-- **Překlad adres** - Logická adresa je překládána na fyzickou
-- **Výpadek stránky** - Přerušení při přístupu na neplatnou stránku
+    - **Překlad adres** - Logická adresa je překládána na fyzickou
+    - **Výpadek stránky** - Přerušení při přístupu na neplatnou stránku
 - Rozděluje LAP na **logické stránky** stejné velikosti (4 - 8 KB)
 - Velikost stránek se může u různých architektur lišit, typicky v řádech jednotek kilobytech
-- Na stejné stránky se myšleně rozdělí i FAP
-- Označujeme je jako stránky fyzické či lépe jako Rámce
+- Na stejné stránky se myšleně rozdělí i FAP, označujeme je jako stránky fyzické či lépe jako **Rámce**
 - Mezi jednotlivými fyzickými a logickými stránkami existuje zobrazení, které však nemůže být úplné ( Množiny na množinu )
 - Protože velikost LAP je výrazně větší než velikost FAP
-- Proto vždy existují logické stránky, které nemajií přiřazený rámec tzv. Neplatné stránky Kuči říká: “Pamatovat”
-- Mohou však existovat i rámce ( v FAP ), na nichž není mapována žádná logická stránka tzv. Volné rámce (Tvoří nevyužitou fyzickou paměť) Kuči říká: “Pamatovat”
+- **Neplatné stránky**: logické stránky, které nemají přiřazený rámec 
+- **Volné rámce**: rámce, na které není mapována žádná logická stránka a tvoří tak nevyužitou fyzickou paměť. Kuči jim říká: "Pamatovat".
+
+
+## Mechanismus překladu adres při stránkování
+- Každá logická adresa se rozdělí na 2 části
+    1. Vyšší označuje logickou stránku (tj. její pořadí)
+    1. Nižší obsahuje adresu paměťového místa vztaženou k dané stránce (tzv. Offset)
+- Přímým procesem překladu projde pouze číslo logické stránky
+- Překlad se děje převodem čísla (pořadí) logické stránky nad číslo (pořadí) rámce prostřednictvím tzv. tabulky stránek
+- Tabulka obsahuje položky, které jsou indexovány číslem logické stránky a obsahují číslo rámce a skupinu příznaků:
+    - VF: Validity flag, příznak platnosti
+    - DF: Dirty flag, příznak zápisů do stránky
+- Získané číslo rámce fyzické stránky je bitovým posunutím vlevo převedeno na bázovou adresu rámce ve fyzické paměti
+- Posledním krokem je přičtení stránkového offsetu k bázové adrese rámce, čímž se již získá fyzická adresa
+
+<div class="center">
+
+![preklad adres](./imgs/prekladAdres.jpg)
+
+</div>
+
+## Druhý mechanismus stránkování (neplatná stránka)
+- Co však nastane pokud proces přistoupí k neplatné stránce?
+- Za této situace nastane **výpadek stránky**
+- **Výpadek stránky** (Výjimka) - přeruší instrukci a předá řízení obslužné rutině v jádře systému, tato rutina má 2 možnosti jak na situaci reagovat:
+    1. **Nalezne odpovídající rámec** - zajistí jeho propojení s logickou stránkou a tu následně splatní (V tabulce stánek se uloží index rámce a nastaví bit platnosti [VF-validity flag])
+    1. **Ukončí proces** - pošle se výjimka (win 32)
+- O tom, jak obslužná rutina zareaguje, rozhoduje umístění logické stránky v LAP
+- Poslední fáze výpadku stránek spočívá v opětovném provedení přerušené instrukce, která již na druhý pokus výpadek stánky nezpůsobí, protože stránka už je platná 
+
+:::warning Náročnost restartování instrukce
+Restartování instrukce není v moderních procesorech triviální operací (MMU - tvoří relativně významnou část procesoru)
+:::
+
+- Tabulka stránek podporuje ochranu paměti, v každé položce jsou definovány přípustné operace s daty
