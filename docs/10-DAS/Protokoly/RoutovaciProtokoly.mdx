@@ -15,16 +15,20 @@ description: "Efficiently route network traffic with Cisco technology."
 - Nízká náročnost na HW
 
 ```yml title="Nastavení statického routování"
-Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <interface_to_exit>
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <next-hop>
 ```
 
 ---
 
-**interface to exit**
-<img src="/img/dasimg/interface_exit_port.png" alt="Logo"/>
+<div class="center">
 
-:::warning Router 1 je ten, kde nastavujeme ip route
-:::
+**Next hop**
+
+![next hop](/img/dasimg/interface_exit_port.png)
+
+*Router 1 je ten, kde nastavujeme ip route*
+
+</div>
 
 ---
 
@@ -32,7 +36,7 @@ Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <int
 Můžeme nastavit defaultní cestu pro routování, pokud router neví, kam poslat paket tak se pošle na defaultní cestu
 
 ```yml title="Nastavení defaultní cesty"
-Router(config)#ip route 0.0.0.0 0.0.0.0 <interface_to_exit>
+Router(config)#ip route 0.0.0.0 0.0.0.0 <next-hop>
 ```
 :::
 
@@ -40,7 +44,7 @@ Router(config)#ip route 0.0.0.0 0.0.0.0 <interface_to_exit>
 Pokud máme více cest do stejné sítě, tak můžeme nastavit náhradní cestu, která se použije, pokud hlavní cesta nebude dostupná
 
 ```yml title="Nastavení náhradní cesty"
-Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <interface_to_exit> <priorita>
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <next-hop> <priorita>
 ```
 
 *priorita slouží k určení, která cesta se použije dříve, čím menší číslo, tím dříve se použije, pokud nízká priorita selže, tak se použije cesta s vyšší prioritou*
@@ -53,14 +57,14 @@ Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <int
 - označuje oblast sítě, která je spravována jedním subjektem (jeden dům s více routery)
 
 ### Vnitřní a vnější routování
-- **Interior** => protokoly: RID, IGRP, EIGRP, OSPF
-    - Distance vector => "hloupé routování", každý router si přeposílá svojí routovací tabulku (spolíhají na pravdivost všech)
-    - Link-state => posílají si pouze tabulku s nejkratší cestou (sousedů), každý router si vytváří svoji tabulku pomocí informací od ostatních routerů
+- **Interior** => protokoly: RIP, IGRP, EIGRP, OSPF
+    - Distance vector => spoléhá na routovací tabulky sousedních routerů
+    - Link-state =>  vytváří tabulku sousedů, sbírá informace od všech routerů a pomocí toho si vytvoří mapu a z ní si pak sám vypočítá nejlepší cestu 
 - **Exterior** => routování zařizuje poskytovatel internetu (ISP)
 
 ### OSPF *Open Shortest Path First*
 
-*Nastavení OSPF*
+**Nastavení OSPF**
 
 ```yml title="Výběr skupiny v OSPF protokolu"
 Router(config)# router ospf <group-id> 
