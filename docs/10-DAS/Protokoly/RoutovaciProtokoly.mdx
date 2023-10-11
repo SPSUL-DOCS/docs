@@ -62,6 +62,34 @@ Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <nex
     - Link-state =>  vytváří tabulku sousedů, sbírá informace od všech routerů a pomocí toho si vytvoří mapu a z ní si pak sám vypočítá nejlepší cestu 
 - **Exterior** => routování zařizuje poskytovatel internetu (ISP)
 
+### RIP *Routing Information Protokol* 
+- distance-vector
+- metrika => počet skoků (max počet skoků je 15)
+- malé sítě, nenáročné na HW
+- Verze:
+    - **RIPv1** => nepoužívat (nefungujou masky)
+    - **RIPv2** => lepší
+    - **RIPng** => funguje i IPv6 routing
+- routery si přeposílají routovací tabulky
+
+**Nastavení RIP**
+
+```yml title="Vyberu nastaveni RIP"
+Router(config)# router rip 
+```
+
+```yml title="Nastavení sousedních sítí v RIP protokolu"
+Router(config-router)# network <ip-adresa>
+```
+
+<div class="center">
+
+*Nastavujeme všechny sítě, které jsou připojeny k danému routeru.*
+
+</div>
+
+---
+
 ### OSPF *Open Shortest Path First*
 
 **Nastavení OSPF**
