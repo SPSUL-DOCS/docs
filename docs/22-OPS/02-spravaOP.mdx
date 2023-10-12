@@ -164,3 +164,36 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
 :::
 
 - Tabulka stránek podporuje ochranu paměti, v každé položce jsou definovány přípustné operace s daty
+
+# Stránkování na žádost
+- Základním principem je tzv. lenivé vykonávání
+- Lenivé vykonávání - vše je provedeno až v okamžiku, kdy je toho skutečně třeba
+- Po přidělení regionu jsou všechny jeho stránky neplatné a platnými se stávají až po prvním přístupu k nim.
+- Jinak řečeno fyzická paměť je procesu přidělována až v okamžiku, kdy ji skutečně potřebuje.
+- Logické stránky uvnitř regionů, které jsou neplatné (protože k nim proces ještě ani jednou nepřistoupil) se označují jako **panenské stránky**
+- Na začátku jsou všechny stránky panenské
+- Jak systém vyřeší výpadek stránky při přístupu k panenské stránce, to závisí na druhu regionu v němž tato logická stránka leží
+1. **V kódovém regionu**
+    - Aby obslužná rutina zajistila splatneni stránky musí nalézt volný rámec (pokud není žádný rámec volný, musí jej ukrást)
+    - Dále musíme do tohoto rámce nahrát odpovídající segment spustitelného souboru
+    - Následně se rámec propojí s logickou stránkou (V tabulce stránek se uloží identifikace rámce a nakonec se stránka splatní)
+    - Nastaví se bit platnosti v danné položce tabulce stránek
+    - Poté výpadek stránky skončí návratem z přerušení a procesor opakovaným čtením požadovanou instrukci načte
+2. **V datovém regionu**
+    - Reakce se liší v závislosti na požadované počáteční hodnotě daného paměťového místa
+    - Nejjednodušší je situace v případě, že na počáteční hodnotě nezáleží.
+        - Zde stačí logickou stránku propojit s libovolným rámcem a logickou stránku splatnit
+    - Pokud je požadována nulová hodnota
+        - Je použit podobný přístup jako v předchozím případě, pouze při vyhledávání volného rámce jsou preferovány rámce, které jsou vyplněny pouze nulovou hodnotou
+        - Pokud se nenajde, vezme systém za vděk libovolným volným rámcem, který však před připojením vynuluje, virtualizátor si udržuje informace o volných a nulových rámcích
+    - Posledním podtypem jsou stránky na pozicích statických proměnných s nenulovou počáteční hodnotou.
+        - Počáteční hodnoty těchto proměnných jsou uloženy ve spustitelném souboru, kde tvoří zvláštní datový blok (Tj. při výpadku panenské stránky je vzat volný rámec, do něj je zkopírována odpovídající část spustitelného souboru a následně je rámec s danou logickou stránkou propojen)
+3. **V zásobníkové regionu**
+    - Při výpadku stačí připojit libovolný volný rámec, při čemž nulování není vyžadováno
+    - Zvětšuje se zásobníkový region, výjmečně i datový
+- V oblasti **paměti jádra ** jsou panenské stránky za běhu systému spíše vyjímkou, protože většina logických stránek je využita již ve fázi bootování, nebo jsou dokonce od své alokace pevně vázány na rámce, nemohou být ani ukradeny
+
+# Jak si ukrást stránku
+- Předchozí přehled reakcí systému na výpadky stránek předpokládal, že fyzické OP je k dispozici téměř neomezené množství, tj. obsluha výpadku stránky vždy najde volný rámec
+- OP není nikdy dost a systém je tak nucen odebírat rámce procesům, kteří tyto rámce vlastní, ale dostatečně je nevyužívají
+- Tento proces se označuje jako kradení stránek (Promítá se do mechanismů stránkování na žádost, činí ho složitějším)
