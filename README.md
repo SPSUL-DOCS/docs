@@ -3,7 +3,7 @@ Shrnutí materiálů pro obor IT - SPSUL Stříbrníky
 
 O projekt se stará [Jakub Grezl](https://github.com/jakubgrezl)
 
-Pokud máté jakékoliv dotazy, nebo nápady, neváhejte ho kontaktovat na discordu: `chcispat#5047` nebo vytvořte issue.
+Pokud máté jakékoliv dotazy, nebo nápady, neváhejte ho kontaktovat na discordu: `chcispat` nebo vytvořte issue.
 
 ## Pomožte nám s dokumentací
 
