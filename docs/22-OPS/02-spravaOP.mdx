@@ -197,3 +197,9 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
 - Předchozí přehled reakcí systému na výpadky stránek předpokládal, že fyzické OP je k dispozici téměř neomezené množství, tj. obsluha výpadku stránky vždy najde volný rámec
 - OP není nikdy dost a systém je tak nucen odebírat rámce procesům, kteří tyto rámce vlastní, ale dostatečně je nevyužívají
 - Tento proces se označuje jako kradení stránek (Promítá se do mechanismů stránkování na žádost, činí ho složitějším)
+
+### Kradení probíhá v následujících fázích
+1. Počáteční podmínka (nenalezení volného rámce)
+    - Virtualizátor si udržuje informace o využití všech rámců
+    - Každá položka tzv. tabulky rámců(popisuje stavy, volných, obsazených, pozice odloženosti na SWAPU )
+    - Při výpadku stránky je tabulka prohledána a pokud není nalezena volná stránka je zahájen proces **kradení rámce**y
