@@ -194,12 +194,27 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
 - V oblasti **paměti jádra ** jsou panenské stránky za běhu systému spíše vyjímkou, protože většina logických stránek je využita již ve fázi bootování, nebo jsou dokonce od své alokace pevně vázány na rámce, nemohou být ani ukradeny
 
 # Jak si ukrást stránku
-- Předchozí přehled reakcí systému na výpadky stránek předpokládal, že fyzické OP je k dispozici téměř neomezené množství, tj. obsluha výpadku stránky vždy najde volný rámec
-- OP není nikdy dost a systém je tak nucen odebírat rámce procesům, kteří tyto rámce vlastní, ale dostatečně je nevyužívají
+- Předchozí přehled reakcí systému na výpadky stránek předpokládal, že fyzické OP je k dispozici téměř neomezené množství (obsluha výpadku stránky vždy najde volný rámec)
+- OP není nikdy dost a systém je tak nucen odebírat rámce procesům, kteří tyto rámce vlastní, ale dostatečně je nevyužívají, nebo prostě není kde brát 
 - Tento proces se označuje jako kradení stránek (Promítá se do mechanismů stránkování na žádost, činí ho složitějším)
 
 ### Kradení probíhá v následujících fázích
 1. Počáteční podmínka (nenalezení volného rámce)
     - Virtualizátor si udržuje informace o využití všech rámců
     - Každá položka tzv. tabulky rámců(popisuje stavy, volných, obsazených, pozice odloženosti na SWAPU )
-    - Při výpadku stránky je tabulka prohledána a pokud není nalezena volná stránka je zahájen proces **kradení rámce**y
+    - Při výpadku stránky je tabulka prohledána a pokud není nalezena volná stránka je zahájen proces **kradení rámce**
+1. Vytipování vhodného rámce
+    - Základní strategie pro nejvhodnějšího kandidáta na ukradení = rámce jehož ukradení by co nejméně zpomalilo systém a dotčené aplikace
+    - Nyní předpokládáme, že výsledkem této fáze je jediný rámec, který bude v následujících fázích, který ho využívá
+1. Uložení obsahu vytipovaného rámce do SWAPU
+    - Prvním krokem je odložení obsahu rámce do SWAPu (na disku)
+    - Pokud nemá zvolený rámec svůj obraz na SWAPu( nebyl ještě nikdy ukraden )
+    - Je nalezen volný blok není-li na SWAPu místo musí být proces pro nějž je paměť kradena bezpodmíněčně ukončen (tzv. vyčerpání fyzické paměti)
+    - Má-li však rámec svůj obraz (již byl dříve ukraden) je rámec odložen do bloku původního obrazu
+    - Uložení obsahu paměti na disk je velmi pomalá operace, z tohoto důvodu neukládá ty rámce, jejichž obraz je již na disku a které nebyli od posledního uložení změněny
+    - Pro zjištění zda nebyla data změněna slouží tzv. dirty bit (rámec který obsahuje jiná data, než jeho obraz ve SWAPu, se označuje jako špinavý rámec)
+    - V případě přesunu dat do sekundární paměti, naplánuje proces uložení daného rámce na SWAP, a poté se zablokuje (opustí dobrovolně procesor a čeká pozastaven na dokončení této operace)
+1. Zneplatnění logické stránky, která na kradený rámec odkazovala
+    - Po uložení rámce na disk, je proces odblokován a poté co opět získá procesor, zneplatní logickou stránku, s níž byl rámec propojen a nastaví, že při jejím potenciálním výpadku má být obnovena ze SWAPu (v tabulce stránek - identifikace příslušného bloku na SWAP)
+    - Nyní když je stránka volná, a může být propojena s logickou stránkou, jejíž výpadek celý proces kradení odstartoval
+    - Pokud požadavky na paměť výrazně převýší kapacitní možnosti OP a procesy se tudíž přetahují o rámce, dochází k velkým výpadkům tj. systém nedělá nic jiného než hořečně SWAPuje na disk a procesy stojí tzv. zahlcení (trashing)
