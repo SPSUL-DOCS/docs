@@ -221,4 +221,53 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
     - Nyní když je stránka volná, a může být propojena s logickou stránkou, jejíž výpadek celý proces kradení odstartoval
     - Pokud požadavky na paměť výrazně převýší kapacitní možnosti OP a procesy se tudíž přetahují o rámce, dochází k velkým výpadkům tj. systém nedělá nic jiného než hořečně SWAPuje na disk a procesy stojí tzv. zahlcení (trashing)
 
-### Strategie kradení stránek
+## Globální strategie kradení stránek 
+- Strategie určuje, který z obsazených rámců je nejvhodnějším kandidátem pro ukradení a přidělení jiné logické stránce
+- Nejznámější a nejčastěji používanou strategií je LRU (**Least recently used** - volba nejdéle nepoužívané stránky)
+- Platí pravděpodobnost dalšího přístupu při delší nečinnosti klesá
+- Platnost tohoto tvrzení je dána tzv. zachováním principu lokality
+- Pracovní množina stránek procesu (WP(t)) p v čase t
+- WP(t) je množina těch rámců, k nimž proces přistupoval v čase \<t-Δt>, kde delta je časový interval krátký vzhledem běhu programu
+- WP(t) se v čase mění (přibírání a mizení rámců dle vývoje procesu)
+- Míra zachování lokálnosti lze např. vyjádřit
+- Blíží-li se tato míra 1 je princip lokality zachován (LRU je vhodnou strategií )
+- Blíží-li se k 0 není LRU efektivní strategií
+- Bohužel i když je LRU proveditelné, vyžádala by si jeho podpora neúměrnou režii, protože by od procesoru, vyžadovala při každém přístupu k paměti zanechání časového razítka( timestamp ) v tabulce stránek a v okamžiku kradení nalezení minimální hodnoty tohoto razítka mezi všemi logickými stránkami
+- Z tohoto důvodu se používají strategie jako pseudo LRU (málo společného s LRU )
+
+#### Pseudo LRU
+- Většina těchto strategií volí libovolnou stránku, která není v aktuálních pracovnách množinách procesů (NRU-not recently used)
+- OS vynuluje dirty-bity všech logických stránek v alokovaných regionech a nechá běžet aplikaci
+- Jedničkovým dirty bitem jsou identifikovány všechny stránky v WP(t)
+- Naopak stránky u nichž je dirty bit nulový jsou kandidáty na ukradení
+- Závěrečné rozhodnutí, která stránka bude nakonec ukradena může být libovolné
+- Obyčejné OS
+
+#### Zloděj stránek
+- Tento systémový proces je většinu času pozastaven a probouzí se pouze tehdy, když podíl volných rámců klesne pod stanovenou dolní mez (mezi 3-7%)
+- Po probuzení zjistí jaké rámce nejsou využívány (ty mimo WP(t)), a potom je začne krást, nikoliv však pro sebe, ale pro ostatní procesy (tj. nepřipojuje je ke svým logickým stránkám, ale nechává je volné)
+
+#### Výhody zloděje stránek oproti strategii ,,Ukradni si sám"
+- Urychluje ukládání odcizených stránek (krade po stovkách)
+- Brání nestabilitě, která může vzniknout pokud se více procesů snaží ukrást jedinou stránku (procesu je ukradený rámec znovu ukraden a to dříve než ho stačí použít)
+
+## Lokální strategie kradení stránek (FIFO)
+- Zvolen rámec, **který je nejdéle používán** (nejdéle propojen s logickou stránkou)
+- Strategie LRU není jediná v praxi používaná strategie
+- Není založena na principu lokality, **lokální** charakter přináší výhody v oblasti **ochrany důvěrných údajů**
+- Každý nově propojený rámec je zařazen na konec fronty (FIFO) a z přední části vybíráme stránky, které budou ukradeny
+- Musí existovat **správce pracovních množin**: kontroluje míru využití přidělených rámců a dle ní přiděluje či odebírá procesům rámce. Ty které odebere jsou nulovány a ihned přidělovány jiným procesům (Odebírání se děje pouze při nedostatku OP)
+- Servrové systémy
+
+## Sdílená paměť
+- Do teď jsme předpokládali, že každý region paměti je vlastněn pouze 1 procesem a že každý rámec OP je propojen nejvýše s jednou log. stránkou
+- Virtualizace paměti umožňuje realizaci tzv. sdílených pamětí = Fyzický paměť prostor (FAP+SWAP) přístupný z několika LAP
+- Základní myšlenka je ve **sdílení obsahu tabulky stránek** => položky tabulky stránek, příslušné danému bloku, obsahují ve všech LAP shodné údaje
+- Správa sdílené paměti *určena dvěma principi*
+    - Principem konzistence - všechny procesy musí mít v každém okamžiku stejný obraz paměti
+    - Principem lenivého vykonávání - vše je provedeno až tehdy, kdy již není zbytí
+- Pokud dojde k ukradení rámce, který je spojen se sdíleným regionem, musí být zneplatněny odpovídající log. stránky ve všech dotčených adres. prostorech
+- Naopak pokud dojde ke zplatnění stránky v rámci výpadku stránky způsobené jedním z procesů, stačí když je zplatněna jen ta jediná výpadkem dotčená log. stránka, při výpadku dalších stran, může systém detekovat, že obraz této stránky již v OP existuje a následně zajistit její propojení (zjistí přes index na swap)
+- Kódový region je sdílený a připojí všechny instance daného programu do svého LAP
+- V každém případě se šetří swap a urychluje se běh aplikací
+- Použití sdíleného kódu je ve vetšině současných OS dále rozvinut podporou tzv. linkovaných knihoven (ve Win - .dll | Unix - .so) a ty jsou na požádání procesu připojeny až při jeho spuštění, jsou sdíleny všemi aplikacemi, které je v daném okamžiku potřebují
