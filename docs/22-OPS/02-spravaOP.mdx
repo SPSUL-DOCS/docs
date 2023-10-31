@@ -271,3 +271,11 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
 - Kódový region je sdílený a připojí všechny instance daného programu do svého LAP
 - V každém případě se šetří swap a urychluje se běh aplikací
 - Použití sdíleného kódu je ve vetšině současných OS dále rozvinut podporou tzv. linkovaných knihoven (ve Win - .dll | Unix - .so) a ty jsou na požádání procesu připojeny až při jeho spuštění, jsou sdíleny všemi aplikacemi, které je v daném okamžiku potřebují
+
+## Dočasně sdílená paměť *Copy on Write*
+- Kromě klasické sdílené paměti podporují některé OS i tzv. dočasně sdílenou paměť, tvoří ji minimálně 2 paměťové regiony, které zpočátku odkazují na rámec, pokud provádějí jen čtení situace se nemění, pokud ovšem jeden z procesů se pokusí do paměti zapsat je vyvolána procesorová vyjímka a v jejím rámci dojde k rozštěpení fyzické paměti
+- Proces, který způsobil vyjímku získá svůj vlastní soukromý rámec, do něhož je zkopírován obsah z původního sdíleného rámce
+- Po návratu z vyjímky proces zápis dokončí, ale tentokrát již do vlastní a nesdílené paměti, pro ostatní procesy nedojde ke změně
+- Tato strategie se označuje jako COPY ON WRITE neboli kopírování při zápise
+- COPY ON WRITE je výhodné především v případě, pokud oba procesy z paměti pouze čtou
+- implementace mechanismu je snadná, u každé logické stránky spojené s COPY ON WRITE rámcem nastavit zákaz zápisu spolu s bitovým příznakem COPY ON WRITE.
