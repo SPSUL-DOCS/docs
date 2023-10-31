@@ -136,7 +136,12 @@ const config = {
           {
             to: 'docs/category/das',
             position: 'left',
-            label: 'DAS',
+            label: 'DAS🛰️',
+          },
+          {
+            to: 'docs/category/databaze',
+            position: 'left',
+            label: 'DAT',
           },
           {
             to: 'docs/category/tvy',
@@ -149,19 +154,9 @@ const config = {
             label: 'WEA',
           },
           {
-            to: 'docs/category/databaze',
-            position: 'left',
-            label: 'DAT',
-          },
-          {
             to: 'docs/category/csharp',
             position: 'left',
             label: 'C#',
-          },
-          {
-            to: 'docs/category/zpv',
-            position: 'left',
-            label: 'ZPV',
           },
           {
             to: 'docs/category/alg',
@@ -169,19 +164,29 @@ const config = {
             label: 'ALG',
           },
           {
+            to: 'https://docs.bagros.eu/docs/category/ops/',
+            position: 'left',
+            label: 'OPS',
+          },
+          {
+            to: 'docs/category/zpv',
+            position: 'left',
+            label: 'ZPV',
+          },
+          {
             to: 'docs/category/cj',
             position: 'left',
             label: 'ČJL',
           },
           {
-            to: 'docs/category/maturita',
-            position: 'left',
-            label: 'Maturita',
-          },
-          {
             href: 'https://docs.spsul.cz/dejepis.pdf',
             position: 'left',
             label: 'DEJ',
+          },
+          {
+            to: 'docs/category/maturita',
+            position: 'left',
+            label: 'Maturita',
           },
           {
             href: 'https://github.com/SPSUL-DOCS/docs',
