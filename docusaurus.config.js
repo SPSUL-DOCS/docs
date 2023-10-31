@@ -164,7 +164,7 @@ const config = {
             label: 'ALG',
           },
           {
-            to: 'https://docs.bagros.eu/docs/category/ops/',
+            to: 'docs/category/ops',
             position: 'left',
             label: 'OPS',
           },
