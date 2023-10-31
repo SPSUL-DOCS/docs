@@ -1,16 +1,27 @@
 ---
-title: "Úvod"
+title: "Úvod a Hradla"
 date: 7.9.2023
 ---
 
+import "/src/css/eltIntro.css";
+
 # Dělení elektrotechniky
+
 ### 1. Analogová elektronika
+
 - nabírá nekonečno mnoho hodnot
 - jedná se o základní elektroniku (rezistory, součastky)
 
 ### 2. Diskrétní (číslicová)
+
+- obsahuje logickou 0 a logickou 1
 - nabírá pouze určený počet hodnot
 - většinou nabírá dvou hodnot (0 nebo 1)
+- diskrétní elektroniku používáme v logických obvodech
+- logické obvody se dělí na:
+
+1. Kombinační obvod - výstup je dán pouze kombinací vztupních hodnot
+2. Sekvenčí obvod -
 
 :::tip L a H
 Někde lze najít označení L (low power) a H (high power)
@@ -19,16 +30,24 @@ Někde lze najít označení L (low power) a H (high power)
 :::
 
 ## Hradla (Logické brány)
+
 ![hradla](/img/eltimg/image_4.png)
 
-### 1. AND
+_do schémat hradel se nekreslí dodatečné napájení_
+
+---
+
+<div class="collumns-wrapper">
+<div style={{ width: "50%" }}>
+
+### AND
 
 *Výstup je v logické 1 tehdy, když jsou všechny vztupy logická 1*
-
 - Má 2 a více **vztupů**
 - Jeden **výstup**
 
 Možnosti funkčnosti:
+
 
 |Vztup 1 (A)|Vztup 2 (B)|Výstup (Y)|
 |:-:|:-:|:-:|
@@ -36,3 +55,33 @@ Možnosti funkčnosti:
 |0|1|0|
 |1|0|0|
 |1|1|1|
+
+### OR
+
+- Pokud někde je logická 1, tak výsledek je logická 1
+
+|Vztup 1 (A)|Vztup 2 (B)|Výstup (Y)|
+|:-:|:-:|:-:|
+|0|0|0|
+|0|1|1|
+|1|0|1|
+|1|1|1|
+
+</div>
+
+<div style={{ width: "50%" }}>
+
+### NOT (Inventor)
+
+- vrací opačný vztup
+
+| Vztup 1 (A) | Výstup (Y) |
+| :---------: | :--------: |
+|      1      |     0      |
+|      0      |     1      |
+
+bezpecnosti zarizeni 3 vstupy - poplach se vyhlasi pokud dva nebo vice vztupu bude aktivnich
+
+
+</div>
+</div>

@@ -1,0 +1,33 @@
+---
+title: "Řešení kombinačních obvodů"
+---
+
+# Řešení složených obvodů
+
+1. Zadání
+2. PT
+3. RCE
+4. SCHEMA
+
+**Příklad**: kdyz jsou 2 ze 3 vztupů zapnutý, zapne se žárovka
+
+**Řešení**:
+
+|A|B|C|Y|řešení|
+|-|-|-|-|-|
+|0|0|0|0||
+|0|0|1|0||
+|0|1|0|0||
+|0|1|1|1|!ABC|
+|1|0|0|0||
+|1|0|1|1|A!BC|
+|1|1|0|1|AB!C|
+|1|1|1|1|ABC|
+
+## Minimalizace
+- Dělá se přes:
+
+1. Boolova algebra
+1. Karhofova mapa
+
+

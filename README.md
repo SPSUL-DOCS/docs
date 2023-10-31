@@ -19,6 +19,10 @@ Pokud vám něco chybí, nebo se vám něco nelíbí, neváhejte a vytvořte pul
 6. Pomocí `git push` nahrajte změny na GitHub
 7. Vytvořte pull request
 
+### Jak zapnout live server
+
+1. V složce zapneme commandem `npm run start`
+
 
 ## TODO:
  - [ ] Přidat search engine - [Algolia](https://www.algolia.com/) nebo [Meilisearch](https://www.meilisearch.com/)

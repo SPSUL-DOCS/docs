@@ -16,7 +16,13 @@ Architektůry se liší podle úrovně spolupráce jednotlivých rutin OS.
 - proces mění úroveň privilegovanosti pouze při vzniku přerušení (uzivatelske -> jadro).
 - příklad: MS DOS
 
+<div className="center">
+
 ![monolitickeOS](imgs\monolitickeOS.png)
+
+</div>
+
+
 
 ## 2. Spolupráce rutin omezena hierarchicky (hierarchické->vrstevnaté)
 - v dnešní době neexistuje OS, který by neobsahoval rysy Hierarchické architektury
@@ -30,8 +36,11 @@ Architektůry se liší podle úrovně spolupráce jednotlivých rutin OS.
     - API rozhraní pro volání systémových služeb (vrstva s jednoduchými funkcemi pro programátory)
 - dispečer systémových služeb:řídí provoz
 
+<div className="center">
+
 ![hierarchickeOS](imgs\hierarchickeOS.png)
 
+</div>
 
 ## 3. Plně distribuované (klient-server)
 - Zde rutiny netvoří jediný celek
@@ -42,4 +51,8 @@ Architektůry se liší podle úrovně spolupráce jednotlivých rutin OS.
 - Výsledné redukované Jádro (označeno Mikrojádro) nabízí ostatním procesům pouze základní funkce, vše ostatní zajišťují servery prostřednictvím meziprocesorové komunikace (rychlá a efektivní komunikace je klíčová u této architektury)
 - Počet serverů je formálně neomezený, mezi nejdůležitější patří - servery souborových systémů, servery bezpečnostní, servery nabízející API( nejdůležitější ) s nimi komunikuje při volání služeb OS
 
+<div className="center">
+
 ![klientserver](imgs\klientserverOS.png)
+
+</div>

@@ -4,11 +4,17 @@ import {
 } from "react-vertical-timeline-component";
 import React from "react";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import '@site/src/css/timeline.css';
- 
+import "@site/src/css/timeline.css";
+
 export default function Timeline() {
- 
   const timelineElements = [
+    {
+      title: "Realismus",
+      date: "2020-01-01",
+      popis: "Lorem ipsum",
+      autori: ["karel", "vojta"],
+      url: "realismus",
+    },
     {
       title: "Romantismus",
       date: "2020-01-01",
@@ -17,12 +23,12 @@ export default function Timeline() {
       url: "romantismus",
     },
     {
-        title: "Realismus",
-        date: "2020-01-01",
-        popis: "Lorem ipsum",
-        autori: ["karel", "vojta"],
-        url: "realismus",
-      },
+      title: "Klasicismus",
+      date: "2020-01-01",
+      popis: "Lorem ipsum",
+      autori: ["karel", "vojta"],
+      url: "klacisismus",
+    }
   ];
 
   const handleClick = (url) => {
@@ -46,7 +52,10 @@ export default function Timeline() {
           <p style={{ color: "gray" }}>
             autoři:{" "}
             {element.autori.map((autor, index) => (
-                <span>{autor}{index !== element.autori.length - 1 ? ', ' : ''}</span>              
+              <span>
+                {autor}
+                {index !== element.autori.length - 1 ? ", " : ""}
+              </span>
             ))}
           </p>
         </VerticalTimelineElement>

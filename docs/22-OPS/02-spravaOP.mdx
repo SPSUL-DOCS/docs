@@ -1,0 +1,273 @@
+---
+title: "Správa operační paměti"
+date: 19.9.2023
+---
+
+# Správa operační paměti
+- OP je paměť přímo přístupná procesoru
+- Uchovává kód programů, procesů, mezivýsledky jejich činností, stav ostatních prostředků
+- Souvisle adresovatelná paměť rozdělená do buněk
+- OP souvislý prostor paměťových buněk o velikosti 1Byte, jež jsou lineárně adresovány
+- Pokud je tento adresový prostor přímo reprezentován fyzickou pamětí **RAM**, označujeme jej jako Fyzický adresový prostor **FAP**
+- Velikost prostoru je daná
+
+##### Správa FAP musí plnit následující funkce
+- **Přidělování** paměťových regionů na požádání procesů
+- **Uvolňování** paměťových regionů na žádosti procesů (vždy musí skončit úspěchem)
+- **Udržování** informací o obsazení adresového prostoru
+- **Zabezpečení** ochrany paměti, brání procesům přistupovat k paměti mimo regiony, které vlastní
+- **Podporovat střídavý běh** více procesů
+
+# Metody správy FAP
+
+## Triviální
+
+### Monolitická aplikační paměť
+- Nejjednodušší správa OP
+- Rozděluje adresový prostor na 2 bloky = souvislá oblast adresového prostoru určená počáteční adresou, bází a velikostí
+    1. **První blok** → přidělen rutinám jádra (Kernel Memory - KM)
+        - Paměť jádra je sdílena všemi procesy, protože rutiny Jádra, jsou užívány všemi procesy.
+    1. **Druhý blok** → přidělován na požádání procesům (Application memory - AM)
+        - Paměť aplikační je soukromá a přístup by k ní měl mít pouze proces vlastník
+
+**Algoritmus přidělení regionu**
+- Pokud je AM volná, je přidělena procesu celá bez ohledu na jím požadovanou velikost
+- Pokud není volná, je požadavek odmítnut → s fatálními důsledky pro proces
+- Alokace paměti se tudíž děje jenom jednou při spuštění procesu, kterou využívá po celou dobu svého života
+- Paměť je uvolněna při ukončení procesu
+- Stačí si pamatovat vlastníka paměti (jediný proces)
+
+**Bázový registr**
+- Uložena adresa toho prostoru
+- Jeho obsah je automaticky přičítán k adrese použité ve strojovém kódu a teprve tento součet je užit k fyzické adresaci paměťového místa
+- Ochrana paměti se omezuje pouze na ochranu paměti jádra (protože v paměti nejsou žádné další regiony)
+- Nejjednodušší metodou je použití bázového registru, který fyzicky znemožňuje použití fyzických adres nižších než je báze
+- V režimů jádra obsahuje bázový register nulovou adresu a proces tak může přistupovat k celému adresovému prostroru
+- Příklad OS: CPM (některé rysy v MSDOS)
+
+### Statické bloky
+- Pro informovanost u statických bloků se používá pole
+- Komplikuje se i ochrana paměti, protože použití bázového registru chrání bloky jen na nižších adresách
+- Pro ochranu bloků na vyšších adresách používáme takzvaný **limitní registr** (obsahuje velikost aktuálního regionu)
+- Hodnota lokální adresy je ještě před přičtením bázového registru porovnána s hodnotou limitního, pokud je větší je vyvolána výjimka
+- Největší změnou je alokace více bloků jedním procesem
+- Adresový prostor procesu je rozdělen na tři hlavní regiony
+    1. **Kódový region [ CR ]** = obsahuje strojové kódy (kódy programů), není do něj zapisováno
+    2. **Datový region [ DR ]** = obsahuje statická data programů, vyžaduje zápis a čtení
+    3. **Zásobníkový region [ SR ]** = obsahuje lokální proměnné a návratové adresy, funkcí organizované jako zásobník (**LIFO** = last in first out)
+- Strategie statických bloků umožňuje souběžnou existenci více procesů i bez odkládání na disk
+- Počet souběžně existujících procesů je však omezen počtem (paměťových) bloků
+- Hlavní nevýhodou je malá pružnost systému alokace → statické bloky se používají pro správu paměti jádra, kde lze požadavky jednotlivých rutin odhadnout
+
+### Dynamické bloky
+
+<div class="center">
+
+![Dynamické bloky](./imgs/dynamickebloky.png)
+
+*červená označuje nevyužitou paměť, tzv. fragmentaci*
+
+</div>
+
+- aplikační paměť lze rozdělit i na bloky, jejichž velikost se přispůsobuje požadavkům procesů
+- v počátečním stavu (před alokací 1. regionu) tvoří aplikační adresový prostor jediný volný blok
+
+---
+
+### Strategie alokace
+
+#### First-Fit
+- při alokaci vyhledá první přípustný blok
+- pokud je jeho velikost rovna požadavků je blok přidělen celý, v ostatních případech je rozdělen na dva bloky, první požadované velikosti je přidělen procesu, druhý zůstává volný
+
+#### Best-Fit
+- Volí nejmenší blok z přípustných (pomalé a vede k fragmentaci)
+- Při uvolňování se musí provádět tzv. **scelování nových bloků**
+- Základní informace o bloku umisťujeme bezprostředně před něj → tvoří tzv. **hlavičku bloků**
+- Ochrana paměti je obdobná blokům statickým (bázový a limitní registr)
+- Hlavním problémem je fragmentace OP to jest ke vzniku mnoha malých nesouvislých bloků volné paměti
+- Důsledkem je situace, kdy je sice relativně velké množství volné paměti, ale nikoliv souvislé bloky rozumné velikosti
+- Fragmentace vede k degradaci celého systému (Procesy stále čekají na pamět a nové nelze spouštět)
+- Problém s fragmentací lze odstranit tzv. Setřásáním bloků = přesunem bloků vedoucím k uvolnění paměti
+
+---
+
+## Netriviální
+### Virtualizace paměti
+- Metody správy OP u triviálních metod nebyly příliš optimální
+- Řešením na vyšší úrovni je úplná virtualizace paměti
+- Vzniká souvislý adresový prostor, který nemusí být reprezentován fyzicky souvislým blokem OP
+- Velikost tohoto tzv. virtuálního lépe logického adresového prostoru (LAP) není omezena velikostí skutečné OP, ale pouze velikostí adresy (u 32-bit adres ${ 2^{32} }$ = cca 4GB | u 64-bit adres ${ 2^{64} }$ = 16 EB)
+
+**tento LAP Lze rozdělit do 2 zákl. částí:**
+
+1. **část**
+    - Tvořena adresami, které nebyly použity (nebylo z nich čteno nebo do nich zapisováno)
+    - Tato část nemusí mít a většinou ani nemá žádnou fyzickou reprezentaci (data z této části nejsou nikde uložena)
+    - Tato část tvoří v mnoha případech větší část LAP
+2. **část**
+    - Obsahuje adresy, na nichž jsou uložena skutečná data a musí mít i skutečnou fyzickou reprezentaci
+    - Tuto část lze rozdělit na několik podčástí, podle místa uložení dat
+    - Data jsou ukládána buď v operační (primární) paměti - OP nebo na vnějších (sekundárních) paměťových zařízeních - HDD
+    - Důvodem jsou charakteristiky obou paměťových technologií
+    - OP je rychlá, ale relativně malá, disk má vyšší kapacitu, ale je relativně pomalý
+    - Proto existuje **virtualizátor** (systémové rutiny zajišťující virtualizaci paměti) řeší tento rozpor tím, že právě užívaná data jsou umístěna v OP, data delší dobu neužívaná, jsou odložena na disku
+    - Hlavní podstatou virtualizace je převod požadavků na přístup k LAP na přístup k fyzickým datům na skutečném paměťovém zařízění
+    - Virtualizane není koncovým správcem paměti a musí být doplněn klasickým správcem paměti, který už nespravuje FAP, ale prostor logický, pro správu LAP lze použit libovolnou dříve uvedenou strategii
+    - Díky charekteru logické paměti se nevýhody minimalizují či eliminují
+    - Při použití strategie dynamických bloků pro logickou paměť může sice stále docházet k fragmentaci logické paměti, která se však při vhodně zvolené metodě virtualizace (stránkování) neprojevuje na fyzické paměti
+    - Fragmentace LAP je sice nepříjemná, avšak méně nebezpečná (rozsah log. prostoru řádově vetší a navíc je užíván jen jedním procesem)
+
+# Stránkování
+- Je hardwarový mechanismus, umožňující plnou virtualizaci paměti
+- Je prováděno procesorem
+- MMU ( Management memory unit )
+- Mechanismus stránkování má 2 základní části:
+    - **Překlad adres** - Logická adresa je překládána na fyzickou
+    - **Výpadek stránky** - Přerušení při přístupu na neplatnou stránku
+- Rozděluje LAP na **logické stránky** stejné velikosti (4 - 8 KB)
+- Velikost stránek se může u různých architektur lišit, typicky v řádech jednotek kilobytech
+- **Rámce** => prázdný prostor v **FAP**
+- Mezi jednotlivými fyzickými a logickými stránkami existuje zobrazení, které však nemůže být úplné ( Množiny na množinu )
+- Protože velikost LAP je výrazně větší než velikost FAP
+- **Neplatné stránky**: logické stránky, které nemají přiřazený rámec 
+- **Volné rámce**: rámce, na které není mapována žádná logická stránka a tvoří tak nevyužitou fyzickou paměť. Kuči jim říká: "Pamatovat".
+
+
+## Mechanismus překladu adres při stránkování
+- Každá logická adresa se rozdělí na 2 části
+    1. Vyšší označuje logickou stránku (tj. její pořadí)
+    1. Nižší obsahuje adresu paměťového místa vztaženou k dané stránce (tzv. Offset)
+- Přímým procesem překladu projde pouze číslo logické stránky
+- Překlad se děje převodem čísla (pořadí) logické stránky nad číslo (pořadí) rámce prostřednictvím tzv. tabulky stránek
+- Tabulka obsahuje položky, které jsou indexovány číslem logické stránky a obsahují číslo rámce a skupinu příznaků:
+    - **VF**: Validity flag, příznak platnosti
+    - **DF**: Dirty flag, příznak zápisů do stránky
+- Získané číslo rámce fyzické stránky je bitovým posunutím vlevo převedeno na bázovou adresu rámce ve fyzické paměti
+- Posledním krokem je přičtení stránkového offsetu k bázové adrese rámce, čímž se již získá fyzická adresa
+
+<div class="center">
+
+![preklad adres](./imgs/prekladAdres.jpg)
+
+</div>
+
+## Druhý mechanismus stránkování (neplatná stránka)
+- Co však nastane pokud proces přistoupí k neplatné stránce?
+- Za této situace nastane **výpadek stránky**
+- **Výpadek stránky** (Výjimka) - přeruší instrukci a předá řízení obslužné rutině v jádře systému, tato rutina má 2 možnosti jak na situaci reagovat:
+    1. **Nalezne odpovídající rámec** - zajistí jeho propojení s logickou stránkou a tu následně splatní (V tabulce stánek se uloží index rámce a nastaví bit platnosti [VF-validity flag])
+    1. **Ukončí proces** - pošle se výjimka (win 32)
+- O tom, jak obslužná rutina zareaguje, rozhoduje umístění logické stránky v LAP
+- Poslední fáze výpadku stránek spočívá v opětovném provedení přerušené instrukce, která již na druhý pokus výpadek stánky nezpůsobí, protože stránka už je platná 
+
+:::warning Náročnost restartování instrukce
+Restartování instrukce není v moderních procesorech triviální operací (MMU - tvoří relativně významnou část procesoru)
+:::
+
+- Tabulka stránek podporuje ochranu paměti, v každé položce jsou definovány přípustné operace s daty
+
+# Stránkování na žádost
+- Základním principem je tzv. lenivé vykonávání
+- Lenivé vykonávání - vše je provedeno až v okamžiku, kdy je toho skutečně třeba
+- Po přidělení regionu jsou všechny jeho stránky neplatné a platnými se stávají až po prvním přístupu k nim.
+- Jinak řečeno fyzická paměť je procesu přidělována až v okamžiku, kdy ji skutečně potřebuje.
+- Logické stránky uvnitř regionů, které jsou neplatné (protože k nim proces ještě ani jednou nepřistoupil) se označují jako **panenské stránky**
+- Na začátku jsou všechny stránky panenské
+- Jak systém vyřeší výpadek stránky při přístupu k panenské stránce, to závisí na druhu regionu v němž tato logická stránka leží
+1. **V kódovém regionu**
+    - Aby obslužná rutina zajistila splatneni stránky musí nalézt volný rámec (pokud není žádný rámec volný, musí jej ukrást)
+    - Dále musíme do tohoto rámce nahrát odpovídající segment spustitelného souboru
+    - Následně se rámec propojí s logickou stránkou (V tabulce stránek se uloží identifikace rámce a nakonec se stránka splatní)
+    - Nastaví se bit platnosti v danné položce tabulce stránek
+    - Poté výpadek stránky skončí návratem z přerušení a procesor opakovaným čtením požadovanou instrukci načte
+2. **V datovém regionu**
+    - Reakce se liší v závislosti na požadované počáteční hodnotě daného paměťového místa
+    - Nejjednodušší je situace v případě, že na počáteční hodnotě nezáleží.
+        - Zde stačí logickou stránku propojit s libovolným rámcem a logickou stránku splatnit
+    - Pokud je požadována nulová hodnota
+        - Je použit podobný přístup jako v předchozím případě, pouze při vyhledávání volného rámce jsou preferovány rámce, které jsou vyplněny pouze nulovou hodnotou
+        - Pokud se nenajde, vezme systém za vděk libovolným volným rámcem, který však před připojením vynuluje, virtualizátor si udržuje informace o volných a nulových rámcích
+    - Posledním podtypem jsou stránky na pozicích statických proměnných s nenulovou počáteční hodnotou.
+        - Počáteční hodnoty těchto proměnných jsou uloženy ve spustitelném souboru, kde tvoří zvláštní datový blok (Tj. při výpadku panenské stránky je vzat volný rámec, do něj je zkopírována odpovídající část spustitelného souboru a následně je rámec s danou logickou stránkou propojen)
+3. **V zásobníkové regionu**
+    - Při výpadku stačí připojit libovolný volný rámec, při čemž nulování není vyžadováno
+    - Zvětšuje se zásobníkový region, výjmečně i datový
+- V oblasti **paměti jádra ** jsou panenské stránky za běhu systému spíše vyjímkou, protože většina logických stránek je využita již ve fázi bootování, nebo jsou dokonce od své alokace pevně vázány na rámce, nemohou být ani ukradeny
+
+# Jak si ukrást stránku
+- Předchozí přehled reakcí systému na výpadky stránek předpokládal, že fyzické OP je k dispozici téměř neomezené množství (obsluha výpadku stránky vždy najde volný rámec)
+- OP není nikdy dost a systém je tak nucen odebírat rámce procesům, kteří tyto rámce vlastní, ale dostatečně je nevyužívají, nebo prostě není kde brát 
+- Tento proces se označuje jako kradení stránek (Promítá se do mechanismů stránkování na žádost, činí ho složitějším)
+
+### Kradení probíhá v následujících fázích
+1. Počáteční podmínka (nenalezení volného rámce)
+    - Virtualizátor si udržuje informace o využití všech rámců
+    - Každá položka tzv. tabulky rámců(popisuje stavy, volných, obsazených, pozice odloženosti na SWAPU )
+    - Při výpadku stránky je tabulka prohledána a pokud není nalezena volná stránka je zahájen proces **kradení rámce**
+1. Vytipování vhodného rámce
+    - Základní strategie pro nejvhodnějšího kandidáta na ukradení = rámce jehož ukradení by co nejméně zpomalilo systém a dotčené aplikace
+    - Nyní předpokládáme, že výsledkem této fáze je jediný rámec, který bude v následujících fázích, který ho využívá
+1. Uložení obsahu vytipovaného rámce do SWAPU
+    - Prvním krokem je odložení obsahu rámce do SWAPu (na disku)
+    - Pokud nemá zvolený rámec svůj obraz na SWAPu( nebyl ještě nikdy ukraden )
+    - Je nalezen volný blok není-li na SWAPu místo musí být proces pro nějž je paměť kradena bezpodmíněčně ukončen (tzv. vyčerpání fyzické paměti)
+    - Má-li však rámec svůj obraz (již byl dříve ukraden) je rámec odložen do bloku původního obrazu
+    - Uložení obsahu paměti na disk je velmi pomalá operace, z tohoto důvodu neukládá ty rámce, jejichž obraz je již na disku a které nebyli od posledního uložení změněny
+    - Pro zjištění zda nebyla data změněna slouží tzv. dirty bit (rámec který obsahuje jiná data, než jeho obraz ve SWAPu, se označuje jako špinavý rámec)
+    - V případě přesunu dat do sekundární paměti, naplánuje proces uložení daného rámce na SWAP, a poté se zablokuje (opustí dobrovolně procesor a čeká pozastaven na dokončení této operace)
+1. Zneplatnění logické stránky, která na kradený rámec odkazovala
+    - Po uložení rámce na disk, je proces odblokován a poté co opět získá procesor, zneplatní logickou stránku, s níž byl rámec propojen a nastaví, že při jejím potenciálním výpadku má být obnovena ze SWAPu (v tabulce stránek - identifikace příslušného bloku na SWAP)
+    - Nyní když je stránka volná, a může být propojena s logickou stránkou, jejíž výpadek celý proces kradení odstartoval
+    - Pokud požadavky na paměť výrazně převýší kapacitní možnosti OP a procesy se tudíž přetahují o rámce, dochází k velkým výpadkům tj. systém nedělá nic jiného než hořečně SWAPuje na disk a procesy stojí tzv. zahlcení (trashing)
+
+## Globální strategie kradení stránek 
+- Strategie určuje, který z obsazených rámců je nejvhodnějším kandidátem pro ukradení a přidělení jiné logické stránce
+- Nejznámější a nejčastěji používanou strategií je LRU (**Least recently used** - volba nejdéle nepoužívané stránky)
+- Platí pravděpodobnost dalšího přístupu při delší nečinnosti klesá
+- Platnost tohoto tvrzení je dána tzv. zachováním principu lokality
+- Pracovní množina stránek procesu (WP(t)) p v čase t
+- WP(t) je množina těch rámců, k nimž proces přistupoval v čase \<t-Δt>, kde delta je časový interval krátký vzhledem běhu programu
+- WP(t) se v čase mění (přibírání a mizení rámců dle vývoje procesu)
+- Míra zachování lokálnosti lze např. vyjádřit
+- Blíží-li se tato míra 1 je princip lokality zachován (LRU je vhodnou strategií )
+- Blíží-li se k 0 není LRU efektivní strategií
+- Bohužel i když je LRU proveditelné, vyžádala by si jeho podpora neúměrnou režii, protože by od procesoru, vyžadovala při každém přístupu k paměti zanechání časového razítka( timestamp ) v tabulce stránek a v okamžiku kradení nalezení minimální hodnoty tohoto razítka mezi všemi logickými stránkami
+- Z tohoto důvodu se používají strategie jako pseudo LRU (málo společného s LRU )
+
+#### Pseudo LRU
+- Většina těchto strategií volí libovolnou stránku, která není v aktuálních pracovnách množinách procesů (NRU-not recently used)
+- OS vynuluje dirty-bity všech logických stránek v alokovaných regionech a nechá běžet aplikaci
+- Jedničkovým dirty bitem jsou identifikovány všechny stránky v WP(t)
+- Naopak stránky u nichž je dirty bit nulový jsou kandidáty na ukradení
+- Závěrečné rozhodnutí, která stránka bude nakonec ukradena může být libovolné
+- Obyčejné OS
+
+#### Zloděj stránek
+- Tento systémový proces je většinu času pozastaven a probouzí se pouze tehdy, když podíl volných rámců klesne pod stanovenou dolní mez (mezi 3-7%)
+- Po probuzení zjistí jaké rámce nejsou využívány (ty mimo WP(t)), a potom je začne krást, nikoliv však pro sebe, ale pro ostatní procesy (tj. nepřipojuje je ke svým logickým stránkám, ale nechává je volné)
+
+#### Výhody zloděje stránek oproti strategii ,,Ukradni si sám"
+- Urychluje ukládání odcizených stránek (krade po stovkách)
+- Brání nestabilitě, která může vzniknout pokud se více procesů snaží ukrást jedinou stránku (procesu je ukradený rámec znovu ukraden a to dříve než ho stačí použít)
+
+## Lokální strategie kradení stránek (FIFO)
+- Zvolen rámec, **který je nejdéle používán** (nejdéle propojen s logickou stránkou)
+- Strategie LRU není jediná v praxi používaná strategie
+- Není založena na principu lokality, **lokální** charakter přináší výhody v oblasti **ochrany důvěrných údajů**
+- Každý nově propojený rámec je zařazen na konec fronty (FIFO) a z přední části vybíráme stránky, které budou ukradeny
+- Musí existovat **správce pracovních množin**: kontroluje míru využití přidělených rámců a dle ní přiděluje či odebírá procesům rámce. Ty které odebere jsou nulovány a ihned přidělovány jiným procesům (Odebírání se děje pouze při nedostatku OP)
+- Servrové systémy
+
+## Sdílená paměť
+- Do teď jsme předpokládali, že každý region paměti je vlastněn pouze 1 procesem a že každý rámec OP je propojen nejvýše s jednou log. stránkou
+- Virtualizace paměti umožňuje realizaci tzv. sdílených pamětí = Fyzický paměť prostor (FAP+SWAP) přístupný z několika LAP
+- Základní myšlenka je ve **sdílení obsahu tabulky stránek** => položky tabulky stránek, příslušné danému bloku, obsahují ve všech LAP shodné údaje
+- Správa sdílené paměti *určena dvěma principi*
+    - Principem konzistence - všechny procesy musí mít v každém okamžiku stejný obraz paměti
+    - Principem lenivého vykonávání - vše je provedeno až tehdy, kdy již není zbytí
+- Pokud dojde k ukradení rámce, který je spojen se sdíleným regionem, musí být zneplatněny odpovídající log. stránky ve všech dotčených adres. prostorech
+- Naopak pokud dojde ke zplatnění stránky v rámci výpadku stránky způsobené jedním z procesů, stačí když je zplatněna jen ta jediná výpadkem dotčená log. stránka, při výpadku dalších stran, může systém detekovat, že obraz této stránky již v OP existuje a následně zajistit její propojení (zjistí přes index na swap)
+- Kódový region je sdílený a připojí všechny instance daného programu do svého LAP
+- V každém případě se šetří swap a urychluje se běh aplikací
+- Použití sdíleného kódu je ve vetšině současných OS dále rozvinut podporou tzv. linkovaných knihoven (ve Win - .dll | Unix - .so) a ty jsou na požádání procesu připojeny až při jeho spuštění, jsou sdíleny všemi aplikacemi, které je v daném okamžiku potřebují

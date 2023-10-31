@@ -1,0 +1,110 @@
+---
+title: "Routování mezi sítěmi"
+description: "Efficiently route network traffic with Cisco technology."
+---
+
+# Routování mezi sítěmi
+- Funguje ve 3. vrstvě modelu ISO/OSI
+- Využívá se k přenosu dat mezi sítěmi
+- Dělí se podle nastavení a náročnosti na routování
+    - Statické => nastavíme staticky cestu do jiné sítě
+    - Dynamické => cesta se nastaví automaticky
+
+## Statické routování
+- Nastavíme staticky cestu do jiné sítě
+- Nízká náročnost na HW
+
+```yml title="Nastavení statického routování"
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <next-hop>
+```
+
+---
+
+<div class="center">
+
+**Next hop**
+
+![next hop](/img/dasimg/interface_exit_port.png)
+
+*Router 1 je ten, kde nastavujeme ip route*
+
+</div>
+
+---
+
+:::tip Defaultní cesta 
+Můžeme nastavit defaultní cestu pro routování, pokud router neví, kam poslat paket tak se pošle na defaultní cestu
+
+```yml title="Nastavení defaultní cesty"
+Router(config)#ip route 0.0.0.0 0.0.0.0 <next-hop>
+```
+:::
+
+:::tip Náhradní cesta
+Pokud máme více cest do stejné sítě, tak můžeme nastavit náhradní cestu, která se použije, pokud hlavní cesta nebude dostupná
+
+```yml title="Nastavení náhradní cesty"
+Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <next-hop> <priorita>
+```
+
+*priorita slouží k určení, která cesta se použije dříve, čím menší číslo, tím dříve se použije, pokud nízká priorita selže, tak se použije cesta s vyšší prioritou*
+:::
+
+## Dynamické routování
+- Náročnější na HW
+
+### Autonomní systém
+- označuje oblast sítě, která je spravována jedním subjektem (jeden dům s více routery)
+
+### Vnitřní a vnější routování
+- **Interior** => protokoly: RIP, IGRP, EIGRP, OSPF
+    - Distance vector => spoléhá na routovací tabulky sousedních routerů
+    - Link-state =>  vytváří tabulku sousedů, sbírá informace od všech routerů a pomocí toho si vytvoří mapu a z ní si pak sám vypočítá nejlepší cestu 
+- **Exterior** => routování zařizuje poskytovatel internetu (ISP)
+
+### RIP *Routing Information Protokol* 
+- distance-vector
+- metrika => počet skoků (max počet skoků je 15)
+- malé sítě, nenáročné na HW
+- Verze:
+    - **RIPv1** => nepoužívat (nefungujou masky)
+    - **RIPv2** => lepší
+    - **RIPng** => funguje i IPv6 routing
+- routery si přeposílají routovací tabulky
+
+**Nastavení RIP**
+
+```yml title="Vyberu nastaveni RIP"
+Router(config)# router rip 
+```
+
+```yml title="Nastavení sousedních sítí v RIP protokolu"
+Router(config-router)# network <ip-adresa>
+```
+
+<div class="center">
+
+*Nastavujeme všechny sítě, které jsou připojeny k danému routeru.*
+
+</div>
+
+---
+
+### OSPF *Open Shortest Path First*
+
+**Nastavení OSPF**
+
+```yml title="Výběr skupiny v OSPF protokolu"
+Router(config)# router ospf <group-id> 
+```
+
+```yml title="Nastavení sítě v OSPF protokolu"
+Router(config-router)# network <ip-adresa> <wildcard-mask> area <area-id>
+```
+
+- **wildcard mask** => inverzní maska (bity jsou obráceně) *255.255.255.0 => 0.0.0.255* 
+- **area-id** => oblast routování (pokud chceme aby skupina routerů routovala mezi sebou, tak musíme dát stejné číslo)
+
+:::warning area-id
+Pokud ti nebude fungovat ospf, pravděpodobně je to protože máš area-id různé od nuly, jestli máš jenom jednu skupinu routerů, tak nastav area-id na 0
+:::
