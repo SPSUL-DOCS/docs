@@ -91,6 +91,13 @@ Router(config-router)# network <ip-adresa>
 ---
 
 ### OSPF *Open Shortest Path First*
+- Používá algoritmus nejkratší cesty (dijstrův algoritmus)
+- 3 tabulky
+- Hello paket
+    - Posílá se v intervalu
+    - Posílají si ho sousedi aby si udělali sousedství
+    - Dead interval => routry si neodpovídaj (nejsou spojený), sousedství se ztratí
+- Link-state database => databáze celé sítě, kterou si ukládá router
 
 **Nastavení OSPF**
 

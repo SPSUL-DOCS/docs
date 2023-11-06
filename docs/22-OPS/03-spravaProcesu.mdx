@@ -1,0 +1,37 @@
+---
+title: "Správa procesů"
+date: 31.10.2023
+---
+
+# Správa procesu
+- Procesy patří mezi základní prostředky všech OS
+- Proces popisujeme z různých pohledů, které se navzájem doplňují
+- 3 základní pohledy:
+    1. Genetický pohled 
+        - Proces je instancí programu
+        - Program je nejčastěji reprezentován souborem, který obsahuje kód aplikace a její iniciální data (spustitelný soubor)
+    2. Dynamický pohled
+        - Proces je postupným vykonáváním instrukcí
+        - Proces ovlivňuje a může být ovlivňován prostředky a okolím
+    3. Systémový pohled
+        - Udržuje informace o užívaných prostředcích a jejich stavech
+        - Důležitou vlastností procesu je jeho jednoznačná identifikace mezi všemi ostatními procesy
+        - Systémové hledisko se promítá do dynamického
+- Proces z dynamického hlediska předpokládá změnu stavu, po provedení každé instrukce
+- Závislost budoucích stavů na stavu aktuálním je velmi vysoká
+
+# Kontext procesu
+- Sjednocení stavů všech prostředků OS, jež proces v daném okamžiku používá
+- Jak se budou chovat v krátké budoucnosti
+- Co znamená, že v daném okamžiku používá? (představit jako řez procesu)
+### Determinismus
+- Do kontextu procesu patří stavy všech prostředků u nichž je možnost, že by jejich změna mimo proces vedla ke změně chování programu
+- Většina OS vyžaduje, aby dali najevo, jaké prostředky chtějí v budoucnu využívat
+- Například do kontextu běžného programu mohou patřit stavy následujících prostředků (Procesor, Kódový paměťový region, Datový paměťový region, Zásobník, Paměť grafické karty, Paměť disku, buffery a registry zabudované do periferních zařízení, napůl vytištěná stránka v tiskárně, vypálené stopy na právě vypalovaném DVD)
+- Velikost takto široce pojatého prostoru je v řádech MB -> GB
+- Kontext se musí ukládat i obnovovat v rámci přepínání procesů při multitáskingu a to by trvalo až vteřiny (nemožné)
+### Jak to vyřešit?
+- Východiskem je skutečnost, že pokud je prostředek využíván výhradně jedním procesem (vyhrazený prostředek) není nutné jeho stav obnovovat a tím ani ukládat
+- Důvodem je neměnnost stavu prostředku
+- Úplného vyhražení dosáhneme pouze virtualizací prostředků
+- Jsou 2 základní strategie při virtualizaci

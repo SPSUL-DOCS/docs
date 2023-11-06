@@ -168,8 +168,7 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
 - Tabulka stránek podporuje ochranu paměti, v každé položce jsou definovány přípustné operace s daty
 
 # Stránkování na žádost
-- Základním principem je tzv. lenivé vykonávání
-- Lenivé vykonávání - vše je provedeno až v okamžiku, kdy je toho skutečně třeba
+- Základním principem **Lenivé vykonávání** => vše je provedeno až v okamžiku, kdy je toho skutečně třeba
 - Po přidělení regionu jsou všechny jeho stránky neplatné a platnými se stávají až po prvním přístupu k nim.
 - Jinak řečeno fyzická paměť je procesu přidělována až v okamžiku, kdy ji skutečně potřebuje.
 - Logické stránky uvnitř regionů, které jsou neplatné (protože k nim proces ještě ani jednou nepřistoupil) se označují jako **panenské stránky**
@@ -279,3 +278,5 @@ Restartování instrukce není v moderních procesorech triviální operací (MM
 - Tato strategie se označuje jako COPY ON WRITE neboli kopírování při zápise
 - COPY ON WRITE je výhodné především v případě, pokud oba procesy z paměti pouze čtou
 - implementace mechanismu je snadná, u každé logické stránky spojené s COPY ON WRITE rámcem nastavit zákaz zápisu spolu s bitovým příznakem COPY ON WRITE.
+
+
