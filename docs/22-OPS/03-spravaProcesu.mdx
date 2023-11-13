@@ -2,7 +2,6 @@
 title: "Správa procesů"
 date: 31.10.2023
 ---
-
 # Správa procesu
 - Procesy patří mezi základní prostředky všech OS
 - Proces popisujeme z různých pohledů, které se navzájem doplňují
@@ -34,4 +33,43 @@ date: 31.10.2023
 - Východiskem je skutečnost, že pokud je prostředek využíván výhradně jedním procesem (vyhrazený prostředek) není nutné jeho stav obnovovat a tím ani ukládat
 - Důvodem je neměnnost stavu prostředku
 - Úplného vyhražení dosáhneme pouze virtualizací prostředků
-- Jsou 2 základní strategie při virtualizaci
+- Jsou 2 základní strategie při virtualizaci:
+    - **Rozdělení sdílených prostředků**
+        - Je užívána u většiny prostředků, neboť téměř vždy je možno prostředek virtuálně rozdělit na menší části, které mohou být přiděleny procesům do výhradního užívání
+        - **Příklady**: paměťového zařízení na soubory, monitor rozdělen na okna
+    - **Strategie vyhrazených serverů**
+        - Užívána u prostředků, které lze obtížně rozdělit
+        - V tomto případě se jeden z procesů stává výhradním vlastníkem prostředku
+        - Jeho funkčnost nabízí nejčastěji ve formě fronty požadavků
+        - **Příklad**: správa tiskárny tiskovým serverem (pouze proces server má přístup k tiskárně, další procesy musí využívat nepřímý prostředek - tiskovou frontu), DVD vypalovačka
+
+# Multitasking
+- Správa procesů, která umožňuje existenci více nezávislých procesů v jednom okamžiku
+- Efekt skutečného **multitáskingu** je při dostatečně rychlé výměně procesů (milisekundy) iluze souběžného běhu více procesů i na jednoprocesorových strojích
+
+<div class="center">
+
+![multitasking](./imgs/multitasking.jpg)
+*multitasking diagram*
+
+</div>
+
+## Vzájemné volání procesů
+- Zastaralé, dobrý úvod do multitaskingu
+- Na začátku existuje jeden proces (shell)
+- Nový proces může vzniknout pouze v rámci volání služby jádra tímto procesem
+- Volání pozastaví aktuální proces, uloží jeho kontext a vytvoří počáteční kontext nového procesu, kterému následně předá řízení
+- Nyní běží jen tento nový proces, který po jisté době zavolá službu jádra exit, aby byl ukončen
+
+## Kooperativní multitasking
+- K výměně procesů nedochází pouze na požádání běžícího procesu, ale vždy, když aktuální proces nemůže pokračovat v běhu, neboť čeká, až bude splněna podmínka (nemůže ovlivnit, například Stisk klávesy, nebo pohyb myši)
+- Proces se vzdá procesoru tehdy a jen tehdy pokud ho v danou chvíli nepotřebuje (dobrovolně-kooperativně)
+- Systém musí zajistit, že běh procesu bude obnoven poté, co se podmínka stane pravdivou (nastane událost na niž proces čekal)
+- To vede k následujícím požadavkům na OS:
+    1. K výměně procesů může docházet pouze ve službách jádra (protože pouze jádro řídí přístup k prostředkům a zajišťuje komunikaci procesů)
+    2. Speciální rutina nazývaná **dispečer** musí rozhodnout, který proces bude obnoven (protože může existovat více pozastavených procesů schopných běhu)
+    3. Systém musí vyřešit i situaci, kdy neexistuje žádný proces schopný běhu (všechny čekají na událost), systém v takovém případě spouští tzv. idle proces, jenž v nekonečném cyklu volá dispečera, bez toho, že by cokoliv jiného provedl
+- Pokud aplikace komunikuje s okolím tj. v pravidelných intervalech čeká na událost (stisk klávesy, příchod paketu, zpráva, odpověď) je velmi vhodnou strategií
+- Méně vhodný je pro procesy, které si vystačí pouze s výpočty nad OP (vědecko technické výpočty)
+- Největší nevýhodou KM je možnost časově neohraničeného držení procesoru jedním procesem (např. pokud proces omylem vstoupí do nekonečné smyčky, bez volání systémových služeb, pokud tato situace nastane, není postižen jenom daný proces, ale i všechny ostatní, včetně procesů systémových, neboť i ty již nikdy nezískají procesor )
+- Z těchto důvodů se tyto systémy prosadily pouze z hlediska snadnější implementace a menších nároků na hardware
