@@ -1,0 +1,124 @@
+---
+title: "Procesy"
+date: 31.10.2023
+---
+# Správa procesu
+- Procesy patří mezi základní prostředky všech OS
+- Proces popisujeme z různých pohledů, které se navzájem doplňují
+- 3 základní pohledy:
+    1. Genetický pohled 
+        - Proces je instancí programu
+        - Program je nejčastěji reprezentován souborem, který obsahuje kód aplikace a její iniciální data (spustitelný soubor)
+    2. Dynamický pohled
+        - Proces je postupným vykonáváním instrukcí
+        - Proces ovlivňuje a může být ovlivňován prostředky a okolím
+    3. Systémový pohled
+        - Udržuje informace o užívaných prostředcích a jejich stavech
+        - Důležitou vlastností procesu je jeho jednoznačná identifikace mezi všemi ostatními procesy
+        - Systémové hledisko se promítá do dynamického
+- Proces z dynamického hlediska předpokládá změnu stavu, po provedení každé instrukce
+- Závislost budoucích stavů na stavu aktuálním je velmi vysoká
+
+# Kontext procesu
+- Sjednocení stavů všech prostředků OS, jež proces v daném okamžiku používá
+- Jak se budou chovat v krátké budoucnosti
+- Co znamená, že v daném okamžiku používá? (představit jako řez procesu)
+### Determinismus
+- Do kontextu procesu patří stavy všech prostředků u nichž je možnost, že by jejich změna mimo proces vedla ke změně chování programu
+- Většina OS vyžaduje, aby dali najevo, jaké prostředky chtějí v budoucnu využívat
+- Například do kontextu běžného programu mohou patřit stavy následujících prostředků (Procesor, Kódový paměťový region, Datový paměťový region, Zásobník, Paměť grafické karty, Paměť disku, buffery a registry zabudované do periferních zařízení, napůl vytištěná stránka v tiskárně, vypálené stopy na právě vypalovaném DVD)
+- Velikost takto široce pojatého prostoru je v řádech MB -> GB
+- Kontext se musí ukládat i obnovovat v rámci přepínání procesů při multitáskingu a to by trvalo až vteřiny (nemožné)
+### Jak to vyřešit?
+- Východiskem je skutečnost, že pokud je prostředek využíván výhradně jedním procesem (vyhrazený prostředek) není nutné jeho stav obnovovat a tím ani ukládat
+- Důvodem je neměnnost stavu prostředku
+- Úplného vyhražení dosáhneme pouze virtualizací prostředků
+- Jsou 2 základní strategie při virtualizaci:
+    - **Rozdělení sdílených prostředků**
+        - Je užívána u většiny prostředků, neboť téměř vždy je možno prostředek virtuálně rozdělit na menší části, které mohou být přiděleny procesům do výhradního užívání
+        - **Příklady**: paměťového zařízení na soubory, monitor rozdělen na okna
+    - **Strategie vyhrazených serverů**
+        - Užívána u prostředků, které lze obtížně rozdělit
+        - V tomto případě se jeden z procesů stává výhradním vlastníkem prostředku
+        - Jeho funkčnost nabízí nejčastěji ve formě fronty požadavků
+        - **Příklad**: správa tiskárny tiskovým serverem (pouze proces server má přístup k tiskárně, další procesy musí využívat nepřímý prostředek - tiskovou frontu), DVD vypalovačka
+
+# Multitasking
+- Správa procesů, která umožňuje existenci více nezávislých procesů v jednom okamžiku
+- Efekt skutečného **multitáskingu** je při dostatečně rychlé výměně procesů (milisekundy) iluze souběžného běhu více procesů i na jednoprocesorových strojích
+
+<div class="center">
+
+![multitasking](./imgs/multitasking.jpg)
+*multitasking diagram*
+
+</div>
+
+## Vzájemné volání procesů
+- Zastaralé, dobrý úvod do multitaskingu
+- Na začátku existuje jeden proces (shell)
+- Nový proces může vzniknout pouze v rámci volání služby jádra tímto procesem
+- Volání pozastaví aktuální proces, uloží jeho kontext a vytvoří počáteční kontext nového procesu, kterému následně předá řízení
+- Nyní běží jen tento nový proces, který po jisté době zavolá službu jádra exit, aby byl ukončen
+
+
+<div class="center">
+
+*S = sleeping, R = running, W = waiting, Z = Mátoha*
+![multitasking](./imgs/procesy.png)
+*stavový diagram procesů*
+
+</div>
+
+## Kooperativní multitasking
+- K výměně procesů nedochází pouze na požádání běžícího procesu, ale vždy, když aktuální proces nemůže pokračovat v běhu, neboť čeká, až bude splněna podmínka (nemůže ovlivnit, například Stisk klávesy, nebo pohyb myši)
+- Proces se vzdá procesoru tehdy a jen tehdy pokud ho v danou chvíli nepotřebuje (dobrovolně-kooperativně)
+- Systém musí zajistit, že běh procesu bude obnoven poté, co se podmínka stane pravdivou (nastane událost na niž proces čekal)
+- To vede k následujícím požadavkům na OS:
+    1. K výměně procesů může docházet pouze ve službách jádra (protože pouze jádro řídí přístup k prostředkům a zajišťuje komunikaci procesů)
+    2. Speciální rutina nazývaná **dispečer** musí rozhodnout, který proces bude obnoven (protože může existovat více pozastavených procesů schopných běhu)
+    3. Systém musí vyřešit i situaci, kdy neexistuje žádný proces schopný běhu (všechny čekají na událost), systém v takovém případě spouští tzv. idle proces, jenž v nekonečném cyklu volá dispečera, bez toho, že by cokoliv jiného provedl
+- Pokud aplikace komunikuje s okolím tj. v pravidelných intervalech čeká na událost (stisk klávesy, příchod paketu, zpráva, odpověď) je velmi vhodnou strategií
+- Méně vhodný je pro procesy, které si vystačí pouze s výpočty nad OP (vědecko technické výpočty)
+- Největší nevýhodou KM je možnost časově neohraničeného držení procesoru jedním procesem (např. pokud proces omylem vstoupí do nekonečné smyčky, bez volání systémových služeb, pokud tato situace nastane, není postižen jenom daný proces, ale i všechny ostatní, včetně procesů systémových, neboť i ty již nikdy nezískají procesor )
+- Z těchto důvodů se tyto systémy prosadily pouze z hlediska snadnější implementace a menších nároků na hardware
+
+## Preemtivní multitasking
+- Omezení a nevýhody Kooper. Mul.lze vyřešit relativně malou změnou strategie přepínání procesů
+- U KM může dojít k výměně procesů dojít pouze tehdy, čeká-li proces na externí událost a nepotřebuje tudíž procesor
+- Existují však i další místa, v nich může potenciálně dojít k výměně procesů:
+1. Okamžik bezprostředně před návratem z libovolné služby jádra (jádro vždy uvolní nevyhrazené prostředky před skončením služby)
+2. Při návratu z obsluhy přerušení do uživatelského režimu (tj. jen u přerušení, která byla vyvolána za procesu v uživatelském režimu)
+- Důsledky této relativně malé změny strategie jsou obrovské
+#### Klady
+- Proces může být zbaven procesoru i nedobrovolně (mohl by procesor využívat, ale místo toho bude nuceně vystřídán jiným procesem)
+- Existence speciálního hardwarového zařízení tzv. časovače, který pravidelných intervalech (milisekund) vyvolává externí přerušení, což umožňuje výměnu procesů v pravidelných a relativně krátkých intervalech
+- Bohužel i tak malá změna strategie výměny procesů si vyžádá rozsáhlé změny ve filozofii systémů
+- Povinná systémová správa všech hardwarových prostředků a jejich úplná virtualizace (proces může být v uživatelském režimu přerušen v libovolném okamžiku)
+- Nutná minimalizace časových závislostí mezi procesy-> nutnost virtualizace paměti
+- Proces musí poskytovat alespoň částečnou informaci o svém nároku na využití procesoru tj. musí být vytvořen dynamický systém priorit
+- Je nutné zdůraznit, že vynucené odebírání je spíše výjimkou, ale i zde převažuje kooperace, preempce jen tehdy, drží-li proces procesor příliš dlouho a systém je zároveň částečně zatížen
+- Systém silněji zatížen procesy, které příliš navzájem nekomunikují (vědecko technické výpočty, multimediální aplikace) 
+#### Průběh:
+- Každý proces získává procesor na určitý pevný časový interval. Dán jeho statickou prioritou
+- Přidělené intervaly jsou relativně krátké (desítky milisekund) a jsou tudíž neregistrovatelné člověkem.
+- Vzniká tak sdílení času (time-slicing), které vytváří iluzi souběžného běhu procesů Stavovaný diagram procesů
+- Proces začíná ve stavu Nový[N] a končí ve stavu Zombie[Z]
+- Většinu života však proces stráví však ve dvou základních cyklech:
+- Kratší obsahuje stavy Wait[W] (proces čeká na procesor)
+
+### Běžící proces *stav running*
+- V jednoprocesorovém systému existuje právě **jeden** běžící proces, ten může běžet buď v režimu neprivilegovaném (uživatelském), nebo privilegovaném (jádra) => Ru, Rk.
+- Proces může opustit tento stav:
+    - **Dobrovolně** (uspí se) => pokud čeká na systémovou událost.
+    - **Nedobrovolně** (čeká) => pokud mu je odebrán procesor při přeplánování, řadí se do **prioritní fronty**.
+
+### Zablokovaný proces *stav sleeping*
+- Dobrovolné vzdání procesoru, čeká na systémovou událost (stisk klávesy, příchod paketů).
+- Při přechodu do stavu sleeping, by měl proces využívat minimum dalších prostředků, protože by je zbytečně blokoval.
+- Ve stavu sleeping se může nachzet více procesů čekajících na stejný vyhrazený prostředek.
+- Pro jejich uvolňování existují 2 mechanisny
+    1. **Fronta čekajících procesů** => procesy čekající na prostředek jsou řazeny do fronty a po uvolonění prostředku je pouze první z nich (nejdéle čekající) odblokován.
+    1. **Probuďte se a předbíhejte** => probuzeny jsou všechny procesy a o tom který proces prostředek získá rozhoduje absolutní priorita.
+
+### Proces mátoha *stav zombie*

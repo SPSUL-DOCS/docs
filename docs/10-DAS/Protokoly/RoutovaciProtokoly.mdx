@@ -91,6 +91,30 @@ Router(config-router)# network <ip-adresa>
 ---
 
 ### OSPF *Open Shortest Path First*
+- Používá algoritmus nejkratší cesty (dijstrův algoritmus)
+- má 3 tabulky
+- Hello paket
+    - Posílá se v intervalu
+    - Posílají si ho sousedi aby si udělali sousedství
+    - Dead interval => routry si neodpovídaj (nejsou spojený), sousedství se ztratí
+- Link-state database => databáze celé sítě, kterou si ukládá router
+- Dva druhy spojení: point-to-point a mezihost
+
+
+<div class="collumns-wrapper">
+<div style={{ width: "50%", padding: "10px" }} class="center">
+
+![point-to-point](./img/pointtopoint.png)
+*Point to point*
+
+</div>
+<div style={{ width: "50%", padding: "10px"  }} class="center">
+
+![mezihost](./img/notpointtopoint.png)
+*Mezihost*
+
+</div>
+</div>
 
 **Nastavení OSPF**
 
