@@ -122,3 +122,14 @@ date: 31.10.2023
     1. **Probuďte se a předbíhejte** => probuzeny jsou všechny procesy a o tom který proces prostředek získá rozhoduje absolutní priorita.
 
 ### Proces mátoha *stav zombie*
+- Procesy končí svůj život jako zombie
+- Proces se do stavu zombie může dostat:
+    1. Vražda
+        - Proces je ukončen aktuálně běžícím procesem a do stavu Mátoha přechází ze stavu **WAITING** nebo **SLEEPING**
+        - Vzájemné zabíjení procesů je samozdřejmě omezené běžný uživatel smí zabíjet pouze smí zabíjet pouze své procesy
+    2. Sebevražda
+        - Běžící proces zavolá systémovou službu pro své ukončení, v jejímž rámci je přesunut do stavu **ZOMBIE**.
+    3. Smrtelný úraz
+        - Pokud program poruší ochranu paměti, použije v uživatelském režimu prvilegovanou instrukci, či se jinak snaží narušit stabilitu OS respektive jiných aktuálních procesů, může být nedobrovolně ukončen. 
+        - Aplikace je přerušena vyvoláním přerušení od procesoru (výjimkou) např. výpadkem stránky
+- Při přechodu do ZOMBIE jsou programu odebrány všechny prostředky
