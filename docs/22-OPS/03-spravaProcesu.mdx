@@ -2,6 +2,16 @@
 title: "Procesy"
 date: 31.10.2023
 ---
+
+export const Highlight = ({text, color}) => (
+  <span
+    style={{
+      color: color,
+    }}>
+    {text}
+  </span>
+);
+
 # Správa procesu
 - Procesy patří mezi základní prostředky všech OS
 - Proces popisujeme z různých pohledů, které se navzájem doplňují
@@ -148,3 +158,43 @@ date: 31.10.2023
 - Každý proces má tzv. **hlavní vlákno**, které je vytvořeno během vzniku procesu a po přidělení prostředků prochází běžným stavovým cyklem.
 - OS může na požádání (volání služby jádra) vytvořit pro proces nové vlákno, které začne vykonávat část programu v souběhu s ostatními vlákny procesu.
 - Hlavní výhodou vláken je snadnější a efektivnější kooperace paralelních toků řízení -> umožňuje užití většího počtu souběžně běžících vláken bez výrazného zpomalení systému.
+
+# Kritický kód a vzájemné vyloučení
+- Pro preemptivní multitásking je typická téměř úplná vzájemná nezávislost procesů.
+- Jedním z prostředků dosažením tohoto stavu je striktní oddělení tohoto prostředku užívaných jednotlivými procesy, což zcela brání kolizi procesů při jejich užívání.
+- Tento ideální stav panuje pouze na uživatelské úrovni a to výhradně u procesů, které s okolními procesy nikdy nekomunikují. Zcela jiná situace je u rutin jádra, které přistupují ke sdíleným prostředkům -> vznikají chyby.
+- 2 procesy:
+    - **Producent** (P) -> zapisuje, generuje šifrovací klíče
+    - **Konzument** (K) -> čte, používá klíče
+- Spolupráce mezi těmito procesy nemusí fungovat (vznikají chyby)
+
+#### Chyby
+1. Konzument využívá prostředek, který ještě není k dispozici (čte dříve)
+2. Konzument přečte 2x či dokonce vícekrát tentýž klíč
+3. Nepřečtení klíče z důvodů jeho bezprostředního přepsání producentem (konzument nestačí klíče dostatečně rychle číst)
+4. Nejsložitější případ => překryv zpráv (situace daná náhodných souběhem je komplikovaná, konzument přečte sdílenou paměť, která obsahuje fragmenty dvou klíčů, novějšího a staršího)
+
+- Synchrozizace předchází kolizím daným
+- Pokus o nesynchrozivanou komunikaci je potencionálně nebezpečný => **kritický kód**
+
+### 2 základní typy synchronizace:
+1. Čekání na událost
+    - proces čeká na událost, jež je výsledkem činnosti jiného procesu, synchronizace zajistí časovou následnost a zabrání propásnutí události čekajícím procesem
+    - Tento typ řeší problémy dané rozdílnou rychlostí
+    - producenta a konzumenta
+    - První 3 příklady s klíčem
+2. Vzájemné vyloučení
+    - Synchronizace musí zabránit současnému vykonávání dvou kritických kódů nad stejným prostředkem tj. pokud jeden proces vykonává kritický kód zahájil, nebo dokončil vykonávání první instrukce a ještě neprovedl instrukci poslední nesmí jiný proces vstoupit do kritického kódu nad týmž prostředkem
+
+:::info
+oba typy synchronizace lze kombinovat
+:::
+
+# Synchronizační prostředky
+## Binární samafór
+- Sdílený logický prostředek, dva stavy (<Highlight text="červená" color="red"/>, <Highlight text="zelená" color="green"/>)
+- Dva stavy samafóru:
+    - **WAIT**: pokud je semafor ve stavu zelená, je bezprostředně přepnut do stavu červená, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
+    - **SIGNAL**: stav samafóru je nastaven na zelenou.
+- Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
+- Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
