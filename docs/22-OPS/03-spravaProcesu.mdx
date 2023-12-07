@@ -14,32 +14,33 @@ export const Highlight = ({text, color}) => (
 
 # Správa procesu
 - Procesy patří mezi základní prostředky všech OS
-- Proces popisujeme z různých pohledů, které se navzájem doplňují
-- 3 základní pohledy:
-    1. Genetický pohled 
+- 3 základní pohledy procesů:
+    1. **Genetický pohled**
         - Proces je instancí programu
         - Program je nejčastěji reprezentován souborem, který obsahuje kód aplikace a její iniciální data (spustitelný soubor)
-    2. Dynamický pohled
+    2. **Dynamický pohled**
         - Proces je postupným vykonáváním instrukcí
         - Proces ovlivňuje a může být ovlivňován prostředky a okolím
-    3. Systémový pohled
+        - Předpokládá změnu stavu, po provedení každé instrukce
+    3. **Systémový pohled**
         - Udržuje informace o užívaných prostředcích a jejich stavech
         - Důležitou vlastností procesu je jeho jednoznačná identifikace mezi všemi ostatními procesy
         - Systémové hledisko se promítá do dynamického
-- Proces z dynamického hlediska předpokládá změnu stavu, po provedení každé instrukce
 - Závislost budoucích stavů na stavu aktuálním je velmi vysoká
 
 # Kontext procesu
-- Sjednocení stavů všech prostředků OS, jež proces v daném okamžiku používá
-- Jak se budou chovat v krátké budoucnosti
-- Co znamená, že v daném okamžiku používá? (představit jako řez procesu)
+- Sjednocení stavů všech prostředků OS, jež proces v daném okamžiku používá.
+- Jak se budou chovat v krátké budoucnosti.
+- Co znamená, že v daném okamžiku používá? (představit jako řez procesu).
+
 ### Determinismus
 - Do kontextu procesu patří stavy všech prostředků u nichž je možnost, že by jejich změna mimo proces vedla ke změně chování programu
 - Většina OS vyžaduje, aby dali najevo, jaké prostředky chtějí v budoucnu využívat
 - Například do kontextu běžného programu mohou patřit stavy následujících prostředků (Procesor, Kódový paměťový region, Datový paměťový region, Zásobník, Paměť grafické karty, Paměť disku, buffery a registry zabudované do periferních zařízení, napůl vytištěná stránka v tiskárně, vypálené stopy na právě vypalovaném DVD)
 - Velikost takto široce pojatého prostoru je v řádech MB -> GB
 - Kontext se musí ukládat i obnovovat v rámci přepínání procesů při multitáskingu a to by trvalo až vteřiny (nemožné)
-### Jak to vyřešit?
+
+### Jak to vyřešit.
 - Východiskem je skutečnost, že pokud je prostředek využíván výhradně jedním procesem (vyhrazený prostředek) není nutné jeho stav obnovovat a tím ani ukládat
 - Důvodem je neměnnost stavu prostředku
 - Úplného vyhražení dosáhneme pouze virtualizací prostředků
@@ -108,7 +109,7 @@ export const Highlight = ({text, color}) => (
 - Nutná minimalizace časových závislostí mezi procesy-> nutnost virtualizace paměti
 - Proces musí poskytovat alespoň částečnou informaci o svém nároku na využití procesoru tj. musí být vytvořen dynamický systém priorit
 - Je nutné zdůraznit, že vynucené odebírání je spíše výjimkou, ale i zde převažuje kooperace, preempce jen tehdy, drží-li proces procesor příliš dlouho a systém je zároveň částečně zatížen
-- Systém silněji zatížen procesy, které příliš navzájem nekomunikují (vědecko technické výpočty, multimediální aplikace) 
+- Systém silněji zatížen procesy, které příliš navzájem nekomunikují (vědecko technické výpočty, multimediální aplikace)
 #### Průběh:
 - Každý proces získává procesor na určitý pevný časový interval. Dán jeho statickou prioritou
 - Přidělené intervaly jsou relativně krátké (desítky milisekund) a jsou tudíž neregistrovatelné člověkem.
@@ -140,7 +141,7 @@ export const Highlight = ({text, color}) => (
     2. Sebevražda
         - Běžící proces zavolá systémovou službu pro své ukončení, v jejímž rámci je přesunut do stavu **ZOMBIE**.
     3. Smrtelný úraz
-        - Pokud program poruší ochranu paměti, použije v uživatelském režimu prvilegovanou instrukci, či se jinak snaží narušit stabilitu OS respektive jiných aktuálních procesů, může být nedobrovolně ukončen. 
+        - Pokud program poruší ochranu paměti, použije v uživatelském režimu prvilegovanou instrukci, či se jinak snaží narušit stabilitu OS respektive jiných aktuálních procesů, může být nedobrovolně ukončen.
         - Aplikace je přerušena vyvoláním přerušení od procesoru (výjimkou) např. výpadkem stránky
 - Při přechodu do ZOMBIE jsou programu odebrány všechny prostředky
 
@@ -198,3 +199,23 @@ oba typy synchronizace lze kombinovat
     - **SIGNAL**: stav samafóru je nastaven na zelenou.
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
+
+# Uváznutí (deadlock)
+- trvalé zablokování procesů, při chybném použití synchronizačních prostředků
+- proces, který získal samafór, opětovně zavolá operaci **WAIT**
+- Stav v němž se procesy vinou chybné synchronizace navždy zablokují (bez ukončení nemohou ukončit stav **SLEEP**) označujeme jako uváznutí (**DEADLOCK**)
+- Výše zmíněný příklad patří do skupiny méně nebezpečných, uváznutí tohoto typu vznikají důsledkem hrubých chyb v použití synchrnizačních prostředků, označují se jako **triviální**.
+- Druhou a nebezpečnější skupinu uváznutí, tvoří uváznutí vzniklá nepříznivým souběhem dvou procesů -> když 2 procesy používají 2 společné prostředky, může nastávat po dnech (Obtížně se detekují)
+
+## Odstranění uváznutí
+1. **Nejjednušší metoda** -> vyloučení překrytí kritických kódů, lze splnit pouze pokud není vyžadováná přímá spolupráce několika prostředků.
+1. **Pořadí procesů** -> správné pořadí jejich alokace
+
+:::warning
+Větší časová závislost kvůli povinnému pořadí -> výrazné zpomalení
+:::
+
+1. **Vše nebo nic** -> proces se pokusí získat všechny prostředky, které potřebuje a když se mu to nepovede, všechny prozatím uvolní (musí mít podporu v jádře).
+1. **Detekce potencionálního uváznutí (Predikce)**
+    - Bohužel příliž defenzivní a náročný na čas (nepoužívá se)
+    - Nejznámější algoritmus je *Bankéřův algoritmus*
