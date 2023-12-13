@@ -1,0 +1,38 @@
+---
+title: "Komunikační prostředky"
+---
+
+# Komunikační prostředky
+- Současné os nabízejí hodně prostředků umožnujících přesun dat mezi procesy.
+- Tyto prostředky se liší rychlostí, způsobem použití, dostupností na jednotlivých platformách.
+
+## Klasifikace komunikačních prostředků 
+1. **Na základě účasti jádra**
+    1. Jádro se komunikace neučastní, pouze sdílená paměť
+    1. Data proudí přes jádro (minimálně dvakrát kopírována, přes buffer)
+1. **Vnitří struktura dat**
+    1. Proudově orientovaná data (datovody) - data tvoří jediný proud (stream)
+    1. Zprávově orientovaná data (datagramy) - data tvoří samostatné zprávy (packet)
+1. **Směrování přenášených dat** 
+    1. Jednosměrná data - proudí jedním směrem
+    1. Obousměrná data - proudí oběma 
+    1. Všesměrové - proudí z jednoho procesu do více procesů
+    1. Dostředné - proudí z více do jednoho procesu
+1. **Přenášený objem dat** (přenosová rychlost)
+    1. Malá - jednotky KB/s (fronty zpráv a signály)
+    1. Střední - až desítky MB/s (roury, sockety)
+    1. Velká - až GB/s (sdílená paměť)
+1. **Transparetnost**
+
+### Roura (pipe)
+- Klasický komunikační prostředek OS UNIX
+- Jednosměrný datovod, vhodný pro malá a střední data.
+- Obousměrný přenos -> dvě roury
+- Jedná se o kruhovou frontu
+- Dva typy rour:
+    1. Nepojmenované (anonymní) roury 
+        - nemají identifikátor, přístupné pouze prostřednictvím **souborového deskriptoru** (handler).
+        - používat ji může pouze zakladatel roury nebo jeho potomci (procesy vytvořené procesem).
+    1. Pojmenované roury 
+        - viditelné, mají jméno a umístění.
+        - jakýkoliv proces má přístup. 
