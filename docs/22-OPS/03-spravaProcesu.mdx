@@ -31,7 +31,6 @@ export const Highlight = ({text, color}) => (
 # Kontext procesu
 - Sjednocení stavů všech prostředků OS, jež proces v daném okamžiku používá.
 - Jak se budou chovat v krátké budoucnosti.
-{/* - Co znamená, že v daném okamžiku používá? (představit jako řez procesu). */}
 
 ### Determinismus
 - Do kontextu procesu patří stavy všech prostředků u nichž je možnost, že by jejich změna mimo proces vedla ke změně chování programu
@@ -104,7 +103,6 @@ export const Highlight = ({text, color}) => (
 #### Klady
 - Proces může být zbaven procesoru i nedobrovolně.
 - **Časovač**: vyvolává přerušení (milisekundy), výměna procesů v pravidelných a krátkých intervalech.
-{/* - Bohužel i tak malá změna strategie výměny procesů si vyžádá rozsáhlé změny ve filozofii systémů Může mi dopíči kučera vysvětlit k čemu boha je tahle věta???*/}
 - **Povinná systémová správa** všech hardwarových prostředků a jejich **úplná virtualizace** (proces může být v uživatelském režimu přerušen v libovolném okamžiku).
 - Minimalizace časových závislostí mezi procesy -> nutnost virtualizace paměti.
 - **Dynamický systém priorit**: Proces musí poskytovat informaci o nároku na využití procesoru 
