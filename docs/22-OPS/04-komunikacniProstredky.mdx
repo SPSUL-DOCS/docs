@@ -36,3 +36,45 @@ title: "Komunikační prostředky"
     1. Pojmenované roury 
         - viditelné, mají jméno a umístění.
         - jakýkoliv proces má přístup. 
+
+### Socket
+- Síťové komunikační prostředky.
+- Nástavba protokolu **TCP/IP**.
+- Dva typy spojení: 
+    1. **Datagramové** - zprávové. (UDP)
+    1. **Proudové** - obousměrný datovod, obdobné rouře. (TCP)
+- Socket je určen pěticí udajů:
+    1. **Protokol** - TCP nebo UDP
+    1. **Adresa serveru** - IP adresa a Port 
+    1. **Adresa klienta** - IP adresa a Port 
+- **Navazování spojení**
+    1. Otevření půlsocketu na serveru.
+    1. Klient vyšle požadavek na navázání spojení.
+    1. Pokud server naslouchá, vzniká spojení (relace).¨
+- Připojení k serveru z více klientů se řeší pomocí duplikace půlsocketu (každej klient má svůj půlsocket).
+
+### Fronta zpráv
+- Zprávově orientovaným komunikačním prostředkem
+- Umožňuje cílenou i všesměrovou výměnu zpráv
+- Omezené velikostí mezi dvěma či více procesy
+- Vysílající proces se blokuje pokud je fronta plná, přijímací proces se blokuje není-li ve frontě žádná použitelná zpráva.
+- Zprávy jsou nezbytné u OS klient-server, ale jsou užívány i v jiných systémech.
+- Je často užívána
+### Vzdálené volaní procedur
+- Umožňuje volání funkcí v jiném adresovém prostoru, nebo v jiné instanci OS
+- Vzdáleně volaná procedura může přijímat parametry
+- Hodnoty těchto parametrů jsou přeneseny z adresového prostoru volající funkce do adresového prostoru volané funkce a tato funkce může sama hodnotu vracet
+- Jedná se tedy o zprávově orientovaný obousměrný komunikační prostředek
+Výhody
+- Předávání dat do funkcí
+- Automatické řazení dat
+Nevýhody
+- Identifikace vzdálené funkce se musí dít na základě poskytované služby (Adresa, port).
+    - Nikoliv, jen prostřednictvím adresy funkce.
+- Ošetřování chybových vztahů.
+    - Může dojít k chybě během přenosu parametrů a návratové hodnoty.
+- Přerušení spojení.
+- Chybná identifikace protistrany.
+:::tip
+Jako komunikační kanál se použije socket respektivě jiný vhodný prostředek.
+:::
