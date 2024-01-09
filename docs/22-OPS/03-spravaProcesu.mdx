@@ -151,17 +151,14 @@ export const Highlight = ({text, color}) => (
 - Při přechodu do **zombie** jsou programu odebrány všechny prostředky.
 
 # Vlákna (threads)
-- Pro preemptivní systémy je typická paralelnost na úrovni všech procesů (ale ne stejných programů).
-- *Například* pokud program čeká na stisk klávesy může v nevyužívaném čase provádět na pozadí pomocné operace (textové procesory hledají překlepy, grafické programy optimalizují zobrazení…).
-- Kdybychom aplikaci rozdělili do několika procesů a tím dosáhli požadovaného paralelizmu, je to nepohodlné a náročné na výpočetní prostředky.
-- Řešením jsou takzvaná **vlákna**.
-- Jsou obdobou procesů, sdílejí však **datový region**, což usnadňuje jejich vzájemné působení, protože mohou komunikovat prostřednictvím globálních statických proměnných.
+- Preemptivní systémy -> paralelnost na úrovni všech procesů (ale ne stejných programů) -> nepohodlné a náročné na výpočetní prostředky.
+- Řešením jsou **vlákna**
+- Obdobná procesům, sdílejí **datový region** -> usnadňuje jejich vzájemné působení, komunikovace prostřednictvím **globálních statických** proměnných.
 - Vlákna mají svou aktuální instrukci a zásobník a souběžně běží nad společnou pamětí.
-
 - **Hlavní nevýhoda** je globální zablokování => jestliže dojde v jenom z vláken k zablokování procesu, jsou pozastavena i ostatní vlákna procesu.
 - Vlákna procházejí stejnými stavy jako klasické procesy.
 - Proces lze popsat jako množinu vláken **sdílejících společný datový region**.
-- Každý proces má tzv. **hlavní vlákno**, které je vytvořeno během vzniku procesu a po přidělení prostředků prochází běžným stavovým cyklem.
+- Každý proces má **hlavní vlákno**, které je vytvořeno během vzniku procesu a po přidělení prostředků prochází běžným stavovým cyklem.
 - OS může na požádání (volání služby jádra) vytvořit pro proces nové vlákno, které začne vykonávat část programu v souběhu s ostatními vlákny procesu.
 - Hlavní výhodou vláken je snadnější a efektivnější kooperace paralelních toků řízení -> umožňuje užití většího počtu souběžně běžících vláken bez výrazného zpomalení systému.
 
