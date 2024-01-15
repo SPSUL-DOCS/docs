@@ -1,0 +1,31 @@
+---
+title: "Souborový systém"
+---
+
+# Souborový systém
+- Organizace informací v OS.
+- Pro běh OS je nutné **trvalé** uložení dat.
+- **UNIX** -> struktura modelů.
+
+![Správa souborového systému](imgs/sss.png)
+
+## Svazky
+- Správa svazků - Nejnižší logická vrstvou Souborového systému.
+- Stará se o fyzické uložení SS na blokovém zařízení. Tj., zařízení, které je tvořeno bloky o stejné velikosti.
+- Disk, různé elektronické paměti (fleška, regiony OP)
+- I/O Subsystém - Propojení mezi vrstvami, nabízí vyšším vrstvám logické disky, jejichž bloky jsou adresovány lineárně
+- Na logickém disku vytváří souborový systém logický prostředek -> **svazek**.
+- **Svazek**- je tvořen několika sekcemi, některé obsahují globální informace o dané instanci souborového systému, jiné metadata -> (data o datech) o uložených souborech a přirozeně i vlastní data souborů. (Reference na data)
+- Struktura svazku se liší na novější a starší strukturu svazku
+
+### Starší (jednodušší) přístup rozděluje log. disk na několik málo sektorů:
+- **Boot sektor** - Zavádí operační systém
+- **Header sektor** - Obsahuje globální data celého SS (informace o obsazení svazků, o volných blocích)
+- **Metadata sektorů** - Tabulka I-uzlů
+- **Data souborů** - Uložená data
+
+- **Metadata** jsou uložena jen jednou, pokud jsou poškozené celý svazek je (zničen).
+- Při přístupu k datům je nutno číst jejich metadata, které jsou uloženy v jiné a často vzdálené sekci -> prodlužuje přístupové doby.
+- modernější svazky (systémy). využívají schémata vníž jsou klíčová data duplikována (blíže k datům která popisují).
+- tato struktura je nejvhodnější pro cylindrické disky s jednoduchým adresováním založeným na geometrii disku.
+- současnosti se však často používají virtuální geo. bez cylindru (bez cylindrického uspořádání) a tak výhody zanikají a zůstává jen duplicita dat.
