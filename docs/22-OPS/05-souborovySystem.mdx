@@ -29,3 +29,33 @@ title: "Souborový systém"
 - modernější svazky (systémy). využívají schémata vníž jsou klíčová data duplikována (blíže k datům která popisují).
 - tato struktura je nejvhodnější pro cylindrické disky s jednoduchým adresováním založeným na geometrii disku.
 - současnosti se však často používají virtuální geo. bez cylindru (bez cylindrického uspořádání) a tak výhody zanikají a zůstává jen duplicita dat.
+
+# Buffery
+- Paměťové bloky, zrcadlí obsah fyzických bloků na blokových zařízeních (disky).
+- Tři funkce:
+    1. Tvoří sdílenou paměť mezi jádrem a nesynchrozivaným čtením a zápisem na disk.
+    1. Sjednocují rozhraní k blokovým zařízením. Vyšší vrstvy očekávají logický disk s jednotnými bloky a lineárním adresováním. Buffery právě takové rozhraní vyšším vrstvám nabízejí.
+    1. Urychlení přístupu na disk.
+- Čtení a zápis se děje do bufferů a nikoliv do pomalých disků.
+
+### Návrh systému bufferů
+- Vycházejí z pricipů:
+    1. Princip konzistence - Data v bufferu jsou vždy zrcadleny s daty na disku.
+    1. Princip shodnosti a sdílenosti - Všechny buffery jsou funkčně shodné a mohou být sdíleny všemi blokovými zařízeními v systému (konkrétní buffer může být použit během své existence pro různá bloková zařízení).
+    1. Princip konečných prostředků - Buffery jsou přiděleny již při zavádění OS a dále se nemění.
+    1. Princip lenivosti - Zápis bufferů se odkládá tak dlouho jak je možno (tzv. odložený zápis).
+
+### Impelementace bufferů
+- Složen z HLAVIČKY a vlastního BUFFERU.
+- **Hlavička** obsahuje: 
+    - Číslo svazku: informace o právě zrcadleném bloku
+    - Informaci zda je buffer právě uzavřen a ukazatel, který zařazuje paměť do některého ze seznamů, ve kterých jsou buffery organizovány.
+
+### Seznamy
+- **Seznam volných bufferů** 
+    - Stránky, které nezrcadlí žádný blok. 
+    - Tento font obsahuje na začátku všechny buffery a během běhu systému se postupně vyprazdňuje, až se zcela vyčerpá, neboť za normálních situacích se nedoplňuje
+- **Fronta odemčených bufferů**
+    - V ní jsou všechny přidělené (nikoliv volné!) buffery, které nejsou uzamčeny
+- **Otevřená Hashovací tabulka všech přidělených bufferů**
+    - Skládá se z většího počtu oddělených seznamů, umožňuje rychlé vyhledání bufferů pro daný blok a svazek
