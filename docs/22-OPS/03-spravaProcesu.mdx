@@ -162,7 +162,8 @@ export const Highlight = ({text, color}) => (
 - OS může na požádání (volání služby jádra) vytvořit pro proces nové vlákno, které začne vykonávat část programu v souběhu s ostatními vlákny procesu.
 - Hlavní výhodou vláken je snadnější a efektivnější kooperace paralelních toků řízení -> umožňuje užití většího počtu souběžně běžících vláken bez výrazného zpomalení systému.
 
-# Kritický kód a vzájemné vyloučení
+# Synchronizace
+## Kritický kód a vzájemné vyloučení
 - Pro preemptivní multitásking je typická téměř úplná vzájemná nezávislost procesů.
 - Jedním z prostředků dosažením tohoto stavu je striktní oddělení tohoto prostředku užívaných jednotlivými procesy, což zcela brání kolizi procesů při jejich užívání.
 - Tento ideální stav panuje pouze na uživatelské úrovni a to výhradně u procesů, které s okolními procesy nikdy nekomunikují. Zcela jiná situace je u rutin jádra, které přistupují ke sdíleným prostředkům -> vznikají chyby.
@@ -193,8 +194,8 @@ export const Highlight = ({text, color}) => (
 oba typy synchronizace lze kombinovat
 :::
 
-# Synchronizační prostředky
-## Binární samafór
+## Synchronizační prostředky
+### Binární samafór
 - Sdílený logický prostředek, dva stavy (<Highlight text="červená" color="red"/>, <Highlight text="zelená" color="green"/>)
 - Dva stavy samafóru:
     - **WAIT**: pokud je semafor ve stavu zelená, je bezprostředně přepnut do stavu červená, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
@@ -202,14 +203,14 @@ oba typy synchronizace lze kombinovat
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
 
-# Uváznutí (deadlock)
+## Uváznutí (deadlock)
 - trvalé zablokování procesů, při chybném použití synchronizačních prostředků
 - proces, který získal samafór, opětovně zavolá operaci **WAIT**
 - Stav v němž se procesy vinou chybné synchronizace navždy zablokují (bez ukončení nemohou ukončit stav **SLEEP**) označujeme jako uváznutí (**DEADLOCK**)
 - Výše zmíněný příklad patří do skupiny méně nebezpečných, uváznutí tohoto typu vznikají důsledkem hrubých chyb v použití synchrnizačních prostředků, označují se jako **triviální**.
 - Druhou a nebezpečnější skupinu uváznutí, tvoří uváznutí vzniklá nepříznivým souběhem dvou procesů -> když 2 procesy používají 2 společné prostředky, může nastávat po dnech (Obtížně se detekují)
 
-## Odstranění uváznutí
+### Odstranění uváznutí
 1. **Nejjednušší metoda** -> vyloučení překrytí kritických kódů, lze splnit pouze pokud není vyžadováná přímá spolupráce několika prostředků.
 1. **Pořadí procesů** -> správné pořadí jejich alokace
 
