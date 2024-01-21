@@ -2,6 +2,8 @@
 title: "Souborový systém"
 ---
 
+import DescritpionImage from "@site/src/components/DescriptionImage/index"
+
 # Souborový systém
 - Organizace informací v OS.
 - Pro běh OS je nutné **trvalé** uložení dat.
@@ -30,7 +32,7 @@ title: "Souborový systém"
 - tato struktura je nejvhodnější pro cylindrické disky s jednoduchým adresováním založeným na geometrii disku.
 - současnosti se však často používají virtuální geo. bez cylindru (bez cylindrického uspořádání) a tak výhody zanikají a zůstává jen duplicita dat.
 
-# Buffery
+## Buffery
 - Paměťové bloky, zrcadlí obsah fyzických bloků na blokových zařízeních (disky).
 - Tři funkce:
     1. Tvoří sdílenou paměť mezi jádrem a nesynchrozivaným čtením a zápisem na disk.
@@ -59,3 +61,35 @@ title: "Souborový systém"
     - V ní jsou všechny přidělené (nikoliv volné!) buffery, které nejsou uzamčeny
 - **Otevřená Hashovací tabulka všech přidělených bufferů**
     - Skládá se z většího počtu oddělených seznamů, umožňuje rychlé vyhledání bufferů pro daný blok a svazek
+
+
+<DescriptionImage src="imgs\hashovaciTabulka.png" alt="hashovaciTabulka" description="Hashovaci tabulka"/>
+
+- Proces: možnosti, které mohou nastat při požadavku na zápis do určitého bloku na svazku resp. čtení z tohoto bloku
+1. pokud má tento blok již existujíci buffer (zjistí z hashovací tabulky) mohou nastat 2 situace:
+    1. pokud je Buffer odemčen, pak ho proces uzamkne a provede příslušnou operaci a ihned potom ho odemkne a probudí případné procesy čekající na tuto paměť
+    1. je již zamknut, proces se musí zablokovat
+1. Blok není aktuálně zrcadlen
+    1. Stále existují nepřidělené buffery
+        - proces odebere buffer z fondu nepřidělených, změní jeho hlavičku, na hlavičku požadovaného bloku a zařadí jej do hashovací tabulky (do příslušného seznamu) a zamkne jej, všechny tyto operace musejí být řešeny atomicky
+        - Během jeho zablokování je přesun dat z , a poté se může odemknout
+1. Neexistují žádné nepřidělené buffery
+    - Musí být ukradeny některé z odemčených (ale již samožřejmě přidělených) bufferů.
+    - Měl by to být buffer ze začátku fronty (je již dlouhou dobu nepoužíván).
+    - Zde mohou nastat 2 podsituace zda je buffer na začátku fronty:
+        - **Čistý** => nezměněn oproti diskovému, další činnost obdobná přidělení volné paměti.
+            - Nejdříve je však nutno paměť vyjmout jak z fronty tak hashovací tabulky.
+            - Paměť je uzamčena a vložena na jiné místo v hashovací tabulce (nyní již podle nového čísla bloku) a následně je naplánováno čtení daného bloku. Po odblokování je buffer použit a odemčen (opět se objeví ve frontě, na konci).
+            - Dále je již vše stejné.
+            - Změněno označení bloku.
+        - **Špinavý** => změněn oproti diskovému (s odloženým zápisem).
+            - Buffer není ještě uložen tj. se špinavým neboli odloženým zápisem.
+    
+# Subsystém I/O
+- Zajišťuje komunikaci s hardwarovými zařízeními (s výjimkou OP a procesoru, o než se stará správce paměti, resp. správce procesů).
+- Tento subsystém využívá i navíc další moduly jádra, především modul SS, ale i modul správy paměti -> SWAP.
+- Největší význam 3 periferních zařízeni:
+    - Vnější paměťová zařízení s blokovým přístupem.
+    - Vstupně výstupní zařízení se sekvenčním přístupem (myš, klávesnice, ..).
+    - Počítačová síť.
+- Skládá se z ovladačů (driverů).
