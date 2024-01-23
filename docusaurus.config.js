@@ -8,7 +8,7 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '🚀 SPSUL DOCS',
+  title: 'SPSUL - BASED DOCS',
   tagline: 'Na webu se ještě pracuje 🛠️',
   url: 'https://docs.spsul.cz',
   baseUrl: '/',
