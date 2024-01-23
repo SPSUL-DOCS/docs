@@ -93,3 +93,28 @@ import DescritpionImage from "@site/src/components/DescriptionImage/index"
     - Vstupně výstupní zařízení se sekvenčním přístupem (myš, klávesnice, ..).
     - Počítačová síť.
 - Skládá se z ovladačů (driverů).
+
+# Ovladače
+- mezi HW a OS
+- jednotné rozhraní
+- v nejnižší vrstvě přistupuje k HW (registry). Tato nejnižší vrstva je součástí **HAL**. Je přímo závislá na HW.
+
+## Rozhraní ovladačů
+- Dva protikladné požadavky
+    - Specializovaná rozhraní.
+    - Jednotné rozhraní.
+- Vnější rozhraní ovladačů
+    - **Základní rozhraní**
+        - Operace, které lze definovat u většinu ovladačů, je jednotné.
+        - Dummy funkce: v případě potřeby specializované služby, kterou nepodporuje základní rozhraní, tak přesměruje do **specializované funkce**. 
+        - Základní obecně podporované operace:
+            - **INIT** => počáteční inicializace zařízení, provádí se při startu systému nebo připojené zařízení.
+            - **TERMINATE** => odpojení zařízení.
+            - **OPEN** => otevření zařízení procesem.
+            - **CLOSE** => zavření zařízení procesem.
+            - GET, READ, 
+    - Specifické rozhraní -> operace, které jsou specifické pro daný typ zařízení.
+
+### Identifikace rozhraní a ovladače
+
+
