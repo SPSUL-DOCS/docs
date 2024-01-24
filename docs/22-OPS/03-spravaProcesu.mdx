@@ -202,8 +202,8 @@ oba typy synchronizace lze kombinovat
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
 
-## MUTEX
--**Mutual exclusion**
+## MUTEX 
+*Mutual exclusion*
 - Může být uvolněn pouze procesem, který daný MUTEX drží (vstoupil přes něj do kritického kódu).
 - Je určen dvěma hodnotami:
     1. Identifikátor procesu, jenž MUTEX drží ( pokud takový proces existuje, jinak není tato hodnota definována )
