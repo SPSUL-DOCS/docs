@@ -202,6 +202,31 @@ oba typy synchronizace lze kombinovat
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
 
+## MUTEX
+-**Mutual exclusion**
+- Může být uvolněn pouze procesem, který daný MUTEX drží (vstoupil přes něj do kritického kódu).
+- Je určen dvěma hodnotami:
+    1. Identifikátor procesu, jenž MUTEX drží ( pokud takový proces existuje, jinak není tato hodnota definována )
+    1. Počet uzamčení MUTEXU nad nímž jsou definovány 2 atomické operace.
+- **LOCK** 
+    - uzamčení/získání MUTEXU
+    - Je-li MUTEX volný proces se stává držitelem MUTEXU a počet uzamknutí nabývá hodnoty 1
+    - Je-li vlastněn aktuálním procesem, je pouze zvýšen počet uzamknutí
+    - Je-li MUTEX vlastněn jiným než aktuálním procesem, je proces zablokován a čeká na uvolnění MUTEXU
+- **UNLOCK** 
+    - odemčení/uvolnění MUTEXU
+    - Je-li MUTEX volný, je chování nedefinováno
+    - Je-li vlastněn aktuálním procesem, zmenšuje se počet uzamknutí o 1 a jel-li poté nulový je MUTEX uvolněn a jeden z čekajících procesů je odblokován
+    - Je-li MUTEX vlastněn jiným než aktuálním procesem, je chování nedefinováno, ale MUTEX není v žádném případě uvolněn
+- Základním pravidlem je **absolutní zamezení** držení MUTEXU více procesy najednou.
+- I Mutex musí být implementován jako semafor na úrovni jádra a musí být zaručena atomičnost operací.
+- **Použití Mutexu**: je používán pro zajištění vzájemného vyloučení nad kritickým kódem.
+- Hlavní výhodou ve srovnání s BS je snažší použíti, především v rozsáhlejších projektech dané požností vícnásobného zamykání.
+- Základním rozdílem mezi Mutexem a Událostí je bezestavový charakter události (událost si nepamatuje svůj stav a je dostupná na uživatelské úrovni).
+- Jak tedy zajistit, aby ty procesy navazovali a nepřekrývali se?
+    - Řešením je použití sdílené stavové proměné, která ukazuje dosažený stav (nastavována je prvním procesem a testována druhým)
+    - Protože nastavování ani testování není atomickou čiností, musí být obě činosti chráněni Mutexem
+
 ## Uváznutí (deadlock)
 - Je trvalé zablokování procesů, při chybném použití synchronizačních prostředků
 - Proces, který získal samafór, opětovně zavolá operaci **WAIT**
