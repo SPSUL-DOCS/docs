@@ -359,5 +359,27 @@ Router(dhcp-config)#domain-name <doména>
 ```
 
 ```cisco title="Relay agent"
-R(config-if)#ip helper-address <ip adresa DHCP serveru / routeru>
+Router(config-if)#ip helper-address <ip adresa DHCP serveru / routeru>
 ```
+
+
+## NAT
+
+```cisco title="Nastavení inside nat"
+Router(config)#int G0/0/0
+Router(config-if)#ip nat inside
+```
+```cisco title="Nastavení outside nat"
+Router(config)#int G0/0/1
+Router(config-if)#ip nat outside
+```
+
+### Statický NAT
+
+```cisco title="Bind statického NATu"
+Router(config)#ip nat inside source static <ip adresa> <ip adresa>
+```
+
+### Dynamický NAT
+
+TODO
