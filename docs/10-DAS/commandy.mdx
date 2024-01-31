@@ -376,10 +376,14 @@ Router(config-if)#ip nat outside
 
 ### Statický NAT
 
-```cisco title="Bind statického NATu"
+```cisco title="Statický NAT"
 Router(config)#ip nat inside source static <ip adresa> <ip adresa>
 ```
 
 ### Dynamický NAT
 
-TODO
+```cisco title="Dynamický NAT"
+Router(config)#ip nat pool NAT1 100.0.0.1 100.0.0.6 netmask 255.255.255.248
+Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+Router(config)#ip nat inside source list 1 pool NAT1
+```
