@@ -3,11 +3,27 @@ title: "Vzdálené připojení"
 ---
 
 # TELNET
-- nešifrované
+- nešifrované vzdálené připojení
+
+## Nastavení telnetu
 - nastavuje se jako virtualní terminál (vty)
-```
+```yml title="Nastavení virtuálních terminálů"
 Router(config)# line vty 0 15
 ```
+
+```yml title="Nastavení hesla"
+Router(config-if)# password <password>
+```
+
+```yml title="Nastavení přihlašování pomocí daného hesla"
+Router(config-if)# login
+```
+
+- Poté se můžeme připojit pomocí příkazu telnet z PC
+```cmd title="Přihlášení do telnetu"
+C:> telnet <ip-adresa>
+```
+
 
 # SSH
 - Šifrované vzdálené připojení

@@ -116,5 +116,10 @@ import DescritpionImage from "@site/src/components/DescriptionImage/index"
     - Specifické rozhraní -> operace, které jsou specifické pro daný typ zařízení.
 
 ### Identifikace rozhraní a ovladače
+- Zařízení jsou identifikována dvouurovňovým identifikátorem, který je tvořen dvěma čísli
+    - Major (hlavní) = Identifikuje ovladač (přes index) do tabulky ovladačů. Tabulka obsahuje odkazy na rutiny jednotlivých služeb daného ovladače.
+    - Minor (vedlejší) = Parametr rutiny, které identifikuje zařízení, která jsou aktuálně obsluhována daným ovladačem.
+- Index do tabulky zařízení, která je tentokrat uložena v rámci daného ovladače. Tato tabulka obsahuje údaje o fyzických adresách jednotlivých zařízení.
 
-
+#### Horní a dolní polovina ovladače
+U asynchronních zařízení se ovladač skládá ze dvou částí (označovaných jako poloviny), které se výrazně liší a to jak svým umístěním v jádře OS, tak svou funkcí. Tzv. horní polovina ovladače je běžnou rutinou jádra (tj. je volána jako běžná procedura) a zajišťuje rozhraní vůči vyšším vrstvám (viz operace ovladače výše). Dolní polovina je však obslužnou rutinou přerušení, která je vyvoláváno daným zařízením. Není proto přímo vyvolána zbytkem jádra (tj. ani dolní polovinou) a běží vůči zbytku jádra asynchronně (tj. může být vyvolána mezi jakýmikoliv dvěma instrukcemi jádra, bez ohledu na to jaká rutina resp. jaký proces právě běží). Přerušení je ve většině případů vyvoláno v případě, že zařízení provedlo výstup (u výstupních zařízení), resp. na zařízení se objevila vstupní data (u zařízení vstupních). Mezi horní a dolní polovinou ovladače leží softwarová vyrovnávací paměť (jedině přes ni mohou obě asynchronní části komunikovat). Paměť je vyhrazena jádrem v operační paměti (v oblasti spravované jádrem).

@@ -1,0 +1,28 @@
+---
+title: "NAT"
+description: "NAT (Network Address Translation) je využíván pro překlad IP adres mezi privátními a veřejnými adresami."
+source: "Jíří Mít"
+---
+
+# NAT
+- Překládá mezi privátní a veřejnou sítí.
+
+## Statický nastavení veřejné IP
+1. Nastavení záznamu pro překlad
+    ```cli title="Statický překlad"
+    Router()# ip nat source static <privatniIP> <veřejnaIP>
+    ```
+1. Nastavení outside/inside
+    - inside: privátní síť
+    - outside: venkovní veřejná síť
+    ```cli title="Nastavení outside/inside"
+    Router()# int <interface-veřejné-sítě>
+    Router()# ip nat outside
+    
+    Router()# int <interface-privátní-sítě>
+    Router()# ip nat inside
+    ```
+
+```cli title="Zobrazí tabulku nat záznamů"
+Router()# show ip nat translation
+```
