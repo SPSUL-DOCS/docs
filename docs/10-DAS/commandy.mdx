@@ -377,7 +377,7 @@ Router(config-if)#ip nat outside
 ### Statický NAT
 
 ```cisco title="Statický NAT"
-Router(config)#ip nat inside source static <ip adresa> <ip adresa>
+Router(config)#ip nat inside source static <inside ip> <outside ip>
 ```
 
 ### Dynamický NAT
@@ -387,3 +387,14 @@ Router(config)#ip nat pool NAT1 100.0.0.1 100.0.0.6 netmask 255.255.255.248
 Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
 Router(config)#ip nat inside source list 1 pool NAT1
 ```
+
+### PAT
+
+```cisco title="PAT"
+Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+Router(config)#ip nat inside source list 1 interface G0/0/1 overload
+Router(config)#ip route 0.0.0.0 0.0.0.0 G0/0/1
+```
+
+
+
