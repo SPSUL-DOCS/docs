@@ -1,15 +1,13 @@
 ---
 title: "Souborový systém"
 ---
-
-import DescritpionImage from "@site/src/components/DescriptionImage/index"
-
 # Souborový systém
 - Organizace informací v OS.
 - Pro běh OS je nutné **trvalé** uložení dat.
 - **UNIX** -> struktura modelů.
+ 
 
-![Správa souborového systému](imgs/sss.png)
+<DescriptionImageWithFill src="/img/opsimg/sss.png" alt="spravasouborovehosystemudiagram">Diagram správy souborového systému</DescriptionImageWithFill>
 
 ## Svazky
 - Správa svazků - Nejnižší logická vrstvou Souborového systému.
@@ -62,8 +60,9 @@ import DescritpionImage from "@site/src/components/DescriptionImage/index"
 - **Otevřená Hashovací tabulka všech přidělených bufferů**
     - Skládá se z většího počtu oddělených seznamů, umožňuje rychlé vyhledání bufferů pro daný blok a svazek
 
-
-<DescriptionImage src="imgs\hashovaciTabulka.png" alt="hashovaciTabulka" description="Hashovaci tabulka"/>
+<DescriptionImage src="/img/opsimg/hashovaciTabulka.png">
+    Hashovaci tabulka
+</DescriptionImage>
 
 - Proces: možnosti, které mohou nastat při požadavku na zápis do určitého bloku na svazku resp. čtení z tohoto bloku
 1. pokud má tento blok již existujíci buffer (zjistí z hashovací tabulky) mohou nastat 2 situace:

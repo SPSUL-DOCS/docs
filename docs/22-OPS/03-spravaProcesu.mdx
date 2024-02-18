@@ -3,15 +3,6 @@ title: "Procesy"
 date: 31.10.2023
 ---
 
-export const Highlight = ({text, color}) => (
-  <span
-    style={{
-      color: color,
-    }}>
-    {text}
-  </span>
-);
-
 # Správa procesu
 - Procesy patří mezi základní prostředky všech OS
 - 3 základní pohledy procesů:
@@ -57,12 +48,10 @@ export const Highlight = ({text, color}) => (
 - Správa procesů, která umožňuje existenci více nezávislých procesů v jednom okamžiku
 - Efekt skutečného **multitáskingu** je při dostatečně rychlé výměně procesů (milisekundy) iluze souběžného běhu více procesů i na jednoprocesorových strojích
 
-<div class="center">
+<DescriptionImage src="/img/opsimg/multitasking.jpg">
+    multitasking diagram
+</DescriptionImage>
 
-![multitasking](./imgs/multitasking.jpg)
-*multitasking diagram*
-
-</div>
 
 ## Vzájemné volání procesů
 - Zastaralé, dobrý úvod do multitaskingu
@@ -71,14 +60,10 @@ export const Highlight = ({text, color}) => (
 - Volání pozastaví aktuální proces, uloží jeho kontext a vytvoří počáteční kontext nového procesu, kterému následně předá řízení
 - Nyní běží jen tento nový proces, který po jisté době zavolá službu jádra exit, aby byl ukončen
 
-
-<div class="center">
-
-*S = sleeping, R = running, W = waiting, Z = Mátoha*
-![multitasking](./imgs/procesy.png)
-*stavový diagram procesů*
-
-</div>
+<DescriptionImage src="/img/opsimg/procesy.png">
+    S = sleeping, R = running, W = waiting, Z = Mátoha <br/>
+    stavový diagram procesů
+</DescriptionImage>
 
 ## Kooperativní multitasking
 - K výměně procesů dochází když aktuální proces nemůže pokračovat v běhu -> čeká na splnění podmínky (nemůže ovlivnit, například stisk klávesy, nebo pohyb myši).
@@ -196,8 +181,8 @@ oba typy synchronizace lze kombinovat
 
 ## Synchronizační prostředky
 ## Binární samafór
-- Sdílený logický prostředek, dva stavy (<Highlight text="červená" color="red"/>, <Highlight text="zelená" color="green"/>)
-    - **WAIT**: pokud je semafor ve stavu <Highlight text="zelená" color="green"/>, je bezprostředně přepnut do stavu <Highlight text="červená" color="red"/>, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
+- Sdílený logický prostředek, dva stavy (<Highlight color="red">červená</Highlight>, <Highlight color="green">zelená</Highlight>)
+    - **WAIT**: pokud je semafor ve stavu <Highlight color="green">zelená</Highlight>, je bezprostředně přepnut do stavu <Highlight color="red">červená</Highlight>, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
     - **SIGNAL**: stav samafóru je nastaven na zelenou.
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
