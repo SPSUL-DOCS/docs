@@ -17,6 +17,19 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
+::selection {
+  background: #ce4213;
+}
+
+a::selection {
+  color: black;
+}
+
+[data-theme='dark'] a::selection {
+  color: white;
+}
+
+
 ul ol {
   list-style-type: decimal;
 }

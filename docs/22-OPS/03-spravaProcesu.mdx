@@ -3,15 +3,6 @@ title: "Procesy"
 date: 31.10.2023
 ---
 
-export const Highlight = ({text, color}) => (
-  <span
-    style={{
-      color: color,
-    }}>
-    {text}
-  </span>
-);
-
 # Správa procesu
 - Procesy patří mezi základní prostředky všech OS
 - 3 základní pohledy procesů:
@@ -57,12 +48,10 @@ export const Highlight = ({text, color}) => (
 - Správa procesů, která umožňuje existenci více nezávislých procesů v jednom okamžiku
 - Efekt skutečného **multitáskingu** je při dostatečně rychlé výměně procesů (milisekundy) iluze souběžného běhu více procesů i na jednoprocesorových strojích
 
-<div class="center">
+<DescriptionImage src="/img/opsimg/multitasking.jpg">
+    multitasking diagram
+</DescriptionImage>
 
-![multitasking](./imgs/multitasking.jpg)
-*multitasking diagram*
-
-</div>
 
 ## Vzájemné volání procesů
 - Zastaralé, dobrý úvod do multitaskingu
@@ -71,14 +60,10 @@ export const Highlight = ({text, color}) => (
 - Volání pozastaví aktuální proces, uloží jeho kontext a vytvoří počáteční kontext nového procesu, kterému následně předá řízení
 - Nyní běží jen tento nový proces, který po jisté době zavolá službu jádra exit, aby byl ukončen
 
-
-<div class="center">
-
-*S = sleeping, R = running, W = waiting, Z = Mátoha*
-![multitasking](./imgs/procesy.png)
-*stavový diagram procesů*
-
-</div>
+<DescriptionImage src="/img/opsimg/procesy.png">
+    S = sleeping, R = running, W = waiting, Z = Mátoha <br/>
+    stavový diagram procesů
+</DescriptionImage>
 
 ## Kooperativní multitasking
 - K výměně procesů dochází když aktuální proces nemůže pokračovat v běhu -> čeká na splnění podmínky (nemůže ovlivnit, například stisk klávesy, nebo pohyb myši).
@@ -173,21 +158,21 @@ export const Highlight = ({text, color}) => (
 - Spolupráce mezi těmito procesy nemusí fungovat (vznikají chyby)
 
 #### Chyby
-1. Konzument využívá prostředek, který ještě není k dispozici (čte dříve)
-2. Konzument přečte 2x či dokonce vícekrát tentýž klíč
-3. Nepřečtení klíče z důvodů jeho bezprostředního přepsání producentem (konzument nestačí klíče dostatečně rychle číst)
-4. Nejsložitější případ => překryv zpráv (situace daná náhodných souběhem je komplikovaná, konzument přečte sdílenou paměť, která obsahuje fragmenty dvou klíčů, novějšího a staršího)
+1. **Čte dříve** -> Konzument využívá prostředek, který ještě není k dispozici 
+2. **Čte moc rychle** -> Konzument přečte 2x či dokonce vícekrát tentýž klíč
+3. **Nestíhá číst** -> Nepřečtení klíče z důvodů jeho bezprostředního přepsání producentem (konzument nestačí klíče dostatečně rychle číst)
+4. **Nejsložitější případ** -> **překryv zpráv** (situace daná náhodných souběhem je komplikovaná, konzument přečte sdílenou paměť, která obsahuje fragmenty dvou klíčů, novějšího a staršího)
 
 - Synchrozizace předchází kolizím daným
 - Pokus o nesynchrozivanou komunikaci je potencionálně nebezpečný => **kritický kód**
 
 ### 2 základní typy synchronizace:
-1. Čekání na událost
-    - proces čeká na událost, jež je výsledkem činnosti jiného procesu, synchronizace zajistí časovou následnost a zabrání propásnutí události čekajícím procesem
+1. **Čekání na událost**
+    - Proces čeká na událost, jež je výsledkem činnosti jiného procesu, synchronizace zajistí časovou následnost a zabrání propásnutí události čekajícím procesem
     - Tento typ řeší problémy dané rozdílnou rychlostí
-    - producenta a konzumenta
+    - Producenta a konzumenta
     - První 3 příklady s klíčem
-2. Vzájemné vyloučení
+2. **Vzájemné vyloučení**
     - Synchronizace musí zabránit současnému vykonávání dvou kritických kódů nad stejným prostředkem tj. pokud jeden proces vykonává kritický kód zahájil, nebo dokončil vykonávání první instrukce a ještě neprovedl instrukci poslední nesmí jiný proces vstoupit do kritického kódu nad týmž prostředkem
 
 :::info
@@ -195,29 +180,52 @@ oba typy synchronizace lze kombinovat
 :::
 
 ## Synchronizační prostředky
-### Binární samafór
-- Sdílený logický prostředek, dva stavy (<Highlight text="červená" color="red"/>, <Highlight text="zelená" color="green"/>)
-- Dva stavy samafóru:
-    - **WAIT**: pokud je semafor ve stavu zelená, je bezprostředně přepnut do stavu červená, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
+## Binární samafór
+- Sdílený logický prostředek, dva stavy (<Highlight color="red">červená</Highlight>, <Highlight color="green">zelená</Highlight>)
+    - **WAIT**: pokud je semafor ve stavu <Highlight color="green">zelená</Highlight>, je bezprostředně přepnut do stavu <Highlight color="red">červená</Highlight>, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
     - **SIGNAL**: stav samafóru je nastaven na zelenou.
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
 
+## MUTEX 
+*Mutual exclusion*
+- Může být uvolněn pouze procesem, který daný MUTEX drží (vstoupil přes něj do kritického kódu).
+- Je určen dvěma hodnotami:
+    1. Identifikátor procesu, jenž MUTEX drží ( pokud takový proces existuje, jinak není tato hodnota definována )
+    1. Počet uzamčení MUTEXU nad nímž jsou definovány 2 atomické operace.
+- **LOCK** 
+    - uzamčení/získání MUTEXU
+    - Je-li MUTEX volný proces se stává držitelem MUTEXU a počet uzamknutí nabývá hodnoty 1
+    - Je-li vlastněn aktuálním procesem, je pouze zvýšen počet uzamknutí
+    - Je-li MUTEX vlastněn jiným než aktuálním procesem, je proces zablokován a čeká na uvolnění MUTEXU
+- **UNLOCK** 
+    - odemčení/uvolnění MUTEXU
+    - Je-li MUTEX volný, je chování nedefinováno
+    - Je-li vlastněn aktuálním procesem, zmenšuje se počet uzamknutí o 1 a jel-li poté nulový je MUTEX uvolněn a jeden z čekajících procesů je odblokován
+    - Je-li MUTEX vlastněn jiným než aktuálním procesem, je chování nedefinováno, ale MUTEX není v žádném případě uvolněn
+- Základním pravidlem je **absolutní zamezení** držení MUTEXU více procesy najednou.
+- I Mutex musí být implementován jako semafor na úrovni jádra a musí být zaručena atomičnost operací.
+- **Použití Mutexu**: je používán pro zajištění vzájemného vyloučení nad kritickým kódem.
+- Hlavní výhodou ve srovnání s BS je snažší použíti, především v rozsáhlejších projektech dané požností vícnásobného zamykání.
+- Základním rozdílem mezi Mutexem a Událostí je bezestavový charakter události (událost si nepamatuje svůj stav a je dostupná na uživatelské úrovni).
+- Jak tedy zajistit, aby ty procesy navazovali a nepřekrývali se?
+    - Řešením je použití sdílené stavové proměné, která ukazuje dosažený stav (nastavována je prvním procesem a testována druhým)
+    - Protože nastavování ani testování není atomickou čiností, musí být obě činosti chráněni Mutexem
+
 ## Uváznutí (deadlock)
-- trvalé zablokování procesů, při chybném použití synchronizačních prostředků
-- proces, který získal samafór, opětovně zavolá operaci **WAIT**
-- Stav v němž se procesy vinou chybné synchronizace navždy zablokují (bez ukončení nemohou ukončit stav **SLEEP**) označujeme jako uváznutí (**DEADLOCK**)
-- Výše zmíněný příklad patří do skupiny méně nebezpečných, uváznutí tohoto typu vznikají důsledkem hrubých chyb v použití synchrnizačních prostředků, označují se jako **triviální**.
-- Druhou a nebezpečnější skupinu uváznutí, tvoří uváznutí vzniklá nepříznivým souběhem dvou procesů -> když 2 procesy používají 2 společné prostředky, může nastávat po dnech (Obtížně se detekují)
+- Je trvalé zablokování procesů, při chybném použití synchronizačních prostředků
+- Proces, který získal samafór, opětovně zavolá operaci **WAIT**
+- Dělíme na skupiny podle závažnosti
+    1. Chybná synchronizace navždy zablokuje proces, (bez ukončení nemohou ukončit stav **SLEEP**) označujeme jako uváznutí (**DEADLOCK**).
+        - Výše zmíněný příklad patří do skupiny méně nebezpečných, uváznutí tohoto typu vznikají důsledkem hrubých chyb v použití synchronizačních prostředků, označují se jako **triviální**.
+    2. Druhou a nebezpečnější skupinu uváznutí, tvoří uváznutí vzniklá nepříznivým souběhem dvou procesů -> když 2 procesy používají 2 společné prostředky, může nastávat po dnech (Obtížně se detekují)
 
 ### Odstranění uváznutí
 1. **Nejjednušší metoda** -> vyloučení překrytí kritických kódů, lze splnit pouze pokud není vyžadováná přímá spolupráce několika prostředků.
 1. **Pořadí procesů** -> správné pořadí jejich alokace
-
-:::warning
-Větší časová závislost kvůli povinnému pořadí -> výrazné zpomalení
-:::
-
+    :::warning
+    Větší časová závislost kvůli povinnému pořadí -> výrazné zpomalení
+    :::
 1. **Vše nebo nic** -> proces se pokusí získat všechny prostředky, které potřebuje a když se mu to nepovede, všechny prozatím uvolní (musí mít podporu v jádře).
 1. **Detekce potencionálního uváznutí (Predikce)**
     - Bohužel příliž defenzivní a náročný na čas (nepoužívá se)
