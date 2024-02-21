@@ -13,5 +13,4 @@ export default {
   // `Highlight` will receive all props that were passed to `<Highlight>` in MDX
   DescriptionImage,
   Highlight,
-  DescriptionImageWithFill,
 };
