@@ -396,5 +396,19 @@ Router(config)#ip nat inside source list 1 interface G0/0/1 overload
 Router(config)#ip route 0.0.0.0 0.0.0.0 G0/0/1
 ```
 
+### FHRP
+- First Hop Redundancy Protocols
+`standby <id> ip <virtuální brána>`
+`standby <id> priority <priorita>` nastavení priority (0-255) defaultni = 100 
+- Vyšší priorita vyhrává
+`standby <id> preempt` router se bude snažit dát jako hlavní když se znovu zapne a bude mít vetší prioritu
+
+
+```cisco title="FHRP"
+Router(config)#int g0/0/0
+Router(config-if)#standby 1 ip 192.168.0.10
+standby 1 priority <priorita>
+```
+
 
 
