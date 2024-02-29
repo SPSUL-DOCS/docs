@@ -1,10 +1,7 @@
-import React from "react";
 import MDXComponents from "@theme-original/MDXComponents";
-import {
-  DescriptionImage,
-  DescriptionImageWithFill,
-} from "@site/src/components/DescriptionImage";
-import Highlight from "@site/src/components//Highlight";
+import DescriptionImage from "@site/src/components/DescriptionImage";
+import Highlight from "@site/src/components/Highlight";
+import Description from "@site/src/components/Description";
 
 export default {
   // Re-use the default mapping
@@ -13,4 +10,5 @@ export default {
   // `Highlight` will receive all props that were passed to `<Highlight>` in MDX
   DescriptionImage,
   Highlight,
+  Description,
 };
