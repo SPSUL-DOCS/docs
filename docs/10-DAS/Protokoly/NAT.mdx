@@ -7,22 +7,59 @@ source: "Jíří Mít"
 # NAT
 - Překládá mezi privátní a veřejnou sítí.
 
-## Statický nastavení veřejné IP
-1. Nastavení záznamu pro překlad
-    ```cli title="Statický překlad"
-    Router()# ip nat source static <privatniIP> <veřejnaIP>
-    ```
-1. Nastavení outside/inside
-    - inside: privátní síť
-    - outside: venkovní veřejná síť
-    ```cli title="Nastavení outside/inside"
-    Router()# int <interface-veřejné-sítě>
-    Router()# ip nat outside
-    
-    Router()# int <interface-privátní-sítě>
-    Router()# ip nat inside
-    ```
+<DescriptionImage src="/img/dasimg/nat.png">
+    outside označuje veřejnou síť, inside tu privátní
+</DescriptionImage>
 
-```cli title="Zobrazí tabulku nat záznamů"
-Router()# show ip nat translation
+## Základní konfigurace
+- Vždy musíme nastavit, jaký port routeru je ve **veřejné síti** a jaký v **privátní síti**.
+```cli title="nastavení portu"
+Router(config)# int g0/0/0
+Router(config-if)# ip nat <inside/outside>
 ```
+
+:::tip Tabulka NAT záznamů
+- Zobrazení: `Router()# show ip nat translation`
+- Smazání: `Router()# clear ip nat translation `
+:::
+
+## Statická NAT
+- Staticky nastavíme veřejnou IP k danému hostu.
+
+### Konfigurace
+```cli title="Statický překlad"
+Router()# ip nat source static <privatniIP> <verejnaIP>
+```
+
+## Dynamický NAT
+- Dynamická NAT automaticky přiřazuje k hostum s privátní adresou jejich veřejnou adresu
+
+### Konfigurace
+```cli title="Vytvoříme pool"
+Router(config)# ip nat pool <name> <prvni-verejna-ip> <posledni-verejna-ip> netmask <mask>
+```
+- Nastavení ACL s privátní sítí, kterou chceme používat pro překlad
+```cli title="Vytvoříme ACL"
+Router(config)# access-list <id> permit <private-network-ip> <wildcard>
+```
+:::warning Wildcard
+wildcard je bitově opačná maska -> maska `255.255.255.0` je wildcard `0.0.0.255`
+:::
+
+```cli title="Připojení ACL k NAT distribuci"
+Router(config)# ip nat inside source list <acl-id> pool <pool-nazev>
+```
+
+## PAT
+- Pat překládá celou adresu sítě na adresu veřejnou.
+### Konfigurace
+```cli title="Vytvoříme ACL s privátní adresou"
+Router(config)# access-list <id> permit <ip sítě> <wildcard>
+```
+```cli title="Nastavení PAT s ACL"
+Router(config)# ip nat inside source list <acl-id> interface <interface> overload
+```
+<Description>
+    outside označuje veřejnou síť, inside tu privátní
+</Description>
+
