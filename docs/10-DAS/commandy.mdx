@@ -242,8 +242,8 @@ Router(config)# username <jmeno> password <heslo>
 5. Přepneme z Telnetu na SSH
 ```
 Router(config)# line vty 0 15
-Router(config)# login local
-Router(config)# transport input SSH
+Router(config-line)# login local
+Router(config-line)# transport input SSH
 ```
 
 # VLAN
