@@ -1,19 +1,22 @@
 ---
 sidebar_position: 2
 title: ⌨️ Commandy
-description: Příkazy používané v CISCO CLI 
+description: Příkazy používané v CISCO CLI
 toc_max_heading_level: 2
 ---
 
 # Commandy
 
 ## Základy
-* Commandy jdou napsat zkráceně například místo `enable` stačí napsat `en`
+
+- Commandy jdou napsat zkráceně například místo `enable` stačí napsat `en`
 
 ## Nápověda
-* Nápověda se zobrazí pomocí `?`
+
+- Nápověda se zobrazí pomocí `?`
 
 ### Zobrazí se všechny možné příkazy
+
 ```
 Router(config)# ?
 Configure commands:
@@ -26,6 +29,7 @@ Configure commands:
 ```
 
 ### Zobrazí vám jak může příkaz pokračovat
+
 ```
 Router(config)# int ?
   Dialer            Dialer interface
@@ -39,23 +43,27 @@ Router(config)# int ?
   Tunnel            Tunnel interface
   Virtual-Template  Virtual Template interface
   Vlan              Catalyst Vlans
-  range             interface range command 
+  range             interface range command
 ```
 
 ### Zobrazí zbytek příkazu
+
 ```
 Router(config)# int?
 interface
 ```
-- nabídne příkazy začínající na int 
+
+- nabídne příkazy začínající na int
 
 :::tip
-* pro zobrazení další strany `space`, pro zobrazení dalšího řádku `enter`
-* Průběh každého příkazu lze ukončit zkratkou `ctrl`+`shift`+`6`
-* Pro doplnění příkazu slouží `tab`
-:::
+
+- pro zobrazení další strany `space`, pro zobrazení dalšího řádku `enter`
+- Průběh každého příkazu lze ukončit zkratkou `ctrl`+`shift`+`6`
+- Pro doplnění příkazu slouží `tab`
+  :::
 
 ### Privilegovaný režim
+
 Do privilegovaného režimu se dostaneš pomocí `enable`
 
 ```
@@ -66,7 +74,8 @@ Router#
 
 ### Konfigurace (Config)
 
-## Globální konfigurace 
+## Globální konfigurace
+
 ```
 Router# configure terminal
 Router(config)#
@@ -75,50 +84,63 @@ Router(config)#
 :::tip Stačí napsat `conf` a dvakrat enter
 :::
 
-
 ## Konfigurace portů
+
 ### Na routeru
-Port na routeru např. *GigabitEthernet0/0/0* se nastavují pomocí
+
+Port na routeru např. _GigabitEthernet0/0/0_ se nastavují pomocí
+
 ```
 Router(config)#int GigabitEthernet0/0/0
-Router(config-if)# 
+Router(config-if)#
 ```
 
 :::tip Celý název lze zkrátit **`GigabitEthernet0/0/0`**
+
 ```
 Router(config)#int g0/0/0
-Router(config-if)# 
+Router(config-if)#
 ```
+
 :::
 
 Více portů naráz jde nastavit pomocí rozsahu
+
 ```
 Router(config)#int range g0/0/0 - g0/0/1
 Router(config-if-range)#
 ```
 
 :::tip jde zkrátit na poslední číslo druhého portu
+
 ```
 Router(config)#int range g0/0/0 - 1
 Router(config-if-range)#
 ```
+
 :::
 
 ### Virtuální porty (připojení vzdáleně)
+
 - Každý aktivní prvek sítě má svoje virtuální porty, na které se dá připojit vzdáleně (telnet, SSH)
+
 ```
 Router(config)#line vty 0 15
 ```
 
 ### Konsolový port
+
 - Port sedí vzádu na routeru a označuje se Console
 - Configuruje se pomocí příkazu
+
 ```
 Router(config)#line console 0
 ```
 
 ## Nastavení IP adresy na Router
+
 ### IPv4
+
 ```
 Router(config)#ip default-gateway <default gateway>
 Router(config)#int GigabitEthernet0/0/0
@@ -127,12 +149,16 @@ Router(config-if)#no sh
 ```
 
 ### IPv6
+
 ```
 Switch(config-if)#ipv6 add 2001:db8:acad:b::1/64
 Switch(config-if)#ipv6 add fe80::1 link-local
 ```
+
 ## Nastavení IP adresy na Switch
+
 ### IPv4
+
 ```
 Switch(config)#ip default-gateway <default gateway>
 Switch(config)#int vlan 1
@@ -141,6 +167,7 @@ Switch(config-if)#no sh
 ```
 
 ### IPv6
+
 ```
 Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
 Switch#copy running startup
@@ -151,21 +178,26 @@ Switch(config-if)#ipv6 add fe80::1 link-local
 ```
 
 ## Hostname
+
 Pojďme přejmenovat router na R1
+
 ```
 Router(config)#hostname R1
 R1(config)#
 ```
 
-
 ## Banner
+
 Zpráva která se objeví při otevření konzole
+
 ```
 R1(config)#banner motd "vase zpráva"
 ```
 
 ## Zákaz DNS lookup
+
 Při zadání špatnýho příkazu ho nebude hledat další příkaz (nemusíš mačkat `ctrl`+`shift`+`6`)
+
 ```
 R1(config)#no ip domain lookup
 ```
@@ -173,16 +205,21 @@ R1(config)#no ip domain lookup
 ## Hesla
 
 ### Šifrování hesel
+
 ```
 R1(config)#service password-encryption
 ```
 
 ### Nastavení minimální délky hesla
+
 Nastaví délku minimální délku hesla na 5 znaků
+
 ```
 R1(config)#security passwords min-length
 ```
+
 ### Nastavení hesla do konzole
+
 ```
 R1(config)#line con 0
 R1(config-line)#
@@ -192,6 +229,7 @@ R1(config-line)#login
 ```
 
 ### Nastavení hesla pro privilegovaný režim
+
 Nastaví heslo pro privilegovaný režim
 
 ```
@@ -202,6 +240,7 @@ R1(config)#enable `password/secret` tajnyheslo
 `secret` nastaví šifrované heslo
 
 :::warning Nastavení hesla pomocí `secret` má přednost před `password`
+
 ```
 R1(config)#enable secret tvojemama
 R1(config)#enable password mojemama
@@ -211,35 +250,47 @@ Heslo je `tvojemama`
 :::
 
 ## Routing
+
 Když máme více sítí a chceme aby router mohl posílat data z první sítě do té druhé sítě
+
 ```
 Router(config)#ip route <adresa vzdálené sítě> <maska vzdalené sítě> <interface_to_exit>
 ```
+
 ### interface to exit:
-<img src="/img/dasimg/interface_exit_port.png" alt="Logo"/>
+
+<img src="/img/dasimg/interface_exit_port.png" alt="Logo" />
 
 :::warning Router 1 je ten, kde nastavujeme ip route
 :::
 
-## Vzdálené připojení 
+## Vzdálené připojení
+
 ### SSH
+
 1. Hostname
 2. Nastavíme doménu pro SSH
+
 ```
 Router(config)# ip domain-name <jakákoliv-doména>
 ```
+
 3. Vytvoříme hashovací klíč
+
 ```
 Router(config)# crypto key generate rsa
 ```
-*nejlepší použít 1024 bitů*
+
+_nejlepší použít 1024 bitů_
 
 4. Vytvoříme SSH uživatele
+
 ```
 Router(config)# username <jmeno> password <heslo>
 ```
 
 5. Přepneme z Telnetu na SSH
+
 ```
 Router(config)# line vty 0 15
 Router(config-line)# login local
@@ -247,21 +298,28 @@ Router(config-line)# transport input SSH
 ```
 
 # VLAN
+
 ## Nastavení routeru
-0) Zapneme port na routeru
+
+0. Zapneme port na routeru
+
 ```
 R1(config)#int g0/0/0
 R1(config-if)#no sh
 ```
-### Nastavení sub interfacu 
+
+### Nastavení sub interfacu
+
 1.  Otevřem sub interface
+
 ```
 R1(config)#int g0/0/0.<vlanID>
 R1(config-subif)#
 ```
 
 2. Nastavíme IP adresu vlany
-``` 
+
+```
 R1(config-subif)#encapsulation dot1Q <vlanID>
 R1(config-subif)#ip address <ip adresa hosta v té vlan> <maska vlany>
 ```
@@ -269,7 +327,9 @@ R1(config-subif)#ip address <ip adresa hosta v té vlan> <maska vlany>
 ## Switch
 
 ### Nastavení portu k PC
-* Přiřadíme daný port ke konkrétní vlan
+
+- Přiřadíme daný port ke konkrétní vlan
+
 ```
 S1(config)#int f0/2
 S1(config-if)#switchport mode access
@@ -277,14 +337,18 @@ S1(config-if)#switchport access vlan <vlanID>
 ```
 
 ### Ostatní porty (trunk)
-* Port, který vede k routeru a nebo spojuje dva switche
+
+- Port, který vede k routeru a nebo spojuje dva switche
+
 ```
 S1(config)#int f0/1
 S1(config-if)#switchport mode trunk
-``` 
+```
 
 ## L3 switch
-* Zapnutí IP routingu
+
+- Zapnutí IP routingu
+
 ```
 L3Switch(config)#ip routing
 ```
@@ -293,67 +357,87 @@ L3Switch(config)#ip routing
 Při routování mezi VLANama na L3 switchi potřebujem také ip routing
 :::
 
+- Vypne funkce switche na portu (tento port se bude chovat jako u routeru)
 
-* Vypne funkce switche na portu (tento port se bude chovat jako u routeru)
 ```
 L3Switch(config-if)#no switchport
 ```
+
 y
+
 ### Spanning tree protocol
-* Informace o spanning tree
+
+- Informace o spanning tree
+
 ```
 SW#show spanning tree
 ```
 
-* Nastavení priority u routeru 
+- Nastavení priority u routeru
+
 ```
-SW(config)#spanning-tree vlan <vlanID> prio <0-61440> 
+SW(config)#spanning-tree vlan <vlanID> prio <0-61440>
 ```
+
 nejmenší číslo = největší priorita
 
-* Nastavení port-fast 
-vypne spanning tree protocol na daném portu
+- Nastavení port-fast
+  vypne spanning tree protocol na daném portu
+
 ```
-SW(config-if)#spanning-tree portfast 
+SW(config-if)#spanning-tree portfast
 ```
 
 ### EtherChannel
-* Nastavení etherchannelu
+
+- Nastavení etherchannelu
+
 ```
 SW(config)#interface range <range portu - f0/1-2>
 SW(config-if-range)#channel-group <id etherchannelu> mode <active/>
 ```
-* Zobrazení etherchannelu
+
+- Zobrazení etherchannelu
+
 ```
 SW#show etherchannel summary
 ```
 
 :::warning Dynamický trunk a EtherChannel
 Může se stát, že L3 switch se nedohodne s druhým switchem na trunk modu (L3 switch má automatický trunk/access)
+
 ```c title="Force trunk"
 Switch(config-if)#switchport trunk encapsulation dot1q
 ```
+
 :::
 
 ## DHCP
 
-### Nastavení DHCP serveru na Routeru 
+### Nastavení DHCP serveru na Routeru
+
 ```cisco title="1. Vyloučit adresy, které nechceme aby poskytoval (adresy routerů, serverů, switchů…)"
 R(config)#ip dhcp excluded-address <první ip> <poslední ip>
 ```
+
 ```cisco title="2. Pojmenovat DHCP"
 R(config)#ip dhcp pool <jméno>
 ```
+
 #### 3. Nastavit informace o DHCP
+
 ```cisco title="Síť, které přiřazuje rozsah"
 Router(dhcp-config)#network <ip sítě> <maska>
 ```
+
 ```cisco title="Defaultní bránu"
 Router(dhcp-config)#default-router <ip brány>
 ```
+
 ```cisco title="DNS server"
 Router(dhcp-config)#dns-server <ip serveru>
 ```
+
 ```cisco title="Doménové jméno"
 Router(dhcp-config)#domain-name <doména>
 ```
@@ -362,13 +446,13 @@ Router(dhcp-config)#domain-name <doména>
 Router(config-if)#ip helper-address <ip adresa DHCP serveru / routeru>
 ```
 
-
 ## NAT
 
 ```cisco title="Nastavení inside nat"
 Router(config)#int g0/0/0
 Router(config-if)#ip nat inside
 ```
+
 ```cisco title="Nastavení outside nat"
 Router(config)#int g0/0/1
 Router(config-if)#ip nat outside
@@ -397,18 +481,15 @@ Router(config)#ip route 0.0.0.0 0.0.0.0 g0/0/1
 ```
 
 ### FHRP
-- First Hop Redundancy Protocols
-`standby <id> ip <virtuální brána>`
-`standby <id> priority <priorita>` nastavení priority (0-255) defaultni = 100 
-- Vyšší priorita vyhrává
-`standby <id> preempt` router se bude snažit dát jako hlavní když se znovu zapne a bude mít vetší prioritu
 
+- First Hop Redundancy Protocols
+  `standby <id> ip <virtuální brána>`
+  `standby <id> priority <priorita>` nastavení priority (0-255) defaultni = 100
+- Vyšší priorita vyhrává
+  `standby <id> preempt` router se bude snažit dát jako hlavní když se znovu zapne a bude mít vetší prioritu
 
 ```cisco title="FHRP"
 Router(config)#int g0/0/0
 Router(config-if)#standby 1 ip 192.168.0.10
 standby 1 priority <priorita>
 ```
-
-
-

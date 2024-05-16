@@ -2,72 +2,76 @@
 
 - Miniaturizovaná součástka (má vysokou intensitu - obsahuje vysoké množství součástek)
 - Procesor
-    - zpracovává instrukce
-    - pracuje podle programu
+  - zpracovává instrukce
+  - pracuje podle programu
 
 ## Typy procesoru
 
 Dělění podle velikost instrukční sady
+
 - RISC
-    - reduced information set computer
-    - základní instrukce (sčítání)
+  - reduced information set computer
+  - základní instrukce (sčítání)
 - CISC
-    - complete information set computer (Intel, AMD)
-    - velká instrukční sada
+  - complete information set computer (Intel, AMD)
+  - velká instrukční sada
 
 ## Mikroprocesor zevnitř
 
 ### Registry
+
 - malá rychlá paměť uvnitř mikroprocesoru
 - každý mikroprocesor má sadu registrů, nekteré jsou univerzální, nekteré specializované
 
 ### Instrukční sada
+
 - soubor povelů (instrukcí)
 - musé obsahovat instrukce pro přesuny dat mezi pamětí a registry aritmetické a logické instrukce, instrukce pro řízení programu a několik systémových instrukcí
 - současné mikroprocesory pak dále obsahují instrukce pro přehrávání videa, generování zvuků, grafiky atd...
 
-
 MMX - multi media extention
 
+### CACHE
 
-### CACHE 
 - vyrovnávací paměť
 - mezisklad dat, mezi různě rychlými komponentami počítače, jeho účelem je vzájemné přizpůdobení rychlostí. Rychlejší komponenta čte data z CACHE a nemusí čekat na komponentu pomalejší
 
-
 ### Správa paměti
+
 "Stojí" mezi adresami generovanými programem a skutečnými adresami v operační paměti. Jednotka mění adresy generované programem, tak jak je to momentálně výhodné pro operační systém. Hlavním důvodem pro překlad adres je lepší využití operační paměti. Druhým důvodem je zabezpečení - ochrana paměti
 
-
 ### MultiTasking - rozdělení / přidělení paměti programům
+
 - vnitřní šířka dat mikroprocesoru - popisuje schopnost mikroprocesoru zpracovat najednou určité množství bitů. Často se používá termín šířka sběrnice
 
 Každý mikroprocesor má datovou sběrnici, kterou přenáší data
 
-
 ## Takt CPU / Frekvence CPU
 
 ### Generátor taktu
+
 Elektronický obvod, který v pravidelných intervalech generuje impuls, který určuje praovní tempo mikroprocesoru
 
 ### Systém přerušení
+
 Přerušení je signál, který k mikroprocesoru vyšle některé hardwarové zařízení nebo program. Vysílatel signálu se tak snaží zabrat mikroprocesor pro sebe. Mikroprocesor musí přerušit svoji činnost a žádost zpracovat.
 
 ### Pipelinking
+
 Způsob zvýšení výkonu mikroprocesoru zřetelným zpracováváním (překrývání strojových instrukcí)
 
 ### Superskalární architektura
+
 Způsob jak zvýšit výkon procesoru duplikováním některých částí CPU
 
 ## Patice CPU (socket)
+
 - LGA - Land grit array
 - PGA - Pin grit array
-
 
 Označení **Intel** socketů
 -1155
 -1150
 -1151
-
 
 AM4 - socket **AMD**

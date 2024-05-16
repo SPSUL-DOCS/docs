@@ -7,10 +7,9 @@ title: Síťové modely
 
 PDU = "Protocol data unit", jednotka, v každé vrtsvě jiná, zvětšuje se od spoda nahoru
 
-
-:::tip 
-APRTSLF -> lehčí si zapamatovat 7 písmen, než 7 slov 
-::: 
+:::tip
+APRTSLF -> lehčí si zapamatovat 7 písmen, než 7 slov
+:::
 
 <table align="center">
     <tr>
@@ -45,7 +44,7 @@ APRTSLF -> lehčí si zapamatovat 7 písmen, než 7 slov
     <td>6</td>
     <td>Prezenční vrstva</td>
     <td>Slouží k šifrování dat, komprimace</td>
-    <td>~~~</td>  
+    <td>~~~</td>
 
   </tr>
   <tr>
@@ -60,7 +59,7 @@ APRTSLF -> lehčí si zapamatovat 7 písmen, než 7 slov
     <td>Transportní vrstva</td>
     <td>TCP segment nebo UDP datagram</td>
     <td>Nastavuje nejlepší kvalitu spojení</td> {/* popis */}
-    <td>~~~</td>  
+    <td>~~~</td>
 
   </tr>
   <tr>
@@ -90,19 +89,20 @@ APRTSLF -> lehčí si zapamatovat 7 písmen, než 7 slov
 
 ## Transportní vrstva
 
-Dělíme na `TCP` A `UDP` 
+Dělíme na `TCP` A `UDP`
 
 ### TCP
-* Zasílá segment s kontrolou (kontroluje jestli paket dorazil) 
-* Kvůli kontrole je `pomalejší`
-* Kontrola: 
+
+- Zasílá segment s kontrolou (kontroluje jestli paket dorazil)
+- Kvůli kontrole je `pomalejší`
+- Kontrola:
+
 1. Host 1 - Zeptá se jestli tam je Host 2 (synchronizace)
 2. Host 2 - Odpovídá, že tam je (accept), a zašle ještě jednu otazku jestli tam je (synchronizace)
 3. Host 1 - Odpovádá, že tam je (accept), a pošle segment
-(opakuje se to dokola)
+   (opakuje se to dokola)
 
+### UDP
 
-### UDP 
-* Zasílá `datagram` bez kontroly
-* je to rychlejší ale může vzniknout ke ztrátám (dobré u videohovorů)
-
+- Zasílá `datagram` bez kontroly
+- je to rychlejší ale může vzniknout ke ztrátám (dobré u videohovorů)

@@ -1,8 +1,8 @@
 {
-    "label": "Operační systémy",
-    "link": {
-      "type": "generated-index",
-      "slug": "/category/ops",
-      "title": "Operační systémy"
-    }
+  "label": "Operační systémy",
+  "link": {
+    "type": "generated-index",
+    "slug": "/category/ops",
+    "title": "Operační systémy"
   }
+}

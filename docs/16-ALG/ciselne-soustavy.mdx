@@ -4,50 +4,62 @@ title: "Číselné soustavy"
 
 # Převody v číselných soustavách
 
-:::tip Nejlehčí je převádět do BIN a z ní do ostatních 
+:::tip Nejlehčí je převádět do BIN a z ní do ostatních
 :::
 
 ## DEC → BIN
+
 - napíšeme si odzadu binární řadu (1, 2, 4, 8, 16 … ) až do největšího čísla z řady, které se
-ještě vejde do zadaného čísla
+  ještě vejde do zadaného čísla
 - pod toto číslo z řady napíšeme 1 a odečteme ho od zadaného čísla
 - vejde-li se další číslo (menší) z řady do zbytku zadaného čísla, napíšeme pod něj jedničku a
-opět ho odečteme, když se nevejde napíšeme nulu
+  opět ho odečteme, když se nevejde napíšeme nulu
 - tento postup opakujeme až k číslu 1 v binární řadě (nemělo by nám nic zbýt)
 
-př.: číslo 326 (DEC) 
+př.: číslo 326 (DEC)
 řada: 256 128 64 32 16 8 4 2 1
+
 ### Příklad
+
 $$
 -256/70
 $$
+
 Výsledek: 1 0100 0110 (BIN)
 
 ## BIN → DEC
+
 - vezmeme zadané binární číslo, napíšeme nad něj binární řadu odzadu!
 - potom sečteme všechna čísla z řady nad kterými jsou jedničky
 - výsledný součet je námi požadovaná dekadická hodnota
 
 ## BIN → OCT
+
 - zadané binární číslo rozdělíme po trojicích (23=8) odzadu
 - nad každou trojici napíšeme odzadu “miniřady“ (4 2 1)
 - sečteme v každé trojici čísla z “miniřady“, pod kterými je 1
 - výsledná čísla nad dají výsledek v oktalové soustavě
 
 ## OCT → BIN
+
 - pod každou číslici zadaného oktalového čísla napíšeme “miniřady“ (4 2 1)
 - danou číslici rozdělíme na součet čísel z “miniřady“ (např.: 5 je 4+1, 3 je 2+1)
 - pod ty čísla “miniřady“, která jsou v součtu napíšeme 1, pod ostatní 0
 
 ## DEC → OCT
+
 - přímý převod je složitý a zbytečný
 - číslo dekadické nejprve převedeme do soustavy binární (viz. DEC → BIN) a z ní velmi
-jednoduše do oktalové (viz. BIN → OCT)
+  jednoduše do oktalové (viz. BIN → OCT)
+
 ## OCT→ DEC
+
 - přímý převod je složitý a zbytečný
 - číslo oktalové nejprve velmi jednoduše převedeme do soustavy binární (viz. OCT → BIN) a
-z ní potom do dekadické (viz. BIN → DEC)
+  z ní potom do dekadické (viz. BIN → DEC)
+
 ## BIN → HEX
+
 - zadané binární číslo rozdělíme po čtveřicích (24=16) odzadu
 - nad každou čtveřici napíšeme odzadu “delší miniřady“ (8 4 2 1)
 - sečteme v každé čtveřici čísla z “delší miniřady“, pod kterými je 1
@@ -55,15 +67,19 @@ z ní potom do dekadické (viz. BIN → DEC)
 - výsledná čísla nad dají výsledek v hexadecimální soustavě
 
 ## HEX → BIN
+
 - pod každou číslici zadaného hexadecimálního čísla napíšeme “delší miniřady“ (8 4 2 1)
 - danou číslici rozdělíme na součet čísel z “delší miniřady“ (např.: 5 je 4+1, B je 8+2+1)
 - pod ty čísla “delší miniřady“, která jsou v součtu napíšeme 1, pod ostatní 0
 
 ## DEC → HEX
+
 - přímý převod je složitý a zbytečný
 - číslo dekadické nejprve převedeme do soustavy binární (viz. DEC → BIN) a z ní velmi
-jednoduše do hexadecimální (viz. BIN → HEX)
+  jednoduše do hexadecimální (viz. BIN → HEX)
+
 ## HEX → DEC
+
 - přímý převod je složitý a zbytečný
 - číslo hexadecimální nejprve velmi jednoduše převedeme do soustavy binární (viz. HEX→
-BIN) a z ní potom do dekadické (viz. BIN → DEC)
+  BIN) a z ní potom do dekadické (viz. BIN → DEC)

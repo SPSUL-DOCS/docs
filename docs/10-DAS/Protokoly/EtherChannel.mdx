@@ -5,34 +5,42 @@ source: "Jiří Mít"
 ---
 
 # EtherChannel
-* EtherChannel umožňuje spojit dvě zařízení pomocí více kabelů
-* Používá dva protokoly: **PAGP** a **LACP**
+
+- EtherChannel umožňuje spojit dvě zařízení pomocí více kabelů
+- Používá dva protokoly: **PAGP** a **LACP**
 
 ## Nastavení EtherChannelu u Switche
+
 1. Zvolíme porty, které chceme spojit do jednoho
+
 ```yml
 Switch(config)#interface range fe0/1-2
 ```
 
 2. Vytvoříme skupinu
+
 ```yml
 Switch(config-if-range)#channel-group <id_skupiny> mode active
-``` 
+```
 
 :::warning VLANY a EtherChannel
 Je žádoucí aby fungoval v režimu **trunku**
+
 ```yml
 Switch(config-if-range)#switchport mode trunk
 ```
+
 :::
 
 :::warning Dynamický trunk a EtherChannel
 Může se stát, že L3 switch se nedohodne s druhým switchem na trunk modu (L3 switch má automatický trunk/access)
+
 ```yml title="Force trunk"
 Switch(config-if)#switchport trunk encapsulation dot1q
 ```
 
-* Zobrazení nastavení etherchannelu
+- Zobrazení nastavení etherchannelu
+
 ```
 SW#show etherchannel summary
 ```

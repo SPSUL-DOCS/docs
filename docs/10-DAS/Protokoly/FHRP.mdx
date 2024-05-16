@@ -5,24 +5,29 @@ source: "Jíří Mít"
 ---
 
 # FHRP
+
 - Umožňuje zapojit do sítě "náhradní router"
 - Více routerů se stane jedním virtuálním routerem s vlastní IP adresou a MAC adresou
 
 Existuje v různých verzích:
->* HSRP -> Hot Standby Router Protocol (Cisco protokol)
->* GLBP -> Gateway Load Balancing Protocol (Cisco protokol)
->* IRDP -> ICMP Router Discovery Protocol (Zastaralé, nepoužívá se)
+
+> - HSRP -> Hot Standby Router Protocol (Cisco protokol)
+> - GLBP -> Gateway Load Balancing Protocol (Cisco protokol)
+> - IRDP -> ICMP Router Discovery Protocol (Zastaralé, nepoužívá se)
 
 ## HSRP
+
 - Jak funguje: Aktivní router vysílá pravidelně Hello zprávy, záložní router poslouchá. Pokud aktivní router přestane posílat hello zprávy, záložní router se stane aktivním
-- Routery v síti mají dva stavy: 
-    >* Active - aktivní router
-    >* Standby - náhradní router, připraven "jít do boje v případě potřeby" :D
+- Routery v síti mají dva stavy:
+  > - Active - aktivní router
+  > - Standby - náhradní router, připraven "jít do boje v případě potřeby" :D
 - Tyto dva stavy se automaticky přepínají
 - Lze nastavit **prioritu** -> router s nejvyšší prioritou je aktivní, **bez priority** se nastaví jako aktivní router, který má větší numericky ip adresu `10.2 > 10.1`
+
 ```yml title="Nastavení priority u routeru"
 Router(config-if)#standby priority <0-255>
 ```
+
 - **HSRP Preemption** = pokud je nastavený na routeru, router se stane aktivním, i když v síti je jiný aktivní router
 
 :::tip Příklad HSRP Preemption
@@ -42,29 +47,34 @@ Router(config-if)#standby preempt
 ```
 
 ### Stavy
+
 - HSRP může mít několik stavů
 - Posílají se HELLO Zprávy každé **3 sek.**, aby se domluvil stav routerů
 - Pokud aktivní router nedostane HELLO Zprávu po dobu **10 sek.**, všechny routery se začnou volit o aktivní funkci
 - Stavy:
-    >* Initial - stav při aktivaci HSRP
-    >* Learn - ještě nezná virtuální IP adresu, ani nezachytil žádný Hello packet od Active routeru
-    >* Listen – zná virtuální IP adresu, ale nemá žádnou roli -> poslouchá
-    >* Speak – posílá Hello packety a účastní se voleb
-    >* Standby – kandidát do voleb
-    >* Active – vítěz voleb
+  > - Initial - stav při aktivaci HSRP
+  > - Learn - ještě nezná virtuální IP adresu, ani nezachytil žádný Hello packet od Active routeru
+  > - Listen – zná virtuální IP adresu, ale nemá žádnou roli -> poslouchá
+  > - Speak – posílá Hello packety a účastní se voleb
+  > - Standby – kandidát do voleb
+  > - Active – vítěz voleb
 
 ### Konfigurace
+
 ```yml title="Nastavujeme na interface"
 Router(config)#int g0/1
 ```
+
 ```yml title="Nastavíme verzi HSRP"
 Router(config-if)#standby version <1 nebo 2>
 // 1 = Funguje pouze na ipv4
 // 2 = Funguje na ipv4 i ipv6 -> používá se hlavně ta 2
 ```
+
 ```yml title="IP adresa virtuální brány (router)"
 Router(config-if)#standby <HSRP group ID> ip <ip adresa virtuální brány>
 ```
+
 :::warning HSRP group ID
 musí být u všech routerů stejné!
 :::
@@ -72,5 +82,5 @@ musí být u všech routerů stejné!
 Můžeme nastavit prioritu a preeption (viz výše)
 
 ## GLBP
-- Jak funguje: Funguje stejně jako HSRP, ale dokáže rozdělit trafic mezi více routerů 
 
+- Jak funguje: Funguje stejně jako HSRP, ale dokáže rozdělit trafic mezi více routerů

@@ -1,26 +1,26 @@
 {
-    "short_name": "SPSUL DOCS",
-    "name": "SPSUL DOCS",
-    "description": "Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem, Resslova 5",
-    "icons": [
-        {
-            "src": "/img/icon.png",
-            "type": "image/png",
-            "sizes": "512x512"
-        }
-    ],
-    "id": "/?source=pwa",
-    "start_url": "/?source=pwa",
-    "background_color": "#181a1b",
-    "display": "standalone",
-    "scope": "/",
-    "theme_color": "#de4019",
-    "shortcuts": [
-      {
-        "name": "Commandy CISCO CLI",
-        "short_name": "DAS",
-        "description": "Co je to síť?",
-        "url": "docs/DAS/commandy?source=pwa"
-      }
-    ]
+  "short_name": "SPSUL DOCS",
+  "name": "SPSUL DOCS",
+  "description": "Dokumentace pro studenty Střední průmyslové školy Ústí nad Labem, Resslova 5",
+  "icons": [
+    {
+      "src": "/img/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "background_color": "#181a1b",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#de4019",
+  "shortcuts": [
+    {
+      "name": "Commandy CISCO CLI",
+      "short_name": "DAS",
+      "description": "Co je to síť?",
+      "url": "docs/DAS/commandy?source=pwa"
+    }
+  ]
 }

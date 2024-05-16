@@ -1,37 +1,28 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
+import React from "react";
+import styles from "./styles.module.css";
+import clsx from "clsx";
 
 const FeatureList = [
   {
-    title: '',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-      </>
-    ),
+    title: "",
+    Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
+    description: <></>,
   },
   {
-    title: '',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-      </>
-    ),
+    title: "",
+    Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
+    description: <></>,
   },
   {
-    title: '',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-      </>
-    ),
+    title: "",
+    Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
+    description: <></>,
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({ Svg, title, description }) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx("col col--4")}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>

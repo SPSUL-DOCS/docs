@@ -3,9 +3,11 @@ title: "Architektůra OS"
 ---
 
 # Architektůra OS
+
 Architektůry se liší podle úrovně spolupráce jednotlivých rutin OS.
 
 ## 1. S těsným propojením rutin (monolitické)
+
 - Jsou zastaralé a vývoj vedl k jejich odstranění.
 - Jádro OS je tvořeno souborem paralerních rutin (R1 - R6).
 - a je omezeno dvěma rozhraními - H (Rozhraní vůči hardwaru) a K (Rozhraní Jádra).
@@ -17,26 +19,28 @@ Architektůry se liší podle úrovně spolupráce jednotlivých rutin OS.
 - příklad: MS DOS
 
 <DescriptionImage src="/img/opsimg/monolitickeOS.png">
-    Monolitické OS
+  Monolitické OS
 </DescriptionImage>
 
 ## 2. Spolupráce rutin omezena hierarchicky (hierarchické->vrstevnaté)
+
 - v dnešní době neexistuje OS, který by neobsahoval rysy Hierarchické architektury
 - Typickým → UNIX
 - zde jsou rutiny uspořádány do vrstev, které postupně obalují hardware a nabízejí vyšším vrstvám které postupně obalují hardware a nabízejí vyšším vrstvám pevně definovaná rozhraní
 - systém vyžaduje, aby rutiny přímo volaly pouze vrstvy bezprostředně nižší
 - bohužel nelze zcela dodržet → setkáváme se i s přímým voláním hlouběji zanořených vrstev
 - hal:
-    - podobné API
-    - uvnitř OS vytvořena mezivrstva, která usnadňuje programování ovladačů jednotlivých zařízení
-    - API rozhraní pro volání systémových služeb (vrstva s jednoduchými funkcemi pro programátory)
+  - podobné API
+  - uvnitř OS vytvořena mezivrstva, která usnadňuje programování ovladačů jednotlivých zařízení
+  - API rozhraní pro volání systémových služeb (vrstva s jednoduchými funkcemi pro programátory)
 - dispečer systémových služeb:řídí provoz
 
 <DescriptionImage src="/img/opsimg/hierarchickeOS.png">
-    hierarchickeOS
+  hierarchickeOS
 </DescriptionImage>
 
 ## 3. Plně distribuované (klient-server)
+
 - Zde rutiny netvoří jediný celek
 - IPC =Prostředek pro komunikaci mezi procesy
 - Distribuovaný přístup (pozornost na několik objektů současně) → snižuje výkonnost systému
@@ -46,5 +50,5 @@ Architektůry se liší podle úrovně spolupráce jednotlivých rutin OS.
 - Počet serverů je formálně neomezený, mezi nejdůležitější patří - servery souborových systémů, servery bezpečnostní, servery nabízející API( nejdůležitější ) s nimi komunikuje při volání služeb OS
 
 <DescriptionImage src="/img/opsimg/klientserverOS.png">
-    Klient server OS
+  Klient server OS
 </DescriptionImage>

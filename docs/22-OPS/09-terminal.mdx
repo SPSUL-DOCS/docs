@@ -7,8 +7,8 @@ title: "Terminál"
 - Speciální rysy jsou dané tzv. linkovou disciplínouta spočívá ve speciálním zpracování vstupu a výstupu
 - Terminál se může nacházet ve více režimech nejtypičtější je tzv. kanonický režim
 - V tomto režimu používá ovladač terminálu trojici bufferů
-    1. Výstupní - Klasický Buffer (Data v něm čekají dokud nejsou zaslána na výstupní část terminálu, typicky monitor)
-    1. Vstup - Zde se nachází dvojce bufferů
-        1. Klasický vstupní Buffer (Do něj zapisuje dolní polovina ovladače, která obsluhuje přerušení od vstupní části terminálu, typicky klávesnice)
-        1. Výstupní Buffer (tzv. Echo znak stisklý na klávesnici se ihned objevuje na monitoru i bez toho že by byl zpracován aplikací)
+  1. Výstupní - Klasický Buffer (Data v něm čekají dokud nejsou zaslána na výstupní část terminálu, typicky monitor)
+  1. Vstup - Zde se nachází dvojce bufferů
+     1. Klasický vstupní Buffer (Do něj zapisuje dolní polovina ovladače, která obsluhuje přerušení od vstupní části terminálu, typicky klávesnice)
+     1. Výstupní Buffer (tzv. Echo znak stisklý na klávesnici se ihned objevuje na monitoru i bez toho že by byl zpracován aplikací)
 - Všechny tyto akce jsou velmi rychlé a mohou být tedy prováděny v obsluze přerušení, to jest na úkor jiného procesu
