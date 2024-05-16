@@ -28,7 +28,7 @@ export default function Timeline() {
       popis: "Lorem ipsum",
       autori: ["karel", "vojta"],
       url: "klacisismus",
-    }
+    },
   ];
 
   const handleClick = (url) => {

@@ -1,7 +1,29 @@
 import MDXComponents from "@theme-original/MDXComponents";
-import DescriptionImage from "@site/src/components/DescriptionImage";
-import Highlight from "@site/src/components/Highlight";
-import Description from "@site/src/components/Description";
+import React from "react";
+import styles from "./styles.module.css";
+
+function DescriptionImage({ src, alt, children }) {
+  return (
+    <div className="center">
+      <img src={src} alt={alt} />
+      <p className={styles.description}>{children}</p>
+    </div>
+  );
+}
+
+const Highlight = ({ color, children }) => (
+  <span
+    style={{
+      color: color,
+    }}
+  >
+    {children}
+  </span>
+);
+
+function Description({ children }) {
+  return <DescriptionImage>{children}</DescriptionImage>;
+}
 
 export default {
   // Re-use the default mapping

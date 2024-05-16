@@ -3,10 +3,13 @@ title: "Vzdálené připojení"
 ---
 
 # TELNET
+
 - nešifrované vzdálené připojení
 
 ## Nastavení telnetu
+
 - nastavuje se jako virtualní terminál (vty)
+
 ```yml title="Nastavení virtuálních terminálů"
 Router(config)# line vty 0 15
 ```
@@ -20,32 +23,40 @@ Router(config-if)# login
 ```
 
 - Poté se můžeme připojit pomocí příkazu telnet z PC
+
 ```cmd title="Přihlášení do telnetu"
 C:> telnet <ip-adresa>
 ```
 
-
 # SSH
+
 - Šifrované vzdálené připojení
 
 ## Postup
+
 1. Hostname
 2. Nastavíme doménu pro SSH
+
 ```
 Router(config)# ip domain-name <jakákoliv-doména>
 ```
+
 3. Vytvoříme hashovací klíč
+
 ```
 Router(config)# crypto key generate rsa
 ```
-*nejlepší použít 1024 bitů*
+
+_nejlepší použít 1024 bitů_
 
 4. Vytvoříme SSH uživatele
+
 ```
 Router(config)# username <jmeno> password <heslo>
 ```
 
 5. Přepneme z Telnetu na SSH
+
 ```
 Router(config)# line vty 0 15
 Router(config)# login local

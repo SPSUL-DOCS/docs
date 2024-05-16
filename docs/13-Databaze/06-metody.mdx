@@ -2,37 +2,45 @@
 title: "Funkce"
 description: "Funkce v MariaDB"
 ---
+
 # Converzní funkce
+
 Slouží k převádění datových typů
 
 ## CONVERT
+
 ```sql
 SELECT CONVERT(<co chceme převest>, <datovýtyp>)
 ```
 
 :::tip Příklad
+
 ```sql
 SELECT CONVERT('123.4567', FLOAT);
 ```
+
 :::
 
+## DATE_FORMAT
 
-## DATE_FORMAT  
-* Mění formát pri používání selectu
+- Mění formát pri používání selectu
+
 ```sql
 DATE_FORMAT(<sloupec>, "%d.%m.%Y %H:%m:%s")
 ```
 
 :::tip Příklad
+
 ```sql
 SELECT DATE_FORMAT(datum, "%d.%m.%Y %H:%m:%s") AS "Datum" FROM tabulka;
 ```
+
 <table>
-    <tr>
-        <th>Datum</th>
-    </tr>
-    <tr>
-        <td>01.01.2021 00:00:00</td>
-    </tr>   
+  <tr>
+    <th>Datum</th>
+  </tr>
+  <tr>
+    <td>01.01.2021 00:00:00</td>
+  </tr>
 </table>
 :::

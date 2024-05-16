@@ -1,11 +1,15 @@
 ---
 title: "Příkazy"
 ---
-* Všechny příkazy jsou `case non-sensitive`, všichni to ale píšou velkýma :\)
+
+- Všechny příkazy jsou `case non-sensitive`, všichni to ale píšou velkýma :\)
 
 ## CREATE
-* Používá se při tvoření databází a tabulek
+
+- Používá se při tvoření databází a tabulek
+
 ### databáze
+
 ```sql
 CREATE DATABESE <nazev>;
 -- přáklad
@@ -13,6 +17,7 @@ CREATE DATABASE lidi;
 ```
 
 ### tabulka
+
 ```sql
 CREATE TABLE <nazev> (
     -- jednotlivé sloupce
@@ -23,74 +28,95 @@ CREATE TABLE <nazev> (
     Name varchar(255) NOT NULL,
 
     -- definice PRIMARY KEY
-    PRIMARY KEY (<ID>) 
+    PRIMARY KEY (<ID>)
 );
-``` 
+```
 
 ## USE
-* Označí databázi, kterou chceme používat
+
+- Označí databázi, kterou chceme používat
+
 ```sql
 USE <nazev databáze>;
 ```
 
 ## DROP
-* smaže databázi nebo tabulku
+
+- smaže databázi nebo tabulku
+
 ```sql
 DROP DATABESE || TABLE <nazev>;
 ```
 
 ## SHOW
-* Zobrazení všech databází
+
+- Zobrazení všech databází
+
 ```sql
 SHOW DATABESES;
 ```
 
-* Zobrazení tabulek
+- Zobrazení tabulek
+
 ```sql
 SHOW TABLES;
 ```
- 
+
 ## SELECT
-* používá se na zvolení tabulky
+
+- používá se na zvolení tabulky
+
 ```sql
 SELECT <sloupec> FROM <tabulka>;
 ```
 
-* pokud chceme zvolit všechny sloupce, použijeme `*`
+- pokud chceme zvolit všechny sloupce, použijeme `*`
+
 ```sql
 SELECT * FROM <tabulka>;
 ```
 
 ## SUBQUERY (poddotaz)
-* Select v selectu
+
+- Select v selectu
+
 ```sql title="V části WHERE"
 SELECT * FROM <tabulka> WHERE ><= (SELECT <sloupec> FROM <tabulka>);
 ```
+
 ```sql title="V části SELECT"
 SELECT * - (SELECT * FROM <tabulka>) FROM <tabulka>;
 ```
+
 :::tip Příklad
-```sql 
+
+```sql
 SELECT cena - (SELECT AVG(cena) FROM Stromky) FROM Stromky;
 
 -- Vrací všechny ceny, které jsou větší než průměrná cena
 SELECT * FROM Stromky WHERE cena > (SELECT AVG(cena) FROM Stromky);
 ```
+
 :::
 
-## *AS* A *FROM*
+## _AS_ A _FROM_
+
 **AS** - Nahrazuje
 **FROM** - Vybírá tabulku
+
 ```sql
 -- t = tabulka
 FROM tabulka as t;
 ```
+
 :::warning POZOR!
 Píše se nakonec
 :::
 
-## INSERT 
-- Vkládá do tabulky hodnoty 
+## INSERT
+
+- Vkládá do tabulky hodnoty
+
 ```sql title="vkládání do selectu"
 SELECT p.nazev, p.plat FROM pozice AS p INSERT INTO wpozice VALUES(<t>);
 ```

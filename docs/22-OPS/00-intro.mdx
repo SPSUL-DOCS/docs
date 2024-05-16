@@ -4,18 +4,22 @@ date: 6.9.2023
 ---
 
 # Úvod do OS
+
 ## Rutina
+
 - funkčně vymezená část kódu
 - nejčastěji ve formě podprogramu
 - opakující se činnost
 
 OS tvoří vlastní podmnožinu softwaru
 
-Na OS můžeme pohlížet z různých pohledů 
+Na OS můžeme pohlížet z různých pohledů
 
 ## Funkční pohled
+
 - OS je softwarový správce prostředků
 - Prostředky lze rozdělit do 2 skupin:
+
 1.  Hardwarové nebo Fyzické prostředky
     - **Centrální prostředky**: CPU, RAM
     - **Vnější paměti**: HDD, DVD, SSD, ..
@@ -26,7 +30,7 @@ Na OS můžeme pohlížet z různých pohledů
     - **Nízkoúrovňové logické prostředky**: Logický disk, logický terminál
     - **Dílčí prostředky**: Soubor, GUI
     - **Virtuální prostředky**: Virtuální paměťový nebo síťový disk, Virtuální tiskárna
-    - **Synchronizační a Komunikační prostředky**:  Semafor, Mutex | Roura
+    - **Synchronizační a Komunikační prostředky**: Semafor, Mutex | Roura
     - **Bezpečnostní prostředky**: Šifry, Účty, Kanály
     - **Síťové prostředky**: TCP-IP Socket, HTTP server/klient
     - **Programy**: VLC¨
@@ -36,19 +40,22 @@ Ačkoli se to může stat, **motorka** není softwarový prostředek
 :::
 
 ### Proces
+
 - Je instancí (Kučera: “ííí”) programu
 - Vykonání od okamžiku provedení 1. instrukce programu po provedení instrukce poslední označujeme termínem proces
 - Poznámka o procesu:
-    - Každá rutina může být vykonávaná pouze v rámci procesu
-    - V každém okamžiku musí existovat v systému alespoň jeden proces
-    - OS není vykonáván jako jediný proces, ale jeho jednotlivé rutiny jsou sdíleny všemi procesy v systému
-    - Procesy vznikají, jako reakce na požadavek jiného procesu, vyjímka Boot. proces (rodičovského)
+  - Každá rutina může být vykonávaná pouze v rámci procesu
+  - V každém okamžiku musí existovat v systému alespoň jeden proces
+  - OS není vykonáván jako jediný proces, ale jeho jednotlivé rutiny jsou sdíleny všemi procesy v systému
+  - Procesy vznikají, jako reakce na požadavek jiného procesu, vyjímka Boot. proces (rodičovského)
 - Bootovací proces (Linux: Shell proces)
 
 ### Paměťový region
+
 - je to souvisle adresovatelná oblast paměti, která je přidělena procesu
 
 ### OS systém jako správce
+
 - Hlavní účel správy, spočívá ve vytváření přesně definovaného a bezpečného prostředí pro procesy: vytvoreni tzv. virtuálního PC
 - Rutiny OS vytvářejí pro programy jednotné rozhraní, který má charaktér virtuáního PC
 - **Nezávislost jednotlivých procesů** -> pro každý proces, běžící v rámci OS, musí rutiny OS, vytvářet ulizy, že je jedinným procesem, který kdy běžel, běží a bude běžet v rámci dané instance OS. (instance OS vzniká bootováním systému a zaniká vypnutím)
@@ -58,19 +65,21 @@ každý program si musí myslet že může všechno
 :::
 
 ## Systémový pohled
+
 - OS je tvořen množinou rutin, které je možno na základě vzájemného volání, organizovat do několikavrstev
 - Nejnižší vrstva rutin přistupuje přímo k Hardwaru
 - Dále rutiny přímo volající rutiny nižší vrstvy
 - Každá vrstva nabízí vyšším vrstvám přesně definované rozhraní (virtuální PC)
 
-#### Jádro OS 
-- v linuxu: Kernel 
+#### Jádro OS
+
+- v linuxu: Kernel
 - tam patří ty rutiny, které bezprostředně přistupují k Hardwaru PC, respektivě zajištující virtualizaci
-- dále rutiny zajišťující logické prostředky a vrstvy nabízející rozhraní 
+- dále rutiny zajišťující logické prostředky a vrstvy nabízející rozhraní
 
 ### Systémové procesy
+
 - Zvláštní procesy
 - Závislé na jádru, chyba jádra -> pád OS
 - První proces, který v systému vznikne se jmenuje **Shell**
 - Linux je balíčkový OS
-

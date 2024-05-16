@@ -1,107 +1,104 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const math = require('remark-math');
-const katex = require('rehype-katex');
+import { themes as prismThemes } from "prism-react-renderer";
+const math = require("remark-math");
+const katex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'SPSUL - BASED DOCS',
-  tagline: 'Na webu se ještě pracuje 🛠️',
-  url: 'https://docs.spsul.cz',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  title: "SPSUL - BASED DOCS",
+  tagline: "Na webu se ještě pracuje 🛠️",
+  url: "https://docs.spsul.cz",
+  baseUrl: "/",
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'SPSUL-DOCS', // Usually your GitHub org/user name.
-  projectName: 'docs', // Usually your repo name.
+  organizationName: "SPSUL-DOCS", // Usually your GitHub org/user name.
+  projectName: "docs", // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "cz",
+    locales: ["cz"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           remarkPlugins: [math],
           rehypePlugins: [katex],
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:'https://github.com/SPSUL-DOCS/docs/edit/master/',
+          editUrl: "https://github.com/SPSUL-DOCS/docs/edit/master/",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
         gtag: {
-          trackingID: 'G-LQLQ2FXZ9X',
+          trackingID: "G-LQLQ2FXZ9X",
           anonymizeIP: true,
         },
         sitemap: {
-          changefreq: 'weekly',
+          changefreq: "weekly",
           priority: 0.5,
-          ignorePatterns: ['/tags/**'],
-          filename: 'sitemap.xml',
+          ignorePatterns: ["/tags/**"],
+          filename: "sitemap.xml",
         },
-
-
       }),
     ],
   ],
 
   plugins: [
     [
-      '@docusaurus/plugin-pwa',
+      "@docusaurus/plugin-pwa",
       {
         debug: true,
         offlineModeActivationStrategies: [
-          'appInstalled',
-          'standalone',
-          'queryString',
+          "appInstalled",
+          "standalone",
+          "queryString",
         ],
         pwaHead: [
           {
-            tagName: 'link',
-            rel: 'icon',
-            href: '/img/page.webp',
+            tagName: "link",
+            rel: "icon",
+            href: "/img/page.webp",
           },
           {
-            tagName: 'link',
-            rel: 'manifest',
-            href: '/manifest.json', // your PWA manifest
+            tagName: "link",
+            rel: "manifest",
+            href: "/manifest.json", // your PWA manifest
           },
           {
-            tagName: 'meta',
-            name: 'theme-color',
-            content: 'rgb(222, 64, 25)',
+            tagName: "meta",
+            name: "theme-color",
+            content: "rgb(222, 64, 25)",
           },
         ],
       },
     ],
-    '@docusaurus/theme-live-codeblock',
+    "@docusaurus/theme-live-codeblock",
   ],
 
   stylesheets: [
     {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-      type: 'text/css',
+      href: "https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
+      type: "text/css",
       integrity:
-        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-      crossorigin: 'anonymous',
+        "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
+      crossorigin: "anonymous",
     },
   ],
 
@@ -114,85 +111,34 @@ const config = {
         },
       },
       announcementBar: {
-        id: 'annauncment',
-        content:
-          '<strong>Web je ve vývoji 🛠️</strong>',
-        backgroundColor: '#ce4213',
-        textColor: '#FFFFFF',
+        id: "annauncment",
+        content: "<strong>Web je ve vývoji 🛠️</strong>",
+        backgroundColor: "#ce4213",
+        textColor: "#FFFFFF",
         isCloseable: true,
       },
       navbar: {
-        title: 'SPSUL DOCS',
+        title: "SPSUL DOCS",
         logo: {
-          alt: 'DOCS LOGO',
-          src: 'img/page.webp',
+          alt: "DOCS LOGO",
+          src: "img/page.webp",
         },
         items: [
           {
-            to: 'docs/intro',
-            position: 'left',
-            label: 'Úvod',
+            to: "docs/intro",
+            position: "left",
+            label: "Docs",
           },
           {
-            to: 'docs/category/das',
-            position: 'left',
-            label: 'DAS🛰️',
+            to: "docs/category/maturita",
+            position: "left",
+            label: "Maturita",
           },
           {
-            to: 'docs/category/databaze',
-            position: 'left',
-            label: 'DAT',
-          },
-          {
-            to: 'docs/category/tvy',
-            position: 'left',
-            label: 'TVY',
-          },
-          {
-            to: 'docs/category/wea',
-            position: 'left',
-            label: 'WEA',
-          },
-          {
-            to: 'docs/category/csharp',
-            position: 'left',
-            label: 'C#',
-          },
-          {
-            to: 'docs/category/alg',
-            position: 'left',
-            label: 'ALG',
-          },
-          {
-            to: 'docs/category/ops',
-            position: 'left',
-            label: 'OPS',
-          },
-          {
-            to: 'docs/category/zpv',
-            position: 'left',
-            label: 'ZPV',
-          },
-          {
-            to: 'docs/category/cj',
-            position: 'left',
-            label: 'ČJL',
-          },
-          {
-            href: 'https://docs.spsul.cz/dejepis.pdf',
-            position: 'left',
-            label: 'DEJ',
-          },
-          {
-            to: 'docs/category/maturita',
-            position: 'left',
-            label: 'Maturita',
-          },
-          {
-            href: 'https://github.com/SPSUL-DOCS/docs',
-            position: 'right',
-            className: 'header-github-link',
-            'aria-label': 'GitHub repository',
+            href: "https://github.com/SPSUL-DOCS/docs",
+            position: "right",
+            className: "header-github-link",
+            "aria-label": "GitHub repository",
           },
         ],
       },
@@ -242,14 +188,14 @@ const config = {
       //   copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       // },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: "dark",
         disableSwitch: false,
         respectPrefersColorScheme: false,
-      }
+      },
     }),
 };
 

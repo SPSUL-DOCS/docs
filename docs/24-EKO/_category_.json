@@ -1,8 +1,8 @@
 {
-    "label": "Ekonomika",
-    "link": {
-      "type": "generated-index",
-      "slug": "/category/eko",
-      "title": "Ekonomika"
-    }
+  "label": "Ekonomika",
+  "link": {
+    "type": "generated-index",
+    "slug": "/category/eko",
+    "title": "Ekonomika"
   }
+}

@@ -5,7 +5,8 @@ toc_max_heading_level: 2
 ---
 
 ### Enum
-* hodnoty si určíme, vytvoření vlastního datového typu
+
+- hodnoty si určíme, vytvoření vlastního datového typu
 
 ```csharp
 Operator znamenko;
@@ -15,28 +16,30 @@ enum Operator {
     odcitani,
     nasobeni,
     deleni
-} 
+}
 ```
 
 :::tip datový typ Operator, má 4 možné hodnoty
-    scitani,
-    odcitani,
-    nasobeni,
-    deleni
+scitani,
+odcitani,
+nasobeni,
+deleni
 :::
 
 ## Modifikátory přístupu
 
-|Modifikator|Přístup|
-|:---------:|:-----|
-|**Private**|Vidí jenom daná třída|
-|**Public**|Vidí všechny třídy v jednom projektu|
-|**Final**|Nelze od ní dědit|
-|**Internal**|<!-- Musim se zeptat učitele -->|
-|**Protected**|Vidí pouze ta třída, která dedí z třídy původní|
+|  Modifikator  | Přístup                                         |
+| :-----------: | :---------------------------------------------- |
+|  **Private**  | Vidí jenom daná třída                           |
+|  **Public**   | Vidí všechny třídy v jednom projektu            |
+|   **Final**   | Nelze od ní dědit                               |
+| **Internal**  | <!-- Musim se zeptat učitele -->                |
+| **Protected** | Vidí pouze ta třída, která dedí z třídy původní |
 
 ### Virtual
-* Má vlastní tělo, jde přepsat v jiné **třídě**
+
+- Má vlastní tělo, jde přepsat v jiné **třídě**
+
 ```csharp
 class Trida1 {
     protected virtual Metoda {
@@ -54,12 +57,15 @@ class Trida2 : Trida1 {
 ```
 
 ### Abstract
-* Nemá tělo, tudíž je povinnost jej **přepsat**
+
+- Nemá tělo, tudíž je povinnost jej **přepsat**
+
 ```csharp
 class Trida1 {
     protected abstact Metoda;
 }
 ```
+
 ```csharp
 class Trida2 : Trida1 {
     override Metoda {
@@ -69,7 +75,9 @@ class Trida2 : Trida1 {
 ```
 
 ### Override
-* Přepisuje virtuální a abstraktní metody/třídy
+
+- Přepisuje virtuální a abstraktní metody/třídy
+
 ```csharp
 class Trida1 {
     protected virtual Metoda {
@@ -77,7 +85,9 @@ class Trida1 {
     }
 }
 ```
+
 :::tip Pokud chceme, aby se při přepisování virtuálí metody volala i původní metoda, použijeme klíčové slovo **base**
+
 ```csharp
 class Trida2 : Trida1 {
     override Metoda {
@@ -86,4 +96,5 @@ class Trida2 : Trida1 {
     }
 }
 ```
+
 :::

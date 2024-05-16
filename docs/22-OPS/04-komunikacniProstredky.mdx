@@ -3,57 +3,62 @@ title: "Komunikační prostředky"
 ---
 
 # Komunikační prostředky
+
 - Současné os nabízejí hodně prostředků umožnujících přesun dat mezi procesy.
 - Tyto prostředky se liší rychlostí, způsobem použití, dostupností na jednotlivých platformách.
 
-## Klasifikace komunikačních prostředků 
+## Klasifikace komunikačních prostředků
+
 1. **Na základě účasti jádra**
-    1. Jádro se komunikace neučastní, pouze sdílená paměť
-    1. Data proudí přes jádro (minimálně dvakrát kopírována, přes buffer)
+   1. Jádro se komunikace neučastní, pouze sdílená paměť
+   1. Data proudí přes jádro (minimálně dvakrát kopírována, přes buffer)
 1. **Vnitří struktura dat**
-    1. Proudově orientovaná data (datovody) - data tvoří jediný proud (stream)
-    1. Zprávově orientovaná data (datagramy) - data tvoří samostatné zprávy (packet)
-1. **Směrování přenášených dat** 
-    1. Jednosměrná data - proudí jedním směrem
-    1. Obousměrná data - proudí oběma 
-    1. Všesměrové - proudí z jednoho procesu do více procesů
-    1. Dostředné - proudí z více do jednoho procesu
+   1. Proudově orientovaná data (datovody) - data tvoří jediný proud (stream)
+   1. Zprávově orientovaná data (datagramy) - data tvoří samostatné zprávy (packet)
+1. **Směrování přenášených dat**
+   1. Jednosměrná data - proudí jedním směrem
+   1. Obousměrná data - proudí oběma
+   1. Všesměrové - proudí z jednoho procesu do více procesů
+   1. Dostředné - proudí z více do jednoho procesu
 1. **Přenášený objem dat** (přenosová rychlost)
-    1. Malá - jednotky KB/s (fronty zpráv a signály)
-    1. Střední - až desítky MB/s (roury, sockety)
-    1. Velká - až GB/s (sdílená paměť)
+   1. Malá - jednotky KB/s (fronty zpráv a signály)
+   1. Střední - až desítky MB/s (roury, sockety)
+   1. Velká - až GB/s (sdílená paměť)
 1. **Transparetnost**
 
 ### Roura (pipe)
+
 - Klasický komunikační prostředek OS UNIX
 - Jednosměrný datovod, vhodný pro malá a střední data.
 - Obousměrný přenos -> dvě roury
 - Jedná se o kruhovou frontu
 - Dva typy rour:
-    1. Nepojmenované (anonymní) roury 
-        - nemají identifikátor, přístupné pouze prostřednictvím **souborového deskriptoru** (handler).
-        - používat ji může pouze zakladatel roury nebo jeho potomci (procesy vytvořené procesem).
-    1. Pojmenované roury 
-        - viditelné, mají jméno a umístění.
-        - jakýkoliv proces má přístup. 
+  1. Nepojmenované (anonymní) roury
+     - nemají identifikátor, přístupné pouze prostřednictvím **souborového deskriptoru** (handler).
+     - používat ji může pouze zakladatel roury nebo jeho potomci (procesy vytvořené procesem).
+  1. Pojmenované roury
+     - viditelné, mají jméno a umístění.
+     - jakýkoliv proces má přístup.
 
 ### Socket
+
 - Síťové komunikační prostředky.
 - Nástavba protokolu **TCP/IP**.
-- Dva typy spojení: 
-    1. **Datagramové** - zprávové. (UDP)
-    1. **Proudové** - obousměrný datovod, obdobné rouře. (TCP)
+- Dva typy spojení:
+  1. **Datagramové** - zprávové. (UDP)
+  1. **Proudové** - obousměrný datovod, obdobné rouře. (TCP)
 - Socket je určen pěticí udajů:
-    1. **Protokol** - TCP nebo UDP
-    1. **Adresa serveru** - IP adresa a Port 
-    1. **Adresa klienta** - IP adresa a Port 
+  1. **Protokol** - TCP nebo UDP
+  1. **Adresa serveru** - IP adresa a Port
+  1. **Adresa klienta** - IP adresa a Port
 - **Navazování spojení**
-    1. Otevření půlsocketu na serveru.
-    1. Klient vyšle požadavek na navázání spojení.
-    1. Pokud server naslouchá, vzniká spojení (relace).¨
+  1. Otevření půlsocketu na serveru.
+  1. Klient vyšle požadavek na navázání spojení.
+  1. Pokud server naslouchá, vzniká spojení (relace).¨
 - Připojení k serveru z více klientů se řeší pomocí duplikace půlsocketu (každej klient má svůj půlsocket).
 
 ### Fronta zpráv
+
 - Zprávově orientovaným komunikačním prostředkem
 - Umožňuje cílenou i všesměrovou výměnu zpráv
 - Omezené velikostí mezi dvěma či více procesy
@@ -62,22 +67,22 @@ title: "Komunikační prostředky"
 - Je často užívána
 
 ### Vzdálené volaní procedur
+
 - Umožňuje volání funkcí v jiném adresovém prostoru, nebo v jiné instanci OS
 - Vzdáleně volaná procedura může přijímat parametry
 - Hodnoty těchto parametrů jsou přeneseny z adresového prostoru volající funkce do adresového prostoru volané funkce a tato funkce může sama hodnotu vracet
 - Jedná se tedy o zprávově orientovaný obousměrný komunikační prostředek
-Výhody
+  Výhody
 - Předávání dat do funkcí
 - Automatické řazení dat
-Nevýhody
+  Nevýhody
 - Identifikace vzdálené funkce se musí dít na základě poskytované služby (Adresa, port).
-    - Nikoliv, jen prostřednictvím adresy funkce.
+  - Nikoliv, jen prostřednictvím adresy funkce.
 - Ošetřování chybových vztahů.
-    - Může dojít k chybě během přenosu parametrů a návratové hodnoty.
+  - Může dojít k chybě během přenosu parametrů a návratové hodnoty.
 - Přerušení spojení.
 - Chybná identifikace protistrany.
 
 :::tip
 Jako komunikační kanál se použije socket respektivě jiný vhodný prostředek.
 :::
-

@@ -1,10 +1,10 @@
 .collumns-wrapper {
-    display: flex; 
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 @media screen and (max-width: 996px) {
-    .collumns-wrapper {
-      flex-direction: column;
-    }
+  .collumns-wrapper {
+    flex-direction: column;
   }
+}

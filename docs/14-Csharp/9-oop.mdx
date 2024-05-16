@@ -7,19 +7,21 @@ autor: "Beneš"
 # OOP
 
 ## Tabulka s vysvětlením názvosloví
-|Název|Definice|
-|:-:|:-:|
-|Třída|Definice objektu|
-|Objekt|Jedno vytvoření třídy|
-|Metoda|Funkce, která je ve třídě|
-|Atribut|Proměnná, která je ve třídě|
-|Vlastnost|Atribut s getter a setter metodou|
-|Konstruktor|Metoda, která se volá při vytvoření objektu|
-|Deklarace|Vytvoření proměnné k datovému typu|
-|Inicializace|Přiřazení hodnoty k atributu v konstruktoru|
-|Instance|Objekt|
+
+|    Název     |                  Definice                   |
+| :----------: | :-----------------------------------------: |
+|    Třída     |              Definice objektu               |
+|    Objekt    |            Jedno vytvoření třídy            |
+|    Metoda    |          Funkce, která je ve třídě          |
+|   Atribut    |         Proměnná, která je ve třídě         |
+|  Vlastnost   |      Atribut s getter a setter metodou      |
+| Konstruktor  | Metoda, která se volá při vytvoření objektu |
+|  Deklarace   |     Vytvoření proměnné k datovému typu      |
+| Inicializace | Přiřazení hodnoty k atributu v konstruktoru |
+|   Instance   |                   Objekt                    |
 
 ## Názvosloví OOP
+
 Je dobré vedět, o čem mluvíte
 
 ### Třída a objekt
@@ -27,23 +29,26 @@ Je dobré vedět, o čem mluvíte
 **Třída** je definice objektu ("blueprint" pro to, jak bude objekt vypadat)
 
 Třída může obsahovat metody, atributy a konstruktor
-```cs 
+
+```cs
 class Trida {
     int a; // atribut
     public Trida() { // konstruktor
     }
-    
+
     public void Method() { // metoda
     }
 }
 ```
 
 Objekt je vytvoření třídy
-```cs 
+
+```cs
 Trida t = new Trida(); // vytvoření objektu
 ```
 
-### Konstruktor 
+### Konstruktor
+
 Slouží pro přidání hodnot do atribut hned při vytvoření objektu
 
 ```cs
@@ -62,12 +67,13 @@ Trida t = new Trida(69, 88); // vytvoření objektu
 ```
 
 ### Atribut a Vlastnost, getter a setter (GET, SET)
+
 GET a SET jsou metody, které se používají pro přístup k atributu, volají se tudíž pokud chceme přiřadit do proměnné hodnotu nebo získat hodnotu z proměnné
 
 ```cs GET a SET v akci
 class Trida {
     int _a; // atribut, většinou se používá podržítko pro rozlišení atributu a vlastnosti
-    
+
     int A {
         get { // getter
             return _a;
@@ -80,37 +86,42 @@ class Trida {
 ```
 
 :::tip toto můžeme použít když chceme třeba omezit přístup pro zápis nebo čtení
-```cs 
+
+```cs
 public int A {
     public get { // getter
         return _a;
     }
-       
+
     private set { // setter
         _a = value; // hodnota se nastaví pouze pokud ji nastavujeme ve třídě
     }
     }
 ```
+
 :::
 
 :::tip nebo když chceme omezit hodnotu
-```cs 
+
+```cs
 int A {
     get { // getter
         return _a;
     }
-       
+
     set { // setter
         if (value > 100)
             _a = value;
-        else 
+        else
             _a = 100;
     }
     }
 ```
+
 :::
 
 ### Unsigned
+
 - Pouze kladný datový typ
 - funguje pro celočíselné datové typy (int, short, long)
 

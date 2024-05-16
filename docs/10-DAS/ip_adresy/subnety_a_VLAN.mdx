@@ -5,58 +5,62 @@ title: "Subnety a VLANY"
 
 # Subnety
 
-Subnety sítě se tvoří tak, že rozdělíme velkou síť na více malých 
+Subnety sítě se tvoří tak, že rozdělíme velkou síť na více malých
 
-# Počítání IPv4 pro menší subnety 
+# Počítání IPv4 pro menší subnety
+
 1. Zjistit `prefix` každého subnetu pomocí vzorečku
 
 ```
 (2^x) - 2 >= počet hostů
 32 - x = prefix
 ```
-*2 na x bez dvou musí bejt větší než počet hostů, které chceme pro náš subnet.*
 
+_2 na x bez dvou musí bejt větší než počet hostů, které chceme pro náš subnet._
 
 2. Začít největší sítí
-    * dostane adresu té velké sítě
-    * určit broadcast (za prefixem změnit vše na 1)
-    * určit masku (prefix třeba 24 -> 24 jedniček a 8 nul -> z binární do desítkové soustavy)
-    :::info příklad
-        11111111.11111111.11111111|.00000000
-                                  ↑
-                                prefix
-    :::
-    * určit rozsah (vše mezi adresou sítě a adresou broadcastu)
-    :::info příklad
-    > - Adresa sítě: 192.168.0.0
-    > - Broadcast: 192.168.0.255
-    > - **Rozsah: 192.168.0.1 - 192.168.0.254**
-    :::
+   - dostane adresu té velké sítě
+   - určit broadcast (za prefixem změnit vše na 1)
+   - určit masku (prefix třeba 24 -> 24 jedniček a 8 nul -> z binární do desítkové soustavy)
+     :::info příklad
+     11111111.11111111.11111111|.00000000
+     ↑
+     prefix
+     :::
+   - určit rozsah (vše mezi adresou sítě a adresou broadcastu)
+     :::info příklad
+     > - Adresa sítě: 192.168.0.0
+     > - Broadcast: 192.168.0.255
+     > - **Rozsah: 192.168.0.1 - 192.168.0.254**
+     >   :::
 3. pokračovat druhou největší sítí
-    *    má hned následující volnou adresu (v tomhle případě je broadcast C podsítě 192.168.1.255, takže adresa A podsítě bude 192.168.2.0)
-    * spočítat ostatní
+   - má hned následující volnou adresu (v tomhle případě je broadcast C podsítě 192.168.1.255, takže adresa A podsítě bude 192.168.2.0)
+   - spočítat ostatní
 4. opakovat tolikrát, kolik je podsítí
 
-|| Podsíť A | Podsíť B |
-| :-: | :-: | :-: |
-|Počet bitů subnetu|25|26|
-|Maska Binárně|11111111.11111111.11111111.10000000|11111111.11111111.11111111.11000000|
-|Maska Desítkově|255.255.255.128|255.255.255.192|
-|Počet Subnetů|2|8|
-|Počet Hostů|126|62|
-|IP adresa subnetu|192.168.10.0|192.168.10.128|
-|První IP adresa hosta|192.168.10.1|192.168.10.129|
-|Poslední IP adresa hosta|192.168.10.126|192.169.10.190|
+|                          |              Podsíť A               |              Podsíť B               |
+| :----------------------: | :---------------------------------: | :---------------------------------: |
+|    Počet bitů subnetu    |                 25                  |                 26                  |
+|      Maska Binárně       | 11111111.11111111.11111111.10000000 | 11111111.11111111.11111111.11000000 |
+|     Maska Desítkově      |           255.255.255.128           |           255.255.255.192           |
+|      Počet Subnetů       |                  2                  |                  8                  |
+|       Počet Hostů        |                 126                 |                 62                  |
+|    IP adresa subnetu     |            192.168.10.0             |           192.168.10.128            |
+|  První IP adresa hosta   |            192.168.10.1             |           192.168.10.129            |
+| Poslední IP adresa hosta |           192.168.10.126            |           192.169.10.190            |
 
 # Vlan
+
 - Vlany pracují na druhé vrstvě ISO/OSI modelu.
 
 :::tip InterVLAN
 vlany v LAN
 :::
+
 ## Druhy VLAN podle fyzického zařízení / InterVLAN řešení
 
 1. Router-on-a-stick -> Vlana je rozdělená pomocí routeru v síti, rozdělí se port na subporty a každý subport bude mít jinou vlanu
+
 - Tato metoda vyžaduje Router a Obyčejný Switch
 
 ```c title="Nastavíme vlanu na Routeru"
@@ -72,14 +76,18 @@ Switch(config-if)# switchport mode access <vlana> // nastavíme na různé porty
 ```
 
 :::warning Pozor
-- Všechny switche dané sítě **musí** znát všechny vlany 
-- Switchům, kterým jsme nenastavili access port, musíme vložit VLANU do databáze (access port by to udělal za nás) 
+
+- Všechny switche dané sítě **musí** znát všechny vlany
+- Switchům, kterým jsme nenastavili access port, musíme vložit VLANU do databáze (access port by to udělal za nás)
+
 ```c
 Switch(config)# vlan <vlana>
 ```
+
 :::
 
 2. L3 Switch VLAN -> SVI (Switch Virtual Interface) - VLAN je rozdělená pomocí switchu, switch bude mít vlastní IP adresu a bude fungovat jako router
+
 ```c title="Nastavíme router port na L3 Switchi"
 Switch(config)# interface <port který vede do jiné sítě>
 Switch(config-if)# no switchport // nastaví port, aby se choval jak u routeru
@@ -94,6 +102,7 @@ Switch(config-if)# no shutdown // zapneme vlany
 
 // access a trunk se nastavuje stejne jako u basic switche
 ```
+
 3. Legacy vlan routing
 
 Nejvíc naprd způsob, musíme mít pro každou vlanu samostatný kabel -> víc routerů
@@ -101,30 +110,30 @@ Nejvíc naprd způsob, musíme mít pro každou vlanu samostatný kabel -> víc 
 ## Druhy Vlan
 
 1. **Defaultní** = obvykle VLAN 1 - základní VLAN, do které automaticky (defaultně) patří všechny
-switchporty (porty na SW :D )
+   switchporty (porty na SW :D )
 
 2. **Datová** = označována také jako uživatelská… - to jsou ty speciální VLAN, které nám logicky
-rozdělují například různá oddělení firmy - VLAN, do kterých patří uživatelé na základě nějaké
-logiky…
+   rozdělují například různá oddělení firmy - VLAN, do kterých patří uživatelé na základě nějaké
+   logiky…
 
 3. **Nativní** = speciální VLAN, kterou se označí rámce, které nepatří do žádné VLAN (rámce totiž
-MUSÍ patřit do nějaké VLAN, aby mohly projít dál… proto pokud nikam nepatří, označí se
-nativní VLAN, aby mohli projít - například skrz Trunk) - v základu nastavená na Default VLAN,
-tedy VLAN 1 - dá se přenastavit
+   MUSÍ patřit do nějaké VLAN, aby mohly projít dál… proto pokud nikam nepatří, označí se
+   nativní VLAN, aby mohli projít - například skrz Trunk) - v základu nastavená na Default VLAN,
+   tedy VLAN 1 - dá se přenastavit
 
 4. **Management** = speciální VLAN určená pro správce sítě, pomocí které přistupuje k síťovým
-prvkům kvůli managementu (Telnet, SSH)
+   prvkům kvůli managementu (Telnet, SSH)
 
 5. **Voice** = speciální VLAN, která slouží k obsluhování IP telefonů (VoIP) - musí splňovat kritéria
-pro kvalitní přenos hovorů (musí mít například přednost v rámci QoS, zpoždění méně než 150
-ms, atd…)
+   pro kvalitní přenos hovorů (musí mít například přednost v rámci QoS, zpoždění méně než 150
+   ms, atd…)
 
 ## Druhy portů na switchi při používání VLAN
 
 1. Trunk
-> tunel pro všechny vlany <br/>
+   > tunel pro všechny vlany <br/>
 2. Access
-> port, který propustí jenom jednu vlan <br/>
-> používá se když chceme počítač, nebo switch přiřadit jenom jedné vlaně
+   > port, který propustí jenom jednu vlan <br/>
+   > používá se když chceme počítač, nebo switch přiřadit jenom jedné vlaně
 
 [Nastavení portů switche](./../commandy#switch)
