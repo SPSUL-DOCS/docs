@@ -1,13 +1,17 @@
 ---
-title: Instalace Node.js
+title: Instalace Node.js a NPM
 ---
 
 # Návod jak si stáhnout a udělat svůj první projekt v Node.js
 
-## Co to je Node.js
+## Co to je Node.js a NPM
+
+<img src="/img/weaimg/nodejs.webp" alt="nodejs logo" width="20%" />
+<img src="/img/weaimg/npm.webp" alt="npm logo" width="20%" />
 
 - Node.js je open-source, cross-platform, JavaScript runtime prostředí, které běží na serveru.
 - JavaScript sám o sobě běží v prohlížeči, ale Node.js nám umožňuje běžet JavaScript na serveru.
+- NPM je správce balíčků pro Node.js.
 
 ## Instalace
 
@@ -17,29 +21,27 @@ title: Instalace Node.js
 
 2. Ověříme si verzi Node.js a NPM v `CMD`
 
-- NPM je správce balíčků pro Node.js
-
 - Node.js
-```sh
+```sh title="Terminál"
 node -v
 ```
 - NPM
-```sh
+```sh title="Terminál"
 npm -v
 ```
 
 ## Založení projektu
 
-1. Inicializujeme projekt v libovolné složce
+1. Inicializujeme projekt
 
-- Otevřeme si složku v terminálu pomocí `cd`
+- Otevřeme si libovolnou složku v terminálu pomocí `cd`
 
-```sh
-cd C:\freezerbox\Documents\muj_projekt
+```sh title="Terminál"
+cd C:\freezerbox\Documents\cheeseburger
 ```
 
 - Inicializujeme pomocí příkazu `npm init`
-```sh
+```sh title="Terminál"
 npm init -y
 ```
 
@@ -57,20 +59,20 @@ Pokud používáte git, nezapomeňte dát `node_modules` do .gitignore!
 
 3. Vytvoříme soubor `index.js`
 
-- Vložíme do něj jednoduchý kód který nám vytiskne `Hello World!`
-```js
-console.log('Hello World!');
+- Vložíme sem jednoduchý kód který nám vytiskne `cheeseburger 🍔`
+```js title="\cheeseburger\index.js"
+console.log('cheeseburger 🍔');
 ```
 
 4. Spustíme náš soubor `index.js`
 
-```sh
+```sh title="Terminál"
 node index.js
 ```
 
-5. V terminálu se nám vytiskne `Hello World!`
+5. V terminálu se nám vytiskne `cheeseburger 🍔`
 ```
-Hello World!
+cheeseburger 🍔
 ```
 
 ## Užitečné příkazy
@@ -93,7 +95,6 @@ npm uninstall <nazev_balicku>
 - - pokud necháme `<nazev_balicku>` prázdné, aktualizujeme všechny balíčky
 ```sh
 npm update <nazev_balicku>
-	
 ```
 
 - Spuštění souboru
