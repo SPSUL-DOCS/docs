@@ -1,0 +1,103 @@
+---
+title: Instalace Node.js
+---
+
+# Návod jak si stáhnout a udělat svůj první projekt v Node.js
+
+## Co to je Node.js
+
+- Node.js je open-source, cross-platform, JavaScript runtime prostředí, které běží na serveru.
+- JavaScript sám o sobě běží v prohlížeči, ale Node.js nám umožňuje běžet JavaScript na serveru.
+
+## Instalace
+
+1. Stáhneme si a nainstalujeme si LTS [Node.js](https://nodejs.org/en)
+
+- (LTS) long-term support verze Node.js
+
+2. Ověříme si verzi Node.js a NPM v `CMD`
+
+- NPM je správce balíčků pro Node.js
+
+- Node.js
+```sh
+node -v
+```
+- NPM
+```sh
+npm -v
+```
+
+## Založení projektu
+
+1. Inicializujeme projekt v libovolné složce
+
+- Otevřeme si složku v terminálu pomocí `cd`
+
+```sh
+cd C:\freezerbox\Documents\muj_projekt
+```
+
+- Inicializujeme pomocí příkazu `npm init`
+```sh
+npm init -y
+```
+
+2. Vytvoří se vám soubor `package.json` a složka `node_modules`
+
+- V `package.json` se nachází informace o projektu a jeho balíčcích
+- V `node_modules` se nachází zdrojové kódy nainstalovaných balíčků
+
+:::danger Pozor
+Do node_modules se nic nepíše! 
+:::
+:::tip Tip
+Pokud používáte git, nezapomeňte dát `node_modules` do .gitignore!
+:::
+
+3. Vytvoříme soubor `index.js`
+
+- Vložíme do něj jednoduchý kód který nám vytiskne `Hello World!`
+```js
+console.log('Hello World!');
+```
+
+4. Spustíme náš soubor `index.js`
+
+```sh
+node index.js
+```
+
+5. V terminálu se nám vytiskne `Hello World!`
+```
+Hello World!
+```
+
+## Užitečné příkazy
+
+- Instalace balíčků
+- - `<nazev_balicku>` nahradíme za název balíčku
+- - pokud necháme `<nazev_balicku>` prázdné, nainstalujeme všechny balíčky v `package.json`
+```sh
+npm install <nazev_balicku>
+```
+
+- Odinstalace specifického balíčku
+- - `<nazev_balicku>` nahradíme za název balíčku
+```sh
+npm uninstall <nazev_balicku>
+```
+
+- Aktualizace všech balíčků
+- - `<nazev_balicku>` nahradíme za název balíčku
+- - pokud necháme `<nazev_balicku>` prázdné, aktualizujeme všechny balíčky
+```sh
+npm update <nazev_balicku>
+	
+```
+
+- Spuštění souboru
+- - `<nazev_souboru>` nahradíme za název souboru
+```sh
+node <nazev_souboru>
+```
