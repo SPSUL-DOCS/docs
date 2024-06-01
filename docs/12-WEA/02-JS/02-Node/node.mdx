@@ -1,0 +1,104 @@
+---
+title: Instalace Node.js a NPM
+---
+
+# Návod jak si stáhnout a udělat svůj první projekt v Node.js
+
+## Co to je Node.js a NPM
+
+<img src="/img/weaimg/nodejs.webp" alt="nodejs logo" width="20%" />
+<img src="/img/weaimg/npm.webp" alt="npm logo" width="20%" />
+
+- Node.js je open-source, cross-platform, JavaScript runtime prostředí, které běží na serveru.
+- JavaScript sám o sobě běží v prohlížeči, ale Node.js nám umožňuje běžet JavaScript na serveru.
+- NPM je správce balíčků pro Node.js.
+
+## Instalace
+
+1. Stáhneme si a nainstalujeme si LTS [Node.js](https://nodejs.org/en)
+
+- (LTS) long-term support verze Node.js
+
+2. Ověříme si verzi Node.js a NPM v `CMD`
+
+- Node.js
+```sh title="Terminál"
+node -v
+```
+- NPM
+```sh title="Terminál"
+npm -v
+```
+
+## Založení projektu
+
+1. Inicializujeme projekt
+
+- Otevřeme si libovolnou složku v terminálu pomocí `cd`
+
+```sh title="Terminál"
+cd C:\freezerbox\Documents\cheeseburger
+```
+
+- Inicializujeme pomocí příkazu `npm init`
+```sh title="Terminál"
+npm init -y
+```
+
+2. Vytvoří se vám soubor `package.json` a složka `node_modules`
+
+- V `package.json` se nachází informace o projektu a jeho balíčcích
+- V `node_modules` se nachází zdrojové kódy nainstalovaných balíčků
+
+:::danger Pozor
+Do node_modules se nic nepíše! 
+:::
+:::tip Tip
+Pokud používáte git, nezapomeňte dát `node_modules` do .gitignore!
+:::
+
+3. Vytvoříme soubor `index.js`
+
+- Vložíme sem jednoduchý kód který nám vytiskne `cheeseburger 🍔`
+```js title="\cheeseburger\index.js"
+console.log('cheeseburger 🍔');
+```
+
+4. Spustíme náš soubor `index.js`
+
+```sh title="Terminál"
+node index.js
+```
+
+5. V terminálu se nám vytiskne `cheeseburger 🍔`
+```
+cheeseburger 🍔
+```
+
+## Užitečné příkazy
+
+- Instalace balíčků
+- - `<nazev_balicku>` nahradíme za název balíčku
+- - pokud necháme `<nazev_balicku>` prázdné, nainstalujeme všechny balíčky v `package.json`
+```sh
+npm install <nazev_balicku>
+```
+
+- Odinstalace specifického balíčku
+- - `<nazev_balicku>` nahradíme za název balíčku
+```sh
+npm uninstall <nazev_balicku>
+```
+
+- Aktualizace všech balíčků
+- - `<nazev_balicku>` nahradíme za název balíčku
+- - pokud necháme `<nazev_balicku>` prázdné, aktualizujeme všechny balíčky
+```sh
+npm update <nazev_balicku>
+```
+
+- Spuštění souboru
+- - `<nazev_souboru>` nahradíme za název souboru
+```sh
+node <nazev_souboru>
+```
