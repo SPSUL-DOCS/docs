@@ -84,7 +84,6 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             <br />
             <a href="https://github.com/SPSUL-DOCS/docs/commits?author=jankubatt" title="COMMITS">Commits</a>
         </td>
-        </td>
         <td align="center">
             <a href="https://github.com/creeperplayer20">
                 <img src="https://avatars.githubusercontent.com/u/42560781?v=4" width="100px;" alt="" />
@@ -93,6 +92,15 @@ Děkujeme všem lidem, kteří přispěli do tohoto projektu.
             </a>
             <br />
             <a href="https://github.com/SPSUL-DOCS/docs/commits?author=creeperplayer20" title="COMMITS">Commits</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/lewdguri">
+                <img src="https://avatars.githubusercontent.com/u/135473548?v=4" width="100px;" alt="" />
+                <br />
+                <sub><b>gurian</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/SPSUL-DOCS/docs/commits/master/?author=lewdguri" title="COMMITS">Commits</a>
         </td>
     </tr>
 </table>
