@@ -1,0 +1,145 @@
+---
+title: File System
+author: gurian
+description: File System v node.js
+---
+
+# File System v Node.js
+
+## Co to je fs
+
+- fs (File System) je modul, který nám umožňuje pracovat se soubory a složkami
+- je taky součástí jádra Node.js, takže není potřeba ho instalovat
+
+:::tip Příklad
+```js
+//importování fs
+const fs = require('fs');
+
+//přečtení složky a výpis souborů do konzole
+fs.readdir('./', (err, files) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(files);
+    }
+});
+```
+:::
+
+## Zapsání do JSON souboru
+
+:::note Co to je JSON
+JSON (JavaScript Object Notation) je formát pro výměnu dat. Je to textový formát, který je snadno čitelný pro lidi a snadno zpracovatelný pro stroje.
+```json title="Příklad JSON souboru"
+{
+    "name": "Vojta",
+    "nickname": "bluraic",
+    "age": 17,
+    "games": ["Minecraft", "Roblox"]
+}
+```
+:::
+
+1. Vytvoříme si objekt, který chceme zapsat do JSON souboru
+- taky importujeme fs
+```js
+//importování fs
+const fs = require('fs');
+
+//objekt, který chceme zapsat do JSON souboru
+let obj = {
+    "jmeno": "kebab",
+    "ingredience": ["maso", "zelenina", "omáčka"],
+    "palivy": false,
+    "cena": 100
+};
+```
+
+2. Zapíšeme objekt do souboru `kebab.json`
+
+```js title="index.js"
+// importování fs
+const fs = require('fs');
+
+// objekt, který chceme zapsat do JSON souboru
+let obj = {
+    "jmeno": "kebab",
+    "ingredience": ["maso", "zelenina", "omáčka"],
+    "palivy": false,
+    "cena": 100
+};
+
+// zapsání objektu do souboru kebab.json který je ve stejném adresáři
+// převod objektu na JSON s formátem 2 mezer
+fs.writeFileSync('./kebab.json', JSON.stringify(obj, null, 2));
+```
+
+3. Spustíme náš soubor `index.js`
+
+```sh title="Terminál"
+node index.js
+```
+
+4. Vytvoří se nám soubor `kebab.json` kde uvidíme náš objekt
+
+```js title="kebab.json"
+{
+  "jmeno": "kebab",
+  "ingredience": [
+    "maso",
+    "zelenina",
+    "omáčka"
+  ],
+  "palivy": false,
+  "cena": 100
+}
+```
+
+:::note finální stromová struktura souborů
+```
+.
+├── ./index.js
+└── ./kebab.json
+```
+:::
+
+## Přečtení JSON souboru
+
+1. Přečteme JSON soubor `kebab.json`
+
+```js title="index.js"
+// importování fs
+const fs = require('fs');
+
+// přečtení kebab.json ve formátu utf8
+let obj = fs.readFileSync('./kebab.json', 'utf8');
+
+// převedení JSON souboru na objekt se kterám můžeme dále pracovat
+obj = JSON.parse(obj);
+
+// vypsání objektu do konzole
+console.log(obj);
+```
+
+2. Spustíme náš soubor `index.js`
+
+```sh title="Terminál"
+node index.js
+```
+
+3. V terminálu uvidíme náš objekt
+
+```js title="Terminál"
+{
+  jmeno: 'kebab',
+  ingredience: [ 'maso', 'zelenina', 'omáčka' ],
+  palivy: false,
+  cena: 100
+}
+```
+
+
+## Dokumentace
+
+- [Dokumentace fs](https://nodejs.org/dist/latest-v16.x/docs/api/fs.html)
