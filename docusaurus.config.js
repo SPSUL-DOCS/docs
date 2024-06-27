@@ -101,7 +101,7 @@ const config = {
       crossorigin: "anonymous",
     },
   ],
-  themes: ["docusaurus-theme-search-typesense"],
+  // themes: ["docusaurus-theme-search-typesense"],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -111,28 +111,28 @@ const config = {
           autoCollapseCategories: true,
         },
       },
-      typesense: {
-        // Replace this with the name of your index/collection.
-        // It should match the "index_name" entry in the scraper's "config.json" file.
-        typesenseCollectionName: "spsul-docs",
+      // typesense: {
+      //   // Replace this with the name of your index/collection.
+      //   // It should match the "index_name" entry in the scraper's "config.json" file.
+      //   typesenseCollectionName: "spsul-docs",
 
-        typesenseServerConfig: {
-          nodes: [
-            {
-              host: "typesense.bagros.eu",
-              port: 443,
-              protocol: "https",
-            },
-          ],
-          apiKey: "huCheeZahChei4ohbuemaijee6mahh9x",
-        },
+      //   typesenseServerConfig: {
+      //     nodes: [
+      //       {
+      //         host: "typesense.bagros.eu",
+      //         port: 443,
+      //         protocol: "https",
+      //       },
+      //     ],
+      //     apiKey: "huCheeZahChei4ohbuemaijee6mahh9x",
+      //   },
 
-        // Optional: Typesense search parameters: https://typesense.org/docs/0.24.0/api/search.html#search-parameters
-        typesenseSearchParameters: {},
+      //   // Optional: Typesense search parameters: https://typesense.org/docs/0.24.0/api/search.html#search-parameters
+      //   typesenseSearchParameters: {},
 
-        // Optional
-        contextualSearch: true,
-      },
+      //   // Optional
+      //   contextualSearch: true,
+      // },
       announcementBar: {
         id: "annauncment",
         content: "<strong>Web je ve vývoji 🛠️</strong>",
