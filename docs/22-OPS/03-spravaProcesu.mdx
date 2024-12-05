@@ -201,7 +201,7 @@ oba typy synchronizace lze kombinovat
 ## Binární samafór
 
 - Sdílený logický prostředek, dva stavy (<Highlight color="red">červená</Highlight>, <Highlight color="green">zelená</Highlight>)
-  - **WAIT**: pokud je semafor ve stavu <Highlight color="green">zelená</Highlight>, je bezprostředně přepnut do stavu <Highlight color="red">červená</Highlight>, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou, stav semaforu je změněn na zelenou)
+  - **WAIT**: pokud je semafor ve stavu <Highlight color="green">zelená</Highlight>, je bezprostředně přepnut do stavu <Highlight color="red">červená</Highlight>, jinak proces vyčká změny stavu na zelenou (Ta je provedena voláním operace signál jiným procesem a až poté změní sám stav semaforu na červenou)
   - **SIGNAL**: stav samafóru je nastaven na zelenou.
 - Aby byl semafor funkční, musí se testování hodnoty semaforu a jeho nastavení v operaci dít atomicky tj. nesmí být přerušeno přepnutím kontextu.
 - Kromě požadavku na atomičnost si zpracování v jádře vynucuje i požadavek na zablokování a odblokování procesu, které musí být provedeno rutinou jádra.
