@@ -1,0 +1,345 @@
+---
+title: "Tabulka datových typů"
+---
+
+# Tabulka datových typů
+<table>
+  <thead>
+    <tr>
+      <th>Kategorie</th>
+      <th>Datový typ (MariaDB)</th>
+      <th>Datový typ (PostgreSQL)</th>
+      <th>Popis DT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="5">Celočíselná</td>
+      <td>TINYINT</td>
+      <td>SMALLINT</td>
+      <td>Malé celé číslo</td>
+    </tr>
+    <tr>
+      <td>SMALLINT</td>
+      <td>SMALLINT</td>
+      <td>Malé celé číslo</td>
+    </tr>
+    <tr>
+      <td>MEDIUMINT</td>
+      <td>INT</td>
+      <td>Středně velké celé číslo</td>
+    </tr>
+    <tr>
+      <td>INT</td>
+      <td>INT</td>
+      <td>Standardní celé číslo</td>
+    </tr>
+    <tr>
+      <td>BIGINT</td>
+      <td>BIGINT</td>
+      <td>Velké celé číslo</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Pevná desetinná</td>
+      <td>DECIMAL(10,2)</td>
+      <td>NUMERIC(10,2)</td>
+      <td>Pevná desetinná čísla s přesností</td>
+    </tr>
+    <tr>
+      <td>NUMERIC(10,2)</td>
+      <td>NUMERIC(10,2)</td>
+      <td>Alias pro DECIMAL</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Plovoucí desetinná</td>
+      <td>FLOAT</td>
+      <td>REAL</td>
+      <td>Čísla s plovoucí desetinnou čárkou</td>
+    </tr>
+    <tr>
+      <td>DOUBLE</td>
+      <td>DOUBLE PRECISION</td>
+      <td>Čísla s dvojitou přesností</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Řetězcová</td>
+      <td>CHAR(10)</td>
+      <td>CHAR(10)</td>
+      <td>Řetězec pevné délky</td>
+    </tr>
+    <tr>
+      <td>VARCHAR(255)</td>
+      <td>VARCHAR(255)</td>
+      <td>Řetězec proměnlivé délky</td>
+    </tr>
+    <tr>
+      <td>TEXT</td>
+      <td>TEXT</td>
+      <td>Dlouhý textový řetězec</td>
+    </tr>
+    <tr>
+      <td rowspan="5">Datum a čas</td>
+      <td>DATE</td>
+      <td>DATE</td>
+      <td>Datum</td>
+    </tr>
+    <tr>
+      <td>DATETIME</td>
+      <td>TIMESTAMP</td>
+      <td>Datum a čas</td>
+    </tr>
+    <tr>
+      <td>TIMESTAMP</td>
+      <td>TIMESTAMP</td>
+      <td>Časová značka</td>
+    </tr>
+    <tr>
+      <td>TIME</td>
+      <td>TIME</td>
+      <td>Časový údaj</td>
+    </tr>
+    <tr>
+      <td>YEAR</td>
+      <td>YEAR</td>
+      <td>Rok (formát YYYY)</td>
+    </tr>
+    <tr>
+      <td rowspan="7">Speciální</td>
+      <td>ENUM</td>
+      <td>ENUM</td>
+      <td>Výčetní typ</td>
+    </tr>
+    <tr>
+      <td>SET</td>
+      <td>ARRAY</td>
+      <td>Množina hodnot</td>
+    </tr>
+    <tr>
+      <td>JSON</td>
+      <td>JSON</td>
+      <td>Strukturovaný text ve formátu JSON</td>
+    </tr>
+    <tr>
+      <td>GEOMETRY</td>
+      <td>GEOMETRY</td>
+      <td>Geometrická data</td>
+    </tr>
+    <tr>
+      <td>POINT</td>
+      <td>POINT</td>
+      <td>Bod v prostoru</td>
+    </tr>
+    <tr>
+      <td>BLOB</td>
+      <td>BYTEA</td>
+      <td>Binární velký objekt</td>
+    </tr>
+    <tr>
+      <td>UUID</td>
+      <td>UUID</td>
+      <td>Univerzální unikátní identifikátor</td>
+    </tr>
+  </tbody>
+</table>
+
+# Tabulka vestavěných funkcí
+<table>
+  <thead>
+    <tr>
+      <th>Kategorie</th>
+      <th>BIF v MariaDB</th>
+      <th>BIF v PostgreSQL</th>
+      <th>Popis co BIF dělá</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Číselná -->
+    <tr>
+      <td rowspan="6">Číselná</td>
+      <td>ABS(x)</td>
+      <td>ABS(x)</td>
+      <td>Vrací absolutní hodnotu čísla</td>
+    </tr>
+    <tr>
+      <td>CEIL(x)</td>
+      <td>CEILING(x)</td>
+      <td>Vrací nejmenší celé číslo větší nebo rovné x</td>
+    </tr>
+    <tr>
+      <td>FLOOR(x)</td>
+      <td>FLOOR(x)</td>
+      <td>Vrací největší celé číslo menší nebo rovné x</td>
+    </tr>
+    <tr>
+      <td>ROUND(x, d)</td>
+      <td>ROUND(x, d)</td>
+      <td>Zaokrouhluje číslo x na d desetinných míst</td>
+    </tr>
+    <tr>
+      <td>MOD(x, y)</td>
+      <td>MOD(x, y)</td>
+      <td>Vrací zbytek dělení x/y</td>
+    </tr>
+    <tr>
+      <td>TRUNCATE(x, d)</td>
+      <td>TRUNC(x, d)</td>
+      <td>Zkracuje číslo x na d desetinných míst</td>
+    </tr>
+    <tr>
+      <td rowspan="6">Řetězcová</td>
+      <td>CONCAT(s1, s2)</td>
+      <td>CONCAT(s1, s2)</td>
+      <td>Spojí dva nebo více řetězců</td>
+    </tr>
+    <tr>
+      <td>LENGTH(s)</td>
+      <td>LENGTH(s)</td>
+      <td>Vrací délku řetězce v bytech</td>
+    </tr>
+    <tr>
+      <td>LOWER(s)</td>
+      <td>LOWER(s)</td>
+      <td>Převede řetězec na malá písmena</td>
+    </tr>
+    <tr>
+      <td>UPPER(s)</td>
+      <td>UPPER(s)</td>
+      <td>Převede řetězec na velká písmena</td>
+    </tr>
+    <tr>
+      <td>REPLACE(s, from, to)</td>
+      <td>REPLACE(s, from, to)</td>
+      <td>Nahradí všechny výskyty "from" v řetězci "s" hodnotou "to"</td>
+    </tr>
+    <tr>
+      <td>SUBSTRING(s, p, l)</td>
+      <td>SUBSTRING(s, p, l)</td>
+      <td>Vrátí podřetězec od pozice p délky l</td>
+    </tr>
+    <tr>
+      <td rowspan="6">Datum a čas</td>
+      <td>NOW()</td>
+      <td>NOW()</td>
+      <td>Vrací aktuální datum a čas</td>
+    </tr>
+    <tr>
+      <td>CURDATE()</td>
+      <td>CURRENT_DATE</td>
+      <td>Vrací aktuální datum</td>
+    </tr>
+    <tr>
+      <td>CURTIME()</td>
+      <td>CURRENT_TIME</td>
+      <td>Vrací aktuální čas</td>
+    </tr>
+    <tr>
+      <td>DATE_ADD(d, i)</td>
+      <td>d + interval</td>
+      <td>Přidá interval i k datu d</td>
+    </tr>
+    <tr>
+      <td>DATE_FORMAT(d, f)</td>
+      <td>TO_CHAR(d, f)</td>
+      <td>Formátuje datum podle zadaného formátu</td>
+    </tr>
+    <tr>
+      <td>YEAR(d)</td>
+      <td>EXTRACT(YEAR FROM d)</td>
+      <td>Vrací rok z data</td>
+    </tr>
+    <tr>
+      <td rowspan="6">Sloupcová / agregační</td>
+      <td>COUNT</td>
+      <td>COUNT</td>
+      <td>Počítá řádky</td>
+    </tr>
+    <tr>
+      <td>AVG(x)</td>
+      <td>AVG(x)</td>
+      <td>Vrací průměrnou hodnotu</td>
+    </tr>
+    <tr>
+      <td>SUM(x)</td>
+      <td>SUM(x)</td>
+      <td>Vrací součet hodnot</td>
+    </tr>
+    <tr>
+      <td>MAX(x)</td>
+      <td>MAX(x)</td>
+      <td>Vrací maximální hodnotu</td>
+    </tr>
+    <tr>
+      <td>MIN(x)</td>
+      <td>MIN(x)</td>
+      <td>Vrací minimální hodnotu</td>
+    </tr>
+    <tr>
+      <td>GROUP_CONCAT(x)</td>
+      <td>STRING_AGG(x, ',')</td>
+      <td>Sloučí hodnoty skupiny do jednoho řetězce</td>
+    </tr>
+    <tr>
+      <td rowspan="4">NULL - funkce</td>
+      <td>IFNULL(x, y)</td>
+      <td>COALESCE(x, y)</td>
+      <td>Vrací x, pokud není NULL, jinak y</td>
+    </tr>
+    <tr>
+      <td>ISNULL(x)</td>
+      <td>x IS NULL</td>
+      <td>Testuje, zda je hodnota NULL</td>
+    </tr>
+    <tr>
+      <td>NULLIF(x, y)</td>
+      <td>NULLIF(x, y)</td>
+      <td>Vrací NULL, pokud jsou x a y stejné, jinak vrací x</td>
+    </tr>
+    <tr>
+      <td>NVL(x, y)</td>
+      <td>COALESCE(x, y)</td>
+      <td>Vrací první nenulovou hodnotu</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Konverzní</td>
+      <td>CAST(x AS y)</td>
+      <td>CAST(x AS y)</td>
+      <td>Převádí x na datový typ y</td>
+    </tr>
+    <tr>
+      <td>CONVERT(x, y)</td>
+      <td>CAST(x AS y)</td>
+      <td>Převádí x na datový typ y</td>
+    </tr>
+    <tr>
+      <td>BINARY(x)</td>
+      <td>CAST(x AS BYTEA)</td>
+      <td>Převádí x na binární formát</td>
+    </tr>
+    <tr>
+      <td>FORMAT(x, d)</td>
+      <td>TO_CHAR(x, f)</td>
+      <td>Formátuje číslo nebo datum podle zadaného formátu</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Bezpečnostní</td>
+      <td>PASSWORD(s)</td>
+      <td>ENCRYPT(s)</td>
+      <td>Šifruje heslo</td>
+    </tr>
+    <tr>
+      <td>MD5(s)</td>
+      <td>MD5(s)</td>
+      <td>Vrací MD5 hash řetězce</td>
+    </tr>
+    <tr>
+      <td>SHA1(s)</td>
+      <td>SHA1(s)</td>
+      <td>Vrací SHA1 hash řetězce</td>
+    </tr>
+    <tr>
+      <td>SHA2(s, n)</td>
+      <td>SHA256(s)</td>
+      <td>Vrací SHA2 hash řetězce s délkou n</td>
+    </tr>
+  </tbody>
+</table>
