@@ -25,16 +25,18 @@ title: "Souborový systém"
 - **Svazek**- je tvořen několika sekcemi, některé obsahují globální informace o dané instanci souborového systému, jiné metadata -> (data o datech) o uložených souborech a přirozeně i vlastní data souborů. (Reference na data)
 - Struktura svazku se liší na novější a starší strukturu svazku
 
-### Starší (jednodušší) přístup rozděluje log. disk na několik málo sektorů:
-
+### Starší struktura svazků
+- Starší (jednodušší) přístup rozděluje log. disk na několik málo sektorů:
 - **Boot sektor** - Zavádí operační systém
 - **Header sektor** - Obsahuje globální data celého SS (informace o obsazení svazků, o volných blocích)
 - **Metadata sektorů** - Tabulka I-uzlů
 - **Data souborů** - Uložená data
 - **Metadata** jsou uložena jen jednou, pokud jsou poškozené celý svazek je (zničen).
-  - Při přístupu k datům je nutno číst jejich metadata, které jsou uloženy v jiné a často vzdálené sekci -> prodlužuje přístupové doby.
-- Modernější svazky (systémy). využívají schémata vníž jsou klíčová data duplikována (blíže k datům která popisují), tato struktura je nejvhodnější pro cylindrické disky s jednoduchým adresováním založeným na geometrii disku.
-- Současnosti se však často používají virtuální geo. bez cylindru (bez cylindrického uspořádání) a tak výhody zanikají a zůstává jen duplicita dat.
+- Při přístupu k datům je nutno číst jejich metadata, které jsou uloženy v jiné a často vzdálené sekci -> prodlužuje přístupové doby.
+
+### Nová struktura svazků
+Data a metadata jsou duplikována blíže ke svazku.
+To je výhodné pro cylindrické disky (HDD) u SSD tato výhoda zaniká 
 
 ## Buffery
 
